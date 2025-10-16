@@ -153,7 +153,7 @@ MonoBehaviour:
   tileSize: 1
   tilePrefab: {fileID: 4378304128346849031, guid: 9b1921c1f8a7dba439f8abf775bd7f05, type: 3}
   playerPrefab: {fileID: 2331598938504996347, guid: eb4f6b1f04187aa41b894021c30dd862, type: 3}
-  treasurePrefab: {fileID: 6328782257277082649, guid: 945abcc851d7ff84eb46a09e9a4b9ef0, type: 3}
+  treasurePrefab: {fileID: 7042934620684045663, guid: 45d85171931a3ad43a0ce126e26e4a2a, type: 3}
   maxTreasure: 5
 --- !u!4 &486211524
 Transform:
