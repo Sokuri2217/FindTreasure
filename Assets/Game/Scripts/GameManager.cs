@@ -1,16 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using NUnit.Framework;
 
 public class GameManager : MonoBehaviour
 {
     [Header("インスタンス保持")]
     protected static GameManager Instance { get; private set; }
 
-    [Header("シーン移動関連")]
-    public bool inputCheck;    //入力許可
-    public Image fadeImage;    //暗転・明転用オブジェクト
-    public float fadeDuration; //暗転・明転にかける時間
+    [Header("ステージ設定")]
+    public int setMaxStage;      //マップの最大サイズ
+    public int setMinStage;      //マップの最小サイズ
+    public int setStage;         //マップの現在サイズ
+    public int setTreasure;      //タカラモノの数
+    public int setItem;          //ホリダシモノの数
+    public int basicSetTreasure; //タカラモノの基準値
+    public int basicSetItem;     //ホリダシモノの基準値
+
+    [Header("BGM")]
+    public AudioSource bgm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,15 +33,34 @@ public class GameManager : MonoBehaviour
             }
             Instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでオブジェクトを保持
+            setStage = setMinStage;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //入力許可があるときのみ処理を行う
-        if (!inputCheck) return;
+        //ステージ設定
+        {
+            //マップ上におけるタカラモノとホリダシモノの上限設定
+            CreateStageLimit(setTreasure, basicSetTreasure);
+            CreateStageLimit(setItem, basicSetItem);
+        }
+    }
 
+    //BGMを再生
+    public void PlayBGM(AudioClip clip)
+    {
+        bgm.clip = clip;
+        bgm.Play();
+    }
 
+    //マップ生成における上限設定
+    public void CreateStageLimit(int set, int basicSet)
+    {
+        //マップサイズに応じた上限を超えないようにする
+        //タカラモノ
+        if (set > (basicSet + setStage))
+            set = (basicSet + setStage);
     }
 }

@@ -4,7 +4,8 @@ using System.Drawing;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;    　　//移動速度
+    public float originSpeed;   //基本速度
+    public float moveSpeed;   　//現在速度
 
     private bool isMoving;          // 移動中は次の入力を受け付けない
     private MapCreater mapCreater;  //マップの範囲を取得
@@ -27,6 +28,9 @@ public class PlayerController : MonoBehaviour
 
         // 初期位置を保存
         targetPosition = transform.position;
+
+        //初回設定
+        moveSpeed = originSpeed;
     }
 
     void Update()
@@ -44,18 +48,25 @@ public class PlayerController : MonoBehaviour
         {
             float horizontal = 0.0f;
             float vertical = 0.0f;
+            moveSpeed = originSpeed;
 
             // WASDで移動
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
                 vertical = 1.0f;
-            else if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
                 vertical = -1.0f;
-            else if (Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A))
                 horizontal = -1.0f;
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
                 horizontal = 1.0f;
 
-            if (horizontal != 0.0f || vertical != 0.0f) 
+            //Shift入力時は加速
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                moveSpeed = originSpeed * 2.0f;
+            }
+
+            if (horizontal != 0.0f || vertical != 0.0f)
             {
                 moveDirection = (transform.forward * vertical + transform.right * horizontal).normalized;
                 //ベクトルを四捨五入する ← 小数だとグリッド移動がバグる可能性がある
@@ -99,7 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         //移動先がマップ外ではない → true
         //マップ外 → false
-        return pos.x >= 0.0f && pos.x < mapCreater.width && pos.z >= 0.0f && pos.z < mapCreater.height;
+        return pos.x >= 0.0f && pos.x < mapCreater.mapSize && pos.z >= 0.0f && pos.z < mapCreater.mapSize;
     }
 
     //採掘処理

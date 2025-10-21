@@ -3,8 +3,10 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     [Header("タイルの基本情報")]
-    public bool hasTreasure = false; //タカラモノがあるかどうか
-    public GameObject treasureObj;   //所持しているタカラモノ
+    public bool hasTreasure; //タカラモノがあるかどうか
+    public bool hasItem;     //ホリダシモノがあるかどうか
+    public GameObject treasureObj;   //タカラモノオブジェクト
+    public GameObject itemObj;   //ホリダシモノオブジェクト
     public int deep; //深度←これが0になるとタカラモノを地表に出す
 
     private GameObject player; //プレイヤーオブジェクト
@@ -75,23 +77,38 @@ public class TileManager : MonoBehaviour
     public void DigGrid()
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController.isDig && hasTreasure && dig)  
+        if (playerController.isDig)  
         {
-            //深度を下げ、深度が0以下になると、タカラモノを地表に出す
-            deep -= playerController.digPower;
-            if(deep <= 0)
+            if (hasTreasure && dig)
             {
-                hasTreasure = false;
+                //深度を下げ、深度が0以下になると、タカラモノを地表に出す
+                deep -= playerController.digPower;
+                if (deep <= 0)
+                {
+                    hasTreasure = false;
+                    //オブジェクト生成
+                    Instantiate(treasureObj, transform.position, Quaternion.identity);
+                }
+            }
+            else if (hasItem && dig) 
+            {
+                hasItem = false;
                 //オブジェクト生成
-                Instantiate(treasureObj, transform.position, Quaternion.identity);
+                Instantiate(itemObj, transform.position, Quaternion.identity);
             }
         }
     }
 
     // アイテム有無を設定
-    public void SetHasItem(bool value)
+    public void SetHasTreasure(bool value)
     {
         hasTreasure = value;
+    }
+
+    // アイテム有無を設定
+    public void SetHasItem(bool value)
+    {
+        hasItem = value;
     }
 
     //グリッドの色変更
@@ -103,9 +120,13 @@ public class TileManager : MonoBehaviour
         {
             renderer.material.color = Color.red;
         }
-        else if(hasTreasure)
+        else if (hasTreasure)
         {
             renderer.material.color = Color.green;
+        }
+        else if (hasItem) 
+        {
+            renderer.material.color = Color.blue;
         }
         else
         {
