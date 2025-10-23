@@ -4,21 +4,22 @@ using UnityEngine.EventSystems;
 
 public class MapCreater : MonoBehaviour
 {
-    public int mapSize;              //マップのサイズ(mapSize * mapSize)
-    public float tileSize;           // 1マスの大きさ
-    public GameObject tilePrefab;    // タイルオブジェクト
-    public GameObject playerPrefab;  // プレイヤーオブジェクト
-    public GameObject treasurePrefab;//タカラモノオブジェクト
-    public GameObject itemPrefab;    //ホリダシモノオブジェクト
+    public float tileSize;            // 1マスの大きさ
+    public GameObject tilePrefab;     // タイルオブジェクト
+    public GameObject playerPrefab;   // プレイヤーオブジェクト
+    public GameObject treasurePrefab; //タカラモノオブジェクト
+    public GameObject itemPrefab;     //ホリダシモノオブジェクト
 
-    //マップ上に生成する数
-    public int treasure; //タカラモノ
-    public int item;     //ホリダシモノ
-
+    //タイル情報
     private List<TileManager> allTiles = new List<TileManager>();
+    //スクリプト情報
+    private GameManager gameManager;
 
     void Start()
     {
+        //スクリプト取得
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //マップ生成
         GenerateGrid();          // グリッドマップを生成
         PlaceItemsRandomly();    // タイルにアイテムをランダムに埋め込む
         PlacePlayerOnStart();    // プレイヤーをスタート位置に配置
@@ -26,9 +27,9 @@ public class MapCreater : MonoBehaviour
 
     void GenerateGrid()
     {
-        for (int x = 0; x < mapSize; x++)
+        for (int x = 0; x < (gameManager.setStage * 10); x++) 
         {
-            for (int z = 0; z < mapSize; z++)
+            for (int z = 0; z < (gameManager.setStage * 10); z++) 
             {
                 // タイルを配置する座標を計算（X-Z平面上）
                 Vector3 spawnPos = new Vector3(x * tileSize, 0, z * tileSize);
@@ -51,8 +52,8 @@ public class MapCreater : MonoBehaviour
     void PlaceItemsRandomly()
     {
         // 設定された個数以内で、ユニークにランダム選択
-        int treasureCount = Mathf.Min(treasure, allTiles.Count);
-        int itemCount = Mathf.Min(item, allTiles.Count);
+        int treasureCount = Mathf.Min(gameManager.setTreasure, allTiles.Count);
+        int itemCount = Mathf.Min(gameManager.setItem, allTiles.Count);
 
         List<TileManager> candidates = new List<TileManager>(allTiles);
 
@@ -78,7 +79,7 @@ public class MapCreater : MonoBehaviour
 
     void PlacePlayerOnStart()
     {
-        Vector3 startPos = new Vector3(Mathf.Round(mapSize / 2), 1.25f, Mathf.Round(mapSize / 2));
+        Vector3 startPos = new Vector3(Mathf.Round(gameManager.setStage * 10 / 2), 1.25f, Mathf.Round(gameManager.setStage * 10 / 2));
         GameObject playerObj = Instantiate(playerPrefab, startPos, Quaternion.identity);
     }
 }

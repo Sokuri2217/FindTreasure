@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
             }
             Instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでオブジェクトを保持
-            setStage = setMinStage;
         }
     }
 

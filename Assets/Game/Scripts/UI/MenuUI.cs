@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuUI : MonoBehaviour
 {
@@ -6,6 +8,17 @@ public class MenuUI : MonoBehaviour
     public bool isSetStage;    //マップ
     public bool isSetTreasure; //タカラモノの個数
     public bool isSetItem;     //ホリダシモノの個数
+
+    [Header("シーン移動")]
+    public string sceneName;
+    public bool changeScene;
+
+    [Header("描画系")]
+    public Image enterToStart;
+    public float fadeLimit;
+    public float fadeTimer;
+    public bool fadeIn;
+    public bool fadeOut;
 
     [Header("BGM")]
     public AudioClip bgm;
@@ -20,6 +33,10 @@ public class MenuUI : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //初回設定
+        //点滅するUIはフェードアウトからスタート
+        fadeIn = false;
+        fadeOut = true;
+        fadeTimer = fadeLimit;
         //BGM
         gameManager.PlayBGM(bgm);
     }
@@ -27,6 +44,19 @@ public class MenuUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Enterでゲーム開始
+        if (Input.GetKeyDown(KeyCode.Return) && !changeScene) 
+        {
+            SceneManager.LoadScene(sceneName);
+            changeScene = true;
+        }
+
+        //UIの点滅
+        FadeInOut();
+
+        //シーン移動が始まると他の入力は出来ない
+        if (changeScene) return;
+
         //マップ設定
         if(isSetStage)
             StageSetting();
@@ -85,5 +115,33 @@ public class MenuUI : MonoBehaviour
         }
 
         return setObj;
+    }
+
+    //UIのフェード処理
+    public void FadeInOut()
+    {
+        if (fadeIn)
+        {
+            fadeTimer += Time.deltaTime;
+            if (fadeTimer >= fadeLimit)
+            {
+                fadeIn = false;
+                fadeOut = true;
+            }
+        }
+        else if (fadeOut)
+        {
+            fadeTimer -= Time.deltaTime;
+            if (fadeTimer <= 0.0f)
+            {
+                fadeOut = false;
+                fadeIn = true;
+            }
+        }
+
+        //一部画像を点滅させる
+        Color color = enterToStart.color;
+        color.a = (fadeTimer / fadeLimit);
+        enterToStart.color = color;
     }
 }

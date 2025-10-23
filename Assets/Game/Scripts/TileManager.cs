@@ -3,14 +3,15 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     [Header("タイルの基本情報")]
-    public bool hasTreasure; //タカラモノがあるかどうか
-    public bool hasItem;     //ホリダシモノがあるかどうか
-    public GameObject treasureObj;   //タカラモノオブジェクト
-    public GameObject itemObj;   //ホリダシモノオブジェクト
-    public int deep; //深度←これが0になるとタカラモノを地表に出す
+    public bool hasTreasure;       //タカラモノがあるかどうか
+    public bool hasItem;           //ホリダシモノがあるかどうか
+    public GameObject treasureObj; //タカラモノオブジェクト
+    public GameObject itemObj;     //ホリダシモノオブジェクト
+    public int deep;               //深度←これが0になるとタカラモノを地表に出す
+    public bool dig;               //このグリッドを掘れるかどうか
 
+    [Header("オブジェクト参照")]
     private GameObject player; //プレイヤーオブジェクト
-    public bool dig; //このグリッドを掘れるかどうか
 
     void Start()
     {

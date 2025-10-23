@@ -267,11 +267,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originSpeed: 3
   moveSpeed: 0
-  isTopView: 0
   dig_width: 3
   dig_height: 3
-  isDig: 0
   digPower: 1
+  isDig: 0
+  amplitude: 0.1
+  frequency: 1
 --- !u!4 &3103068434950586177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cf740d292c24dc6468459ca89329a92c, type: 3}

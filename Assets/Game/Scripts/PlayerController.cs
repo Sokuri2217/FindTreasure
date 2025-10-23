@@ -4,33 +4,30 @@ using System.Drawing;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("基本情報")]
     public float originSpeed;   //基本速度
     public float moveSpeed;   　//現在速度
+    public int dig_width;       //採掘範囲(横)
+    public int dig_height;      //採掘範囲(縦)
+    public int digPower;        //採掘力(一回でどれだけ深度を下げれるか)
+    public bool isDig;          //採掘中かどうか
 
-    private bool isMoving;          // 移動中は次の入力を受け付けない
-    private MapCreater mapCreater;  //マップの範囲を取得
-    private Vector3 targetPosition; // 移動先の座標（目的地）
-    private Vector3 moveDirection;
-    private GameObject rotationCore; //カメラの回転軸
-    public bool isTopView; //カメラが見下ろし状態かどうか
-    public int dig_width;
-    public int dig_height;
-    public bool isDig;
-    public int digPower;
+    [Header("移動関係")]
+    private bool isMoving;           //移動中かどうか
+    private Vector3 targetPosition;  //移動先の座標
+    private Vector3 moveDirection;   //移動ベクトル
+
+    [Header("スクリプト参照")]
+    private GameManager gameManager; //ゲームの基本情報
 
     void Start()
     {
         //スクリプト取得
-        mapCreater = GameObject.Find("GridManager").GetComponent<MapCreater>();
-
-        //オブジェクト取得
-        rotationCore = GameObject.Find("rotationCore");
-
-        // 初期位置を保存
-        targetPosition = transform.position;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //初回設定
-        moveSpeed = originSpeed;
+        moveSpeed = originSpeed;             //移動速度
+        targetPosition = transform.position; //座標
     }
 
     void Update()
@@ -110,12 +107,13 @@ public class PlayerController : MonoBehaviour
     {
         //移動先がマップ外ではない → true
         //マップ外 → false
-        return pos.x >= 0.0f && pos.x < mapCreater.mapSize && pos.z >= 0.0f && pos.z < mapCreater.mapSize;
+        return pos.x >= 0.0f && pos.x < (gameManager.setStage * 10) && pos.z >= 0.0f && pos.z < (gameManager.setStage * 10);
     }
 
     //採掘処理
     private void GridDig()
     {
+        //入力
         if (Input.GetKeyDown(KeyCode.Space) && !isDig) 
         {
             isDig = true;
