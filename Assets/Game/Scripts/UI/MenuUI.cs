@@ -4,10 +4,14 @@ using UnityEngine.UI;
 
 public class MenuUI : MonoBehaviour
 {
+    [Header("ステージ設定")]
+    public bool[] setting; //設定項目(マップ選択・ステージ設定)
+    public int mapNum;     //マップ番号
+    public int mapMaxNum;  //マップ番号の最大値
+
     [Header("設定中フラグ")]
-    public bool isSetStage;    //マップ
-    public bool isSetTreasure; //タカラモノの個数
-    public bool isSetItem;     //ホリダシモノの個数
+    public bool[] isSetStage; //マップ
+    public int setNum;        //設定項目の識別番号
 
     [Header("シーン移動")]
     public string sceneName;
@@ -26,6 +30,14 @@ public class MenuUI : MonoBehaviour
     [Header("スクリプト参照")]
     public GameManager gameManager;
 
+    enum Set
+    {
+        MAP,
+        STAGE,
+        ITEM,
+        TREASURE,
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,6 +49,9 @@ public class MenuUI : MonoBehaviour
         fadeIn = false;
         fadeOut = true;
         fadeTimer = fadeLimit;
+        //選択状態
+        setting[(int)Set.MAP] = true;
+        isSetStage[(int)Set.STAGE] = true;
         //BGM
         gameManager.PlayBGM(bgm);
     }
@@ -57,22 +72,49 @@ public class MenuUI : MonoBehaviour
         //シーン移動が始まると他の入力は出来ない
         if (changeScene) return;
 
-        //マップ設定
-        if(isSetStage)
-            StageSetting();
-        //オブジェクト設定
+
+
+        if (setting[(int)Set.STAGE])
         {
-            //タカラモノ設定
-            if (isSetTreasure)
-                gameManager.setTreasure = ObjectSetting(gameManager.setTreasure, (gameManager.basicSetTreasure + gameManager.setStage));
-            //ホリダシモノ設定
-            if (isSetItem)
-                gameManager.setItem = ObjectSetting(gameManager.setItem, (gameManager.basicSetItem + gameManager.setStage));
+            ChangeSetting();
+            //マップ設定
+            if (isSetStage[(int)Set.STAGE]) 
+                StageSetting();
+            //オブジェクト設定
+            {
+                //タカラモノ設定
+                if (isSetStage[(int)Set.TREASURE])
+                    gameManager.setTreasure = ObjectSetting(gameManager.setTreasure, (gameManager.basicSetTreasure + gameManager.setStage));
+                //ホリダシモノ設定
+                if (isSetStage[(int)Set.ITEM])
+                    gameManager.setItem = ObjectSetting(gameManager.setItem, (gameManager.basicSetItem + gameManager.setStage));
+            }
         }
-        
+    }
+    //選択項目を変更
+    void ChangeSetting()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            setNum++;
+            if(setNum>isSetStage.Length)
+            {
+                setNum = 0;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            setNum--;
+            if (setNum < 0)
+            {
+                setNum = isSetStage.Length;
+            }
+        }
+        isSetStage[setNum] = true;
     }
 
-    //マップ設定
+
+    //ステージ設定
     void StageSetting()
     {
         //マップの広さ

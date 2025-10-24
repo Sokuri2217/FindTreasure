@@ -451,9 +451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181f7cd84b5cc364cb9930fde6ebf28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSetStage: 0
-  isSetTreasure: 0
-  isSetItem: 0
+  setting: 0000
+  mapNum: 0
+  mapMaxNum: 3
+  isSetStage: 000000
+  setNum: 0
   sceneName: Stage1
   changeScene: 0
   enterToStart: {fileID: 1493048893}
