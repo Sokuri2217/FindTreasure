@@ -11,18 +11,16 @@ public class StageUI : MonoBehaviour
     public Image phaseFrame;
     public Image currentPhase;
 
-    //フェーズ番号
-    enum Phase
-    {
-        MOVE,
-        ITEM,
-        DIG
-    }
+
+    [Header("フェーズ識別番号")]
+    public int phaseItem;
+    public int phaseMove;
+    public int phaseDig; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isPhase[(int)Phase.MOVE] = true;
+        isPhase[phaseItem] = true;
     }
 
     // Update is called once per frame
@@ -32,6 +30,29 @@ public class StageUI : MonoBehaviour
 
         //フェーズ表示
         ChangePhaseImage();
+
+
+        //デバッグ用
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            for (int i = phaseItem; i <= phaseDig; i++) 
+            {
+                if(isPhase[i])
+                {
+                    isPhase[i] = false;
+                    if ((i + 1) > phaseDig)
+                    {
+                        isPhase[phaseItem] = true;
+                    }
+                    else if ((i + 1) <= phaseDig)
+                    {
+                        isPhase[i + 1] = true;
+                    }
+
+                    break;
+                }
+            }
+        }
     }
 
     //フェーズごとに色やUIを変える
@@ -41,7 +62,7 @@ public class StageUI : MonoBehaviour
         Color color = phaseFrame.color;
 
         //現在のフェーズに合わせて枠の色やフェーズ状態を切り替える
-        for (int i = (int)Phase.MOVE; i <= (int)Phase.DIG; i++) 
+        for (int i = phaseItem; i <= phaseDig; i++) 
         {
             if (isPhase[i]) 
             {

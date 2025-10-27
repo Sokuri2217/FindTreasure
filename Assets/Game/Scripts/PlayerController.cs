@@ -19,11 +19,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("スクリプト参照")]
     private GameManager gameManager; //ゲームの基本情報
+    private StageUI stageUI;         //ステージ進行
 
     void Start()
     {
         //スクリプト取得
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        stageUI = GameObject.Find("StageUI").GetComponent<StageUI>();
 
         //初回設定
         moveSpeed = originSpeed;             //移動速度
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour
     }
     private void GridMove()
     {
-        if (!isMoving)
+        if (!isMoving && stageUI.isPhase[stageUI.phaseMove])
         {
             float horizontal = 0.0f;
             float vertical = 0.0f;
