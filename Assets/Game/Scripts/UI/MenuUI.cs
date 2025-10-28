@@ -9,8 +9,8 @@ public class MenuUI : MonoBehaviour
     public int mapNum;     //マップ番号
     public int mapMaxNum;  //マップ番号の最大値
 
-    [Header("設定中フラグ")]
-    public bool[] isSetStage; //マップ
+    [Header("設定中フラグ(マップ・ホリダシモノ・タカラモノ)")]
+    public bool[] isSetStage; //
     public int setNum;        //設定項目の識別番号
 
     [Header("シーン移動")]
@@ -34,6 +34,11 @@ public class MenuUI : MonoBehaviour
     {
         MAP,
         STAGE,
+    }
+
+    enum SetStage
+    {
+        STAGE,
         ITEM,
         TREASURE,
     }
@@ -51,7 +56,7 @@ public class MenuUI : MonoBehaviour
         fadeTimer = fadeLimit;
         //選択状態
         setting[(int)Set.MAP] = true;
-        isSetStage[(int)Set.STAGE] = true;
+        isSetStage[(int)SetStage.STAGE] = true;
         //BGM
         gameManager.PlayBGM(bgm);
     }
@@ -78,15 +83,15 @@ public class MenuUI : MonoBehaviour
         {
             ChangeSetting();
             //マップ設定
-            if (isSetStage[(int)Set.STAGE]) 
+            if (isSetStage[(int)SetStage.STAGE]) 
                 StageSetting();
             //オブジェクト設定
             {
                 //タカラモノ設定
-                if (isSetStage[(int)Set.TREASURE])
+                if (isSetStage[(int)SetStage.TREASURE])
                     gameManager.setTreasure = ObjectSetting(gameManager.setTreasure, (gameManager.basicSetTreasure + gameManager.setStage));
                 //ホリダシモノ設定
-                if (isSetStage[(int)Set.ITEM])
+                if (isSetStage[(int)SetStage.ITEM])
                     gameManager.setItem = ObjectSetting(gameManager.setItem, (gameManager.basicSetItem + gameManager.setStage));
             }
         }
@@ -96,18 +101,20 @@ public class MenuUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
+            isSetStage[setNum] = false;
             setNum++;
-            if(setNum>isSetStage.Length)
+            if (setNum >= isSetStage.Length) 
             {
                 setNum = 0;
             }
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
+            isSetStage[setNum] = false;
             setNum--;
             if (setNum < 0)
             {
-                setNum = isSetStage.Length;
+                setNum = (isSetStage.Length - 1);
             }
         }
         isSetStage[setNum] = true;

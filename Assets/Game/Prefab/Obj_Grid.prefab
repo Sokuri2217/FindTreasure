@@ -93,4 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b0c30086be0884f9998cdff47614ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasTreasure: 0
   hasItem: 0
+  treasureObj: {fileID: 0}
+  itemObj: {fileID: 0}
+  deep: 0
+  dig: 0

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public int dig_height;      //ÌŒ@”ÍˆÍ(c)
     public int digPower;        //ÌŒ@—Í(ˆê‰ñ‚Å‚Ç‚ê‚¾‚¯[“x‚ğ‰º‚°‚ê‚é‚©)
     public bool isDig;          //ÌŒ@’†‚©‚Ç‚¤‚©
+    public int digLimit;        //ÌŒ@‰ñ”‚ÌãŒÀ
+    public int digCurrent;      //Œ»İ‚ÌÌŒ@‰ñ”
 
     [Header("ˆÚ“®ŠÖŒW")]
     private bool isMoving;           //ˆÚ“®’†‚©‚Ç‚¤‚©
@@ -116,20 +118,26 @@ public class PlayerController : MonoBehaviour
     private void GridDig()
     {
         //“ü—Í
-        if (Input.GetKeyDown(KeyCode.Space) && !isDig) 
+        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[stageUI.phaseDig] && !isDig)  
         {
             isDig = true;
+        }
+        if (stageUI.isPhase[stageUI.phaseItem])
+        {
+            isDig = false;
         }
     }
 
     //ƒvƒŒƒCƒ„[‰ñ“](ƒJƒƒ‰‚Íí‚ÉŒã•û‚©‚ç)
     private void RotationPlayer()
     {
-        //¶‰E‚É‰ñ“]
-        if (Input.GetKeyDown(KeyCode.J))
-            transform.Rotate(0.0f, -90.0f, 0.0f);
-        else if (Input.GetKeyDown(KeyCode.L))
-            transform.Rotate(0.0f, 90.0f, 0.0f);
-
+        if (!stageUI.isPhase[stageUI.phaseItem])
+        {
+            //¶‰E‚É‰ñ“]
+            if (Input.GetKeyDown(KeyCode.J))
+                transform.Rotate(0.0f, -90.0f, 0.0f);
+            else if (Input.GetKeyDown(KeyCode.L))
+                transform.Rotate(0.0f, 90.0f, 0.0f);
+        }
     }
 }

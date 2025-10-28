@@ -10,7 +10,7 @@ public class StageUI : MonoBehaviour
     public Sprite[] phaseImage;
     public Image phaseFrame;
     public Image currentPhase;
-
+    public int currentTurn;
 
     [Header("フェーズ識別番号")]
     public int phaseItem;

@@ -51,7 +51,7 @@ MonoBehaviour:
   setTreasure: 1
   setItem: 1
   basicSetTreasure: 5
-  basicSetItem: 5
+  basicSetItem: 10
   bgm: {fileID: 3486459211164472280}
 --- !u!82 &3486459211164472280
 AudioSource:
