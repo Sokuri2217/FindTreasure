@@ -12,6 +12,10 @@ public class StageUI : MonoBehaviour
     public Image currentPhase;
     public int currentTurn;
 
+    [Header("フェーズの計測")]
+    public float[] phaseLimit;
+    public float timer;
+
     [Header("フェーズ識別番号")]
     public int phaseItem;
     public int phaseMove;
@@ -26,31 +30,14 @@ public class StageUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         //フェーズ表示
         ChangePhaseImage();
-
-
-        //デバッグ用
-        if (Input.GetKeyDown(KeyCode.F))
+        //フェーズ変更までの時間計測
+        for (int i = 0; i < phaseLimit.Length; i++)
         {
-            for (int i = phaseItem; i <= phaseDig; i++) 
+            if (isPhase[i])
             {
-                if(isPhase[i])
-                {
-                    isPhase[i] = false;
-                    if ((i + 1) > phaseDig)
-                    {
-                        isPhase[phaseItem] = true;
-                    }
-                    else if ((i + 1) <= phaseDig)
-                    {
-                        isPhase[i + 1] = true;
-                    }
-
-                    break;
-                }
+                PhaseTimer(i);
             }
         }
     }
@@ -72,5 +59,24 @@ public class StageUI : MonoBehaviour
         }
         //変化後の色を反映
         phaseFrame.color = color;
+    }
+
+    //フェーズ変更までの時間計測
+    public void PhaseTimer(int currentPhase)
+    {
+        timer += Time.deltaTime;
+        if (timer >= phaseLimit[currentPhase])
+        {
+            timer = 0.0f;
+            isPhase[currentPhase] = false;
+            if ((currentPhase + 1) >= phaseLimit.Length)
+            {
+                isPhase[phaseItem] = true;
+            }
+            else if ((currentPhase + 1) < phaseLimit.Length)
+            {
+                isPhase[(currentPhase + 1)] = true;
+            }
+        }
     }
 }

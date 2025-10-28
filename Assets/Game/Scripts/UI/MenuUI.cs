@@ -4,8 +4,10 @@ using UnityEngine.UI;
 
 public class MenuUI : MonoBehaviour
 {
+    public bool[] setting; //設定項目(マップ選択・ステージ設定・その他)
+    public int settingNum;
+
     [Header("ステージ設定")]
-    public bool[] setting; //設定項目(マップ選択・ステージ設定)
     public int mapNum;     //マップ番号
     public int mapMaxNum;  //マップ番号の最大値
 
@@ -14,7 +16,7 @@ public class MenuUI : MonoBehaviour
     public int setNum;        //設定項目の識別番号
 
     [Header("シーン移動")]
-    public string sceneName;
+    public string[] sceneName;
     public bool changeScene;
 
     [Header("描画系")]
@@ -34,6 +36,7 @@ public class MenuUI : MonoBehaviour
     {
         MAP,
         STAGE,
+        OTHER,
     }
 
     enum SetStage
@@ -67,7 +70,7 @@ public class MenuUI : MonoBehaviour
         //Enterでゲーム開始
         if (Input.GetKeyDown(KeyCode.Return) && !changeScene) 
         {
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(sceneName[mapNum]);
             changeScene = true;
         }
 
@@ -77,9 +80,15 @@ public class MenuUI : MonoBehaviour
         //シーン移動が始まると他の入力は出来ない
         if (changeScene) return;
 
+        //選択中の設定画面
+        SelectSettingMode();
 
-
-        if (setting[(int)Set.STAGE])
+        //マップ選択
+        if(setting[(int)Set.MAP])
+        {
+            ChangeMap();
+        }
+        else if (setting[(int)Set.STAGE])
         {
             ChangeSetting();
             //マップ設定
@@ -96,6 +105,48 @@ public class MenuUI : MonoBehaviour
             }
         }
     }
+
+    //選択中の設定画面
+    void SelectSettingMode()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            setting[settingNum] = false;
+            settingNum--;
+            if (settingNum < 0)
+            {
+                settingNum = (setting.Length - 1);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            setting[settingNum] = false;
+            settingNum++;
+            if (settingNum >= setting.Length)
+            {
+                settingNum = 0;
+            }
+        }
+        setting[settingNum] = true;
+    }
+
+    //マップを変更
+    void ChangeMap()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            mapNum--;
+            if (mapNum < 0) 
+                mapNum = (mapMaxNum - 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            mapNum++;
+            if (mapNum >= mapMaxNum) 
+                mapNum = 0;
+        }
+    }
+
     //選択項目を変更
     void ChangeSetting()
     {
