@@ -7,8 +7,12 @@ public class ItemBase : ScriptableObject
     public string[] description;
     public Sprite icon;
 
+    //Šl“¾Œø‰Ê
+    public virtual void OnGet(PlayerController player) { }
     //íİŒø‰Ê
     public virtual void OnHold(PlayerController player) { }
     //”CˆÓŒø‰Ê
     public virtual void OnUse(PlayerController player) { }
+    //”jŠü
+    public virtual void OnDelete(PlayerController player) { }
 }

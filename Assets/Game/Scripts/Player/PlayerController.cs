@@ -1,18 +1,19 @@
 using UnityEngine;
 using System.Collections;
 using System.Drawing;
+using NUnit.Framework;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("基本情報")]
-    public float originSpeed;   //基本速度
-    public float moveSpeed;   　//現在速度
-    public int dig_width;       //採掘範囲(横)
-    public int dig_height;      //採掘範囲(縦)
-    public int digPower;        //採掘力(一回でどれだけ深度を下げれるか)
-    public bool isDig;          //採掘中かどうか
-    public int digLimit;        //採掘回数の上限
-    public int digCurrent;      //現在の採掘回数
+    public float originSpeed; //基本速度
+    public float moveSpeed;   //現在速度
+    public int dig_width;     //採掘範囲(横)
+    public int dig_height;    //採掘範囲(縦)
+    public int digPower;      //採掘力(一回でどれだけ深度を下げれるか)
+    public bool isDig;        //採掘中かどうか
+    public int digLimit;      //採掘回数の上限
+    public int digCurrent;    //現在の採掘回数
 
     [Header("移動関係")]
     private bool isMoving;           //移動中かどうか
@@ -22,12 +23,14 @@ public class PlayerController : MonoBehaviour
     [Header("スクリプト参照")]
     private GameManager gameManager; //ゲームの基本情報
     private StageUI stageUI;         //ステージ進行
+    private Inventory inventory;     //所持アイテム
 
     void Start()
     {
         //スクリプト取得
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         stageUI = GameObject.Find("StageUI").GetComponent<StageUI>();
+        inventory = GetComponent<Inventory>();
 
         //初回設定
         moveSpeed = originSpeed;             //移動速度
@@ -42,6 +45,8 @@ public class PlayerController : MonoBehaviour
         GridDig();
         //プレイヤー回転
         RotationPlayer();
+        //アイテム取得
+        GetItem_Treasure();
     }
     private void GridMove()
     {
@@ -138,6 +143,15 @@ public class PlayerController : MonoBehaviour
                 transform.Rotate(0.0f, -90.0f, 0.0f);
             else if (Input.GetKeyDown(KeyCode.L))
                 transform.Rotate(0.0f, 90.0f, 0.0f);
+        }
+    }
+
+    //アイテム取得
+    private void GetItem_Treasure()
+    {
+        if (!stageUI.isPhase[stageUI.phaseItem])
+        {
+            
         }
     }
 }

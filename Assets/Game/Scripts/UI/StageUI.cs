@@ -19,7 +19,9 @@ public class StageUI : MonoBehaviour
     [Header("フェーズ識別番号")]
     public int phaseItem;
     public int phaseMove;
-    public int phaseDig; 
+    public int phaseDig;
+
+    //[Header("スクリプト参照")]
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
