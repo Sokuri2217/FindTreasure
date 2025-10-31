@@ -1,9 +1,15 @@
 using UnityEngine;
 
+//ŠÖ”–¼‚Ì––‚É•ÏX“à—e‚ğ‘‚­
+// W = ‰¡
+// H = c
+// _ = ƒ}ƒCƒiƒX
+
+
 [CreateAssetMenu(menuName ="Items/AddDigAreaW1H1")]
 public class AddDigAreaW1H1 : ItemBase
 {
-    public int addArea; //Šg‘å”ÍˆÍ
+    public int addArea = 1; //Šg‘å”ÍˆÍ
 
     public override void OnHold(PlayerController player)
     {
@@ -40,5 +46,41 @@ public class AddDigCount1 : ItemBase
         {
             player.digCurrent = player.digLimit;
         }
+    }
+}
+
+[CreateAssetMenu(menuName = "Items/AddDigAreaW2H_1")]
+public class AddDigAreaW2H_1 : ItemBase
+{
+    public int addArea = 2; //Šg‘å”ÍˆÍ
+    public int subArea = 1; //k¬”ÍˆÍ
+
+    public override void OnHold(PlayerController player)
+    {
+        player.dig_width = (player.dig_width + addArea * 2);
+        player.dig_height = (player.dig_height - addArea * 2);
+    }
+    public override void OnDelete(PlayerController player)
+    {
+        player.dig_width = (player.dig_width - addArea * 2);
+        player.dig_height = (player.dig_height + addArea * 2);
+    }
+}
+
+[CreateAssetMenu(menuName = "Items/AddDigAreaW_1H2")]
+public class AddDigAreaW_1H2 : ItemBase
+{
+    public int addArea = 2; //Šg‘å”ÍˆÍ
+    public int subArea = 1; //k¬”ÍˆÍ
+
+    public override void OnHold(PlayerController player)
+    {
+        player.dig_width = (player.dig_width - addArea * 2);
+        player.dig_height = (player.dig_height + addArea * 2);
+    }
+    public override void OnDelete(PlayerController player)
+    {
+        player.dig_width = (player.dig_width + addArea * 2);
+        player.dig_height = (player.dig_height - addArea * 2);
     }
 }

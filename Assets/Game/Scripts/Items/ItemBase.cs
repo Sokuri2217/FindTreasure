@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemBase : ScriptableObject
 {
     public string itemName;
-    public string[] description;
+    public string[] description = new string[3];
     public Sprite icon;
 
     //Šl“¾ŽžŒø‰Ê
@@ -15,4 +15,11 @@ public class ItemBase : ScriptableObject
     public virtual void OnUse(PlayerController player) { }
     //”jŠü
     public virtual void OnDelete(PlayerController player) { }
+}
+
+public enum Item
+{
+    GET,
+    HOLD,
+    ACTIVE,
 }

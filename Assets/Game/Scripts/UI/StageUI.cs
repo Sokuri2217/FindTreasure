@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class StageUI : MonoBehaviour
 {
-
     [Header("フェーズ関係")]
     public bool[] isPhase;
     public Color[] phaseColor;
@@ -16,17 +15,25 @@ public class StageUI : MonoBehaviour
     public float[] phaseLimit;
     public float timer;
 
-    [Header("フェーズ識別番号")]
-    public int phaseItem;
-    public int phaseMove;
-    public int phaseDig;
+    //[Header("表示パネル")]
+    //public GameObject itemData; //アイテムの詳細
 
-    //[Header("スクリプト参照")]
+    //[Header("アイテム情報")]
+    //public Image icon;    //アイテム画像
+    //public Text itemName; //名前
+    //public Text get;      //獲得時効果
+    //public Text hold;     //常在効果
+    //public Text active;   //任意効果
+
+    [Header("スクリプト参照")]
+    private PlayerController player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isPhase[phaseItem] = true;
+        //初回設定
+        isPhase[(int)Phase.ITEM] = true;
+        //itemData.SetActive(false);
     }
 
     // Update is called once per frame
@@ -51,7 +58,7 @@ public class StageUI : MonoBehaviour
         Color color = phaseFrame.color;
 
         //現在のフェーズに合わせて枠の色やフェーズ状態を切り替える
-        for (int i = phaseItem; i <= phaseDig; i++) 
+        for (int i = (int)Phase.ITEM; i <= (int)Phase.DIG; i++) 
         {
             if (isPhase[i]) 
             {
@@ -73,7 +80,7 @@ public class StageUI : MonoBehaviour
             isPhase[currentPhase] = false;
             if ((currentPhase + 1) >= phaseLimit.Length)
             {
-                isPhase[phaseItem] = true;
+                isPhase[(int)Phase.ITEM] = true;
             }
             else if ((currentPhase + 1) < phaseLimit.Length)
             {
@@ -81,4 +88,32 @@ public class StageUI : MonoBehaviour
             }
         }
     }
+
+    ////取得可能なアイテムの詳細を確認
+    //public void CheckHitItem()
+    //{
+    //    if (player.hitItem != null)   
+    //    {
+    //        ItemBase itemBase = player.hitItem.itemBase;
+    //        if (Input.GetKeyDown(KeyCode.F)) 
+    //        {
+    //            itemData.SetActive(true);
+    //        }
+    //        //アイテムの情報を取得しUIに反映
+    //        icon.sprite = itemBase.icon;
+    //        itemName.text = itemBase.itemName;
+    //        get.text = itemBase.description[(int)Item.GET];
+    //        hold.text = itemBase.description[(int)Item.HOLD];
+    //        active.text = itemBase.description[(int)Item.ACTIVE];
+
+    //    }
+        
+    //}
+}
+
+public enum Phase
+{
+    ITEM,
+    DIG,
+
 }

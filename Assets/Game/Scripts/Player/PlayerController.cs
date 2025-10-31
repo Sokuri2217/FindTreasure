@@ -14,16 +14,18 @@ public class PlayerController : MonoBehaviour
     public bool isDig;        //採掘中かどうか
     public int digLimit;      //採掘回数の上限
     public int digCurrent;    //現在の採掘回数
+    public bool getItem;      //アイテムを取得可能かどうか
 
     [Header("移動関係")]
     private bool isMoving;           //移動中かどうか
     private Vector3 targetPosition;  //移動先の座標
-    private Vector3 moveDirection;   //移動ベクトル
+    private Vector3 moveDirection;   //移動ベクトル 
 
     [Header("スクリプト参照")]
     private GameManager gameManager; //ゲームの基本情報
     private StageUI stageUI;         //ステージ進行
     private Inventory inventory;     //所持アイテム
+    public ItemObject hitItem;       //取得可能アイテム
 
     void Start()
     {
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
         //初回設定
         moveSpeed = originSpeed;             //移動速度
         targetPosition = transform.position; //座標
+        digCurrent = digLimit;               //採掘回数
     }
 
     void Update()
@@ -45,12 +48,10 @@ public class PlayerController : MonoBehaviour
         GridDig();
         //プレイヤー回転
         RotationPlayer();
-        //アイテム取得
-        GetItem_Treasure();
     }
     private void GridMove()
     {
-        if (!isMoving && stageUI.isPhase[stageUI.phaseMove])
+        if (!isMoving && stageUI.isPhase[(int)Phase.DIG])
         {
             float horizontal = 0.0f;
             float vertical = 0.0f;
@@ -123,11 +124,11 @@ public class PlayerController : MonoBehaviour
     private void GridDig()
     {
         //入力
-        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[stageUI.phaseDig] && !isDig)  
+        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig)  
         {
             isDig = true;
         }
-        if (stageUI.isPhase[stageUI.phaseItem])
+        if (stageUI.isPhase[(int)Phase.ITEM])
         {
             isDig = false;
         }
@@ -136,7 +137,7 @@ public class PlayerController : MonoBehaviour
     //プレイヤー回転(カメラは常に後方から)
     private void RotationPlayer()
     {
-        if (!stageUI.isPhase[stageUI.phaseItem])
+        if (!stageUI.isPhase[(int)Phase.ITEM])
         {
             //左右に回転
             if (Input.GetKeyDown(KeyCode.J))
@@ -147,11 +148,29 @@ public class PlayerController : MonoBehaviour
     }
 
     //アイテム取得
-    private void GetItem_Treasure()
+    public void OnTriggerStay(Collider other)
     {
-        if (!stageUI.isPhase[stageUI.phaseItem])
+        if (stageUI.isPhase[(int)Phase.DIG]) 
         {
-            
+            if (other.gameObject.CompareTag("Item"))
+            {
+                Debug.Log("アイテムと同じ場所にいるよ");
+                getItem = true;
+                hitItem = other.GetComponent<ItemObject>();
+                ItemBase item = hitItem.itemBase;
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    bool addItem = inventory.AddItem(item);
+                    if (addItem)
+                    {
+                        Destroy(other.gameObject);
+                    }
+                }
+            }
+            else
+            {
+                getItem = false;
+            }
         }
     }
 }
