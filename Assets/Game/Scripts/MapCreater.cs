@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class MapCreater : MonoBehaviour
 {
@@ -20,9 +19,9 @@ public class MapCreater : MonoBehaviour
         //スクリプト取得
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //マップ生成
+        PlacePlayerOnStart();    // プレイヤーをスタート位置に配置
         GenerateGrid();          // グリッドマップを生成
         PlaceItemsRandomly();    // タイルにアイテムをランダムに埋め込む
-        PlacePlayerOnStart();    // プレイヤーをスタート位置に配置
     }
 
     void GenerateGrid()
@@ -56,6 +55,7 @@ public class MapCreater : MonoBehaviour
         int itemCount = Mathf.Min(gameManager.setItem, allTiles.Count);
 
         List<TileManager> candidates = new List<TileManager>(allTiles);
+        List<ItemBase> itemBases = new List<ItemBase>(gameManager.items);
 
         //タカラモノを設定
         for (int i = 0; i < treasureCount; i++)
@@ -68,13 +68,20 @@ public class MapCreater : MonoBehaviour
             candidates.RemoveAt(index); // 重複しないように候補から削除
         }
         //ホリダシモノを設定
-        for(int j=0;j<itemCount;j++)
+        for (int j = 0; j < itemCount; j++) 
         {
             int index = Random.Range(0, candidates.Count);
             TileManager selected = candidates[index];
             selected.SetHasItem(true);  // ホリダシモノをセット
             selected.itemObj = itemPrefab; //オブジェクトを格納
-            candidates.RemoveAt(index); // 重複しないように候補から削除
+            ItemObject itemData = itemPrefab.GetComponent<ItemObject>();
+            for (int k = 0; k < itemBases.Count; k++)
+            {
+                int itemIndex = Random.Range(0, itemBases.Count);
+                itemData.itemBase = itemBases[itemIndex];
+            }
+            // 重複しないように候補から削除
+            candidates.RemoveAt(index); 
         }
     }
 

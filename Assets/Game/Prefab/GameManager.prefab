@@ -51,7 +51,13 @@ MonoBehaviour:
   setTreasure: 1
   setItem: 1
   basicSetTreasure: 5
-  basicSetItem: 10
+  basicSetItem: 20
+  items:
+  - {fileID: 11400000, guid: 741ab2bfb911e7d408a2a0cfbaa5ea19, type: 2}
+  - {fileID: 11400000, guid: 9e3d63902a47c474086d95b6a461a627, type: 2}
+  - {fileID: 11400000, guid: 94d80b283742094409ac6fdb9045a126, type: 2}
+  - {fileID: 11400000, guid: 302ed87447fab4a4eac0b8d66d4d1278, type: 2}
+  - {fileID: 11400000, guid: bf48d86ae31dc044393c4fce248f51df, type: 2}
   bgm: {fileID: 3486459211164472280}
 --- !u!82 &3486459211164472280
 AudioSource:

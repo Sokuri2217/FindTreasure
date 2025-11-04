@@ -1,7 +1,5 @@
-using UnityEngine;
 using System.Collections;
-using System.Drawing;
-using NUnit.Framework;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -38,6 +36,7 @@ public class PlayerController : MonoBehaviour
         moveSpeed = originSpeed;             //移動速度
         targetPosition = transform.position; //座標
         digCurrent = digLimit;               //採掘回数
+
     }
 
     void Update()
@@ -46,6 +45,8 @@ public class PlayerController : MonoBehaviour
         GridMove();
         //採掘処理
         GridDig();
+        //アイテム取得
+        GetItem();
         //プレイヤー回転
         RotationPlayer();
     }
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator MoveTo(Vector3 destination)
     {
+        isDig = false;
         isMoving = true;
         targetPosition = destination;
 
@@ -124,13 +126,29 @@ public class PlayerController : MonoBehaviour
     private void GridDig()
     {
         //入力
-        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig)  
+        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig)
         {
             isDig = true;
+            digCurrent--;
         }
-        if (stageUI.isPhase[(int)Phase.ITEM])
+        else
         {
             isDig = false;
+        }
+    }
+
+    //アイテム取得
+    private void GetItem()
+    {
+        if (Input.GetKeyDown(KeyCode.G) && getItem) 
+        {
+            ItemBase item = hitItem.itemBase;
+            bool addItem = inventory.AddItem(item);
+            if (addItem)
+            {
+                getItem = false;
+                Destroy(hitItem.gameObject);
+            }
         }
     }
 
@@ -157,19 +175,6 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("アイテムと同じ場所にいるよ");
                 getItem = true;
                 hitItem = other.GetComponent<ItemObject>();
-                ItemBase item = hitItem.itemBase;
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    bool addItem = inventory.AddItem(item);
-                    if (addItem)
-                    {
-                        Destroy(other.gameObject);
-                    }
-                }
-            }
-            else
-            {
-                getItem = false;
             }
         }
     }

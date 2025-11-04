@@ -34,13 +34,21 @@ public class StageUI : MonoBehaviour
         //初回設定
         isPhase[(int)Phase.ITEM] = true;
         //itemData.SetActive(false);
+        currentTurn++;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //スクリプト取得
+        if (player == null) 
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
         //フェーズ表示
         ChangePhaseImage();
+        //採掘フェーズの強制終了
+        if (player.digCurrent <= 0)
+            EndDig();
         //フェーズ変更までの時間計測
         for (int i = 0; i < phaseLimit.Length; i++)
         {
@@ -87,6 +95,15 @@ public class StageUI : MonoBehaviour
                 isPhase[(currentPhase + 1)] = true;
             }
         }
+    }
+
+    public void EndDig()
+    {
+        timer = 0.0f;
+        isPhase[(int)Phase.DIG] = false;
+        isPhase[(int)Phase.ITEM] = true;
+        currentTurn++;
+        player.digCurrent = player.digLimit;
     }
 
     ////取得可能なアイテムの詳細を確認

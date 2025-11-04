@@ -58,12 +58,12 @@ public class AddDigAreaW2H_1 : ItemBase
     public override void OnHold(PlayerController player)
     {
         player.dig_width = (player.dig_width + addArea * 2);
-        player.dig_height = (player.dig_height - addArea * 2);
+        player.dig_height = (player.dig_height - subArea * 2);
     }
     public override void OnDelete(PlayerController player)
     {
         player.dig_width = (player.dig_width - addArea * 2);
-        player.dig_height = (player.dig_height + addArea * 2);
+        player.dig_height = (player.dig_height + subArea * 2);
     }
 }
 
@@ -75,12 +75,12 @@ public class AddDigAreaW_1H2 : ItemBase
 
     public override void OnHold(PlayerController player)
     {
-        player.dig_width = (player.dig_width - addArea * 2);
+        player.dig_width = (player.dig_width - subArea * 2);
         player.dig_height = (player.dig_height + addArea * 2);
     }
     public override void OnDelete(PlayerController player)
     {
-        player.dig_width = (player.dig_width + addArea * 2);
+        player.dig_width = (player.dig_width + subArea * 2);
         player.dig_height = (player.dig_height - addArea * 2);
     }
 }

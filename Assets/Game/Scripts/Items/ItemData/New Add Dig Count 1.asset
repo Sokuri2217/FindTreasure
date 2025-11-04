@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: AddDigAreaW_1H2
-  m_EditorClassIdentifier: Assembly-CSharp::AddDigAreaW_1H2
+  m_Name: New Add Dig Count 1
+  m_EditorClassIdentifier: Assembly-CSharp::AddDigCount1
   itemName: 
-  description: []
+  description:
+  - 
+  - 
+  - 
   icon: {fileID: 0}
-  addArea: 2
-  subArea: 1
