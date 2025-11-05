@@ -1,9 +1,11 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 //関数名の末に変更内容を書く
 // W = 横
 // H = 縦
 // _ = マイナス
+//turnX = Xターン持続
 
 
 [CreateAssetMenu(menuName ="Items/AddDigAreaW1H1")]
@@ -82,5 +84,23 @@ public class AddDigAreaW_1H2 : ItemBase
     {
         player.dig_width = (player.dig_width + subArea * 2);
         player.dig_height = (player.dig_height - addArea * 2);
+    }
+}
+
+[CreateAssetMenu(menuName = "Items/AddDigLimit1turn3")] 
+public class AddDigLimit1turn3 : ItemBase
+{
+    public int turn = 3;
+
+    public override void OnUse(PlayerController player)
+    {
+        player.digLimit++;
+        player.isActiveItems.Add(this);
+    }
+
+    public override void OnDelete(PlayerController player)
+    {
+        player.digLimit--;
+        player.isActiveItems.Remove(this);
     }
 }

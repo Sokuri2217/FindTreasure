@@ -25,8 +25,12 @@ public class StageUI : MonoBehaviour
     //public Text hold;     //常在効果
     //public Text active;   //任意効果
 
+    [Header("プレイヤー参照")]
+    private GameObject playerObj; 
+
     [Header("スクリプト参照")]
     private PlayerController player;
+    private Inventory inventory;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,23 +44,30 @@ public class StageUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //プレイヤー取得
+        if (playerObj == null)
+            playerObj = GameObject.FindWithTag("Player");
         //スクリプト取得
-        if (player == null) 
-            player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if (player == null)
+            player = playerObj.GetComponent<PlayerController>();
+        if (inventory == null)
+            inventory = playerObj.GetComponent<Inventory>();
 
         //フェーズ表示
         ChangePhaseImage();
         //採掘フェーズの強制終了
         if (player.digCurrent <= 0)
             EndDig();
-        //フェーズ変更までの時間計測
         for (int i = 0; i < phaseLimit.Length; i++)
         {
             if (isPhase[i])
             {
+                //フェーズ変更までの時間計測
                 PhaseTimer(i);
             }
         }
+        //現在のフェーズをスキップ
+        SkipPhase();
     }
 
     //フェーズごとに色やUIを変える
@@ -97,6 +108,13 @@ public class StageUI : MonoBehaviour
         }
     }
 
+    public void EndItem()
+    {
+        timer = 0.0f;
+        isPhase[(int)Phase.ITEM] = false;
+        isPhase[(int)Phase.DIG] = true;
+    }
+
     public void EndDig()
     {
         timer = 0.0f;
@@ -104,6 +122,21 @@ public class StageUI : MonoBehaviour
         isPhase[(int)Phase.ITEM] = true;
         currentTurn++;
         player.digCurrent = player.digLimit;
+    }
+
+    public void SkipPhase()
+    {
+        if (Input.GetKeyDown(KeyCode.H))  
+        {
+            if (isPhase[(int)Phase.ITEM])
+            {
+                EndItem();
+            }
+            else if (isPhase[(int)Phase.DIG])
+            {
+                EndDig();
+            }
+        }
     }
 
     ////取得可能なアイテムの詳細を確認

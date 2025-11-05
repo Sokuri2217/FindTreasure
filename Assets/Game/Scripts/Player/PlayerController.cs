@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -18,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;           //移動中かどうか
     private Vector3 targetPosition;  //移動先の座標
     private Vector3 moveDirection;   //移動ベクトル 
+
+    [Header("アクティブ効果発動中")]
+    public List<ItemBase> isActiveItems = new List<ItemBase>();
 
     [Header("スクリプト参照")]
     private GameManager gameManager; //ゲームの基本情報
@@ -45,6 +50,8 @@ public class PlayerController : MonoBehaviour
         GridMove();
         //採掘処理
         GridDig();
+        //採掘範囲の増減制限
+        DigAreaLimit();
         //アイテム取得
         GetItem();
         //プレイヤー回転
@@ -137,6 +144,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //採掘範囲の増減制限
+    public void DigAreaLimit()
+    {
+        if (dig_width < 0) 
+        {
+            dig_width = 0;
+        }
+        if (dig_height < 0)
+        {
+            dig_height = 0;
+        }
+    }
+
     //アイテム取得
     private void GetItem()
     {
@@ -172,7 +192,6 @@ public class PlayerController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Item"))
             {
-                Debug.Log("アイテムと同じ場所にいるよ");
                 getItem = true;
                 hitItem = other.GetComponent<ItemObject>();
             }

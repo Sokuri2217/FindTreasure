@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
-  m_Name: New Add Dig Area W1H1
+  m_Name: AddDigAreaW1H1
   m_EditorClassIdentifier: 
   itemName: 
   description:
