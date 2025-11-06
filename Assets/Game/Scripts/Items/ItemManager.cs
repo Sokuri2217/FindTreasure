@@ -1,116 +1,123 @@
-using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-//関数名の末に変更内容を書く
-// W = 横
-// H = 縦
-// _ = マイナス
-//turnX = Xターン持続
-
-
-[CreateAssetMenu(menuName ="Items/AddDigAreaW1H1")]
-public class AddDigAreaW1H1 : ItemBase
+/// <summary>
+/// アイテムの効果タイプを定義
+/// </summary>
+public enum ItemEffectType
 {
-    public int addArea = 1; //拡大範囲
-
-    public override void OnHold(PlayerController player)
-    {
-        player.dig_width = (player.dig_width + addArea * 2);
-        player.dig_height = (player.dig_height + addArea * 2);
-    }
-    public override void OnDelete(PlayerController player)
-    {
-        player.dig_width = (player.dig_width - addArea * 2);
-        player.dig_height = (player.dig_height - addArea * 2);
-    }
+    None,
+    AddDigPower,
+    AddDigArea,
+    AddDigLimit,
+    RecoverDigCount
 }
 
-[CreateAssetMenu(menuName = "Items/AddDigPower1")] 
-public class AddDigPower1 : ItemBase
+/// <summary>
+/// 各アイテムデータをScriptableObjectとして定義
+/// </summary>
+[CreateAssetMenu(fileName = "ItemBase", menuName = "Scriptable Objects/ItemManager")]
+public class ItemManager : ItemBase
 {
-    public override void OnHold(PlayerController player)
-    {
-        player.digPower++;
-    }
-    public override void OnDelete(PlayerController player)
-    {
-        player.digPower--;
-    }
-}
+    [Header("効果設定")]
+    public ItemEffectType effectType = ItemEffectType.None;
 
-[CreateAssetMenu(menuName = "Items/AddDigCount1")]
-public class AddDigCount1 : ItemBase
-{
+    [Tooltip("数値パラメータ1（例：追加値、幅、強化量など）")]
+    public int value1 = 0;
+
+    [Tooltip("数値パラメータ2（例：高さ、縮小値など）")]
+    public int value2 = 0;
+
+    [Tooltip("持続ターン数（0なら常在効果）")]
+    public int duration = 0;
+
+    // ==============================
+    // 効果適用処理
+    // ==============================
+
+    /// <summary>
+    /// アイテム獲得時（即時効果）
+    /// </summary>
     public override void OnGet(PlayerController player)
     {
-        player.digCurrent++;
-        if(player.digCurrent > player.digLimit)
+        switch (effectType)
         {
-            player.digCurrent = player.digLimit;
+            case ItemEffectType.RecoverDigCount:
+                player.digCurrent = Mathf.Min(player.digCurrent + value1, player.digLimit);
+                break;
         }
     }
-}
 
-[CreateAssetMenu(menuName = "Items/AddDigAreaW2H_1")]
-public class AddDigAreaW2H_1 : ItemBase
-{
-    public int addArea = 2; //拡大範囲
-    public int subArea = 1; //縮小範囲
-
+    /// <summary>
+    /// 常在効果（保持している間に有効）
+    /// </summary>
     public override void OnHold(PlayerController player)
     {
-        player.dig_width = (player.dig_width - subArea * 2);
-        player.dig_height = (player.dig_height + addArea * 2);
+        switch (effectType)
+        {
+            case ItemEffectType.AddDigPower:
+                player.digPower += value1;
+                break;
+
+            case ItemEffectType.AddDigArea:
+                player.dig_width += value1 * 2;
+                player.dig_height += value2 * 2;
+                break;
+
+            case ItemEffectType.AddDigLimit:
+                player.digLimit += value1;
+                break;
+        }
     }
+
+    /// <summary>
+    /// 常在効果の解除（削除時）
+    /// </summary>
     public override void OnDelete(PlayerController player)
     {
-        player.dig_width = (player.dig_width + subArea * 2);
-        player.dig_height = (player.dig_height - addArea * 2);
+        switch (effectType)
+        {
+            case ItemEffectType.AddDigPower:
+                player.digPower -= value1;
+                break;
+
+            case ItemEffectType.AddDigArea:
+                player.dig_width -= value1 * 2;
+                player.dig_height -= value2 * 2;
+                break;
+
+            case ItemEffectType.AddDigLimit:
+                player.digLimit -= value1;
+                break;
+        }
     }
-}
 
-[CreateAssetMenu(menuName = "Items/AddDigAreaW_1H2")]
-public class AddDigAreaW_1H2 : ItemBase
-{
-    public int addArea = 2; //拡大範囲
-    public int subArea = 1; //縮小範囲
-
-    public override void OnHold(PlayerController player)
-    {
-        player.dig_width = (player.dig_width + addArea * 2);
-        player.dig_height = (player.dig_height - subArea * 2);
-    }
-    public override void OnDelete(PlayerController player)
-    {
-        player.dig_width = (player.dig_width - addArea * 2);
-        player.dig_height = (player.dig_height + subArea * 2);
-    }
-}
-
-[CreateAssetMenu(menuName = "Items/AddDigLimit1turn3")] 
-public class AddDigLimit1turn3 : ItemBase
-{
-    public int startTurrn;
-    public int endTurn;
-
+    /// <summary>
+    /// 任意発動時（ボタンなどで使用）
+    /// </summary>
     public override void OnUse(PlayerController player)
     {
-        player.digLimit++;
-        player.isActiveItems.Add(this);
-        startTurrn = player.stageUI.currentTurn;
+        if (duration > 0)
+        {
+            player.isActiveItems.Add(this);
+            OnHold(player); // 使用と同時に効果発動
+        }
     }
 
-    public override void OnDelete(PlayerController player)
-    {
-        player.digLimit--;
-        player.isActiveItems.Remove(this);
-    }
-
+    /// <summary>
+    /// ターン経過による自動解除
+    /// </summary>
     public override void TurnCount(PlayerController player, StageUI stageUI)
     {
-        if ((startTurrn + endTurn) == stageUI.currentTurn)
+        if (duration > 0 && player.isActiveItems.Contains(this))
         {
-            OnDelete(player);
+            // 持続ターンが過ぎたら効果解除
+            if (stageUI.currentTurn >= duration)
+            {
+                OnDelete(player);
+                player.isActiveItems.Remove(this);
+            }
         }
     }
 }

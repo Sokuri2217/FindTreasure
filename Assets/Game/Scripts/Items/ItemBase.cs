@@ -4,7 +4,7 @@ using UnityEngine;
 public class ItemBase : ScriptableObject
 {
     public string itemName;
-    public string[] description = new string[3];
+    [TextArea(2, 5)] public string[] description = new string[3];
     public Sprite icon;
 
     //Šl“¾ŽžŒø‰Ê

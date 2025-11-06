@@ -4,8 +4,12 @@ using UnityEngine.UI;
 
 public class MenuUI : MonoBehaviour
 {
-    public bool[] setting; //設定項目(マップ選択・ステージ設定・その他)
-    public int settingNum;
+    [Header("主な設定項目(マップ選択・ステージ設定・その他)")]
+    public bool[] setting;       //設定項目(マップ選択・ステージ設定・その他)
+    public int settingNum;       //選択項目の識別番号
+    public Image[] settingImage; //UI反映
+    public Vector3[] originScale;  //通常サイズ
+    public float zoomNum;        //拡大率
 
     [Header("ステージ設定")]
     public int mapNum;     //マップ番号
@@ -62,6 +66,11 @@ public class MenuUI : MonoBehaviour
         isSetStage[(int)SetStage.STAGE] = true;
         //BGM
         gameManager.PlayBGM(bgm);
+
+        for (int i = 0; i < setting.Length; i++)
+        {
+            originScale[i] = settingImage[i].transform.localScale;
+        }
     }
 
     // Update is called once per frame
@@ -94,16 +103,18 @@ public class MenuUI : MonoBehaviour
             //マップ設定
             if (isSetStage[(int)SetStage.STAGE]) 
                 StageSetting();
+
             //オブジェクト設定
-            {
-                //タカラモノ設定
-                if (isSetStage[(int)SetStage.TREASURE])
-                    gameManager.setTreasure = ObjectSetting(gameManager.setTreasure, (gameManager.basicSetTreasure + gameManager.setStage));
-                //ホリダシモノ設定
-                if (isSetStage[(int)SetStage.ITEM])
-                    gameManager.setItem = ObjectSetting(gameManager.setItem, (gameManager.basicSetItem + gameManager.setStage));
-            }
+            //タカラモノ設定
+            if (isSetStage[(int)SetStage.TREASURE])
+                gameManager.setTreasure = ObjectSetting(gameManager.setTreasure, (gameManager.basicSetTreasure + gameManager.setStage));
+            //ホリダシモノ設定
+            if (isSetStage[(int)SetStage.ITEM])
+                gameManager.setItem = ObjectSetting(gameManager.setItem, (gameManager.basicSetItem + gameManager.setStage));
         }
+
+        //選択項目のGUIを制御
+        SetUISelectImage();
     }
 
     //選択中の設定画面
@@ -243,5 +254,28 @@ public class MenuUI : MonoBehaviour
         Color color = enterToStart.color;
         color.a = (fadeTimer / fadeLimit);
         enterToStart.color = color;
+    }
+
+    //選択項目のGUIを制御
+    public void SetUISelectImage()
+    {
+        //設定項目の選択
+        for (int i = 0; i < setting.Length; i++) 
+        {
+            if (setting[i]) 
+            {
+                Transform imageScale = settingImage[i].transform;
+                imageScale.localScale = new Vector3(
+                    (originScale[i].x * zoomNum),
+                    (originScale[i].y * zoomNum),
+                    (originScale[i].z * zoomNum)
+                    );
+                settingImage[i].transform.localScale = imageScale.localScale;
+            }
+            else
+            {
+                settingImage[i].transform.localScale = originScale[i];
+            }
+        }
     }
 }
