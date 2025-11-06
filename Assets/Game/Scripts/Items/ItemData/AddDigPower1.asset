@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: AddDigPower1
   m_EditorClassIdentifier: Assembly-CSharp::AddDigPower1
-  itemName: 
+  itemName: 5
   description:
-  - 
-  - 
-  - 
-  icon: {fileID: 0}
+  - ggggggggggggggggg
+  - ggggggggggggggggggggggg
+  - gggggggggggggggggggggggggggggggggggggggggggggggg
+  icon: {fileID: -316971858, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}

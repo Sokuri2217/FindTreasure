@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: AddDigCount1
   m_EditorClassIdentifier: Assembly-CSharp::AddDigCount1
-  itemName: 
+  itemName: 4
   description:
-  - 
-  - 
-  - 
-  icon: {fileID: 0}
+  - fffffffffffffffff
+  - ffffffffffffffffffffffffffffff
+  - fffffffffffffffffffffffffffffffffffffffff
+  icon: {fileID: 2028777849, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}

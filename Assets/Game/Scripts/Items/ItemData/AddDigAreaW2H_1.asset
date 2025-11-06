@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: AddDigAreaW2H_1
   m_EditorClassIdentifier: Assembly-CSharp::AddDigAreaW2H_1
-  itemName: 
+  itemName: 2
   description:
-  - 
-  - 
-  - 
-  icon: {fileID: 0}
+  - ssssssssss
+  - sssssssssssssssss
+  - sssssssss
+  icon: {fileID: 238736293, guid: 6f15713a9db90f642906dc9ec20921ec, type: 3}
   addArea: 2
   subArea: 1

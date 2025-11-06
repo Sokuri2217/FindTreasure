@@ -25,10 +25,10 @@ public class PlayerController : MonoBehaviour
     public List<ItemBase> isActiveItems = new List<ItemBase>();
 
     [Header("スクリプト参照")]
-    private GameManager gameManager; //ゲームの基本情報
-    private StageUI stageUI;         //ステージ進行
-    private Inventory inventory;     //所持アイテム
-    public ItemObject hitItem;       //取得可能アイテム
+    public GameManager gameManager; //ゲームの基本情報
+    public StageUI stageUI;         //ステージ進行
+    public Inventory inventory;     //所持アイテム
+    public ItemObject hitItem;      //取得可能アイテム
 
     void Start()
     {

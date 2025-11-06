@@ -15,15 +15,15 @@ public class StageUI : MonoBehaviour
     public float[] phaseLimit;
     public float timer;
 
-    //[Header("表示パネル")]
-    //public GameObject itemData; //アイテムの詳細
+    [Header("表示パネル")]
+    public GameObject itemData; //アイテムの詳細
 
-    //[Header("アイテム情報")]
-    //public Image icon;    //アイテム画像
-    //public Text itemName; //名前
-    //public Text get;      //獲得時効果
-    //public Text hold;     //常在効果
-    //public Text active;   //任意効果
+    [Header("アイテム情報")]
+    public Image icon;    //アイテム画像
+    public Text itemName; //名前
+    public Text get;      //獲得時効果
+    public Text hold;     //常在効果
+    public Text active;   //任意効果
 
     [Header("プレイヤー参照")]
     private GameObject playerObj; 
@@ -37,7 +37,7 @@ public class StageUI : MonoBehaviour
     {
         //初回設定
         isPhase[(int)Phase.ITEM] = true;
-        //itemData.SetActive(false);
+        itemData.SetActive(false);
         currentTurn++;
     }
 
@@ -68,6 +68,9 @@ public class StageUI : MonoBehaviour
         }
         //現在のフェーズをスキップ
         SkipPhase();
+
+        //アイテムの詳細表示
+        CheckHitItem();
     }
 
     //フェーズごとに色やUIを変える
@@ -139,26 +142,33 @@ public class StageUI : MonoBehaviour
         }
     }
 
-    ////取得可能なアイテムの詳細を確認
-    //public void CheckHitItem()
-    //{
-    //    if (player.hitItem != null)   
-    //    {
-    //        ItemBase itemBase = player.hitItem.itemBase;
-    //        if (Input.GetKeyDown(KeyCode.F)) 
-    //        {
-    //            itemData.SetActive(true);
-    //        }
-    //        //アイテムの情報を取得しUIに反映
-    //        icon.sprite = itemBase.icon;
-    //        itemName.text = itemBase.itemName;
-    //        get.text = itemBase.description[(int)Item.GET];
-    //        hold.text = itemBase.description[(int)Item.HOLD];
-    //        active.text = itemBase.description[(int)Item.ACTIVE];
+    //取得可能なアイテムの詳細を確認
+    public void CheckHitItem()
+    {
+        if (player.hitItem != null)
+        {
+            ItemBase itemBase = player.hitItem.itemBase;
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (!itemData.activeSelf)
+                {
+                    itemData.SetActive(true);
+                }
+                else
+                {
+                    itemData.SetActive(false);
+                }
 
-    //    }
-        
-    //}
+            }
+            //アイテムの情報を取得しUIに反映
+            icon.sprite = itemBase.icon;
+            itemName.text = itemBase.itemName;
+            get.text = itemBase.description[(int)Item.GET];
+            hold.text = itemBase.description[(int)Item.HOLD];
+            active.text = itemBase.description[(int)Item.ACTIVE];
+        }
+
+    }
 }
 
 public enum Phase

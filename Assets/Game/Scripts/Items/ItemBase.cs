@@ -15,6 +15,8 @@ public class ItemBase : ScriptableObject
     public virtual void OnUse(PlayerController player) { }
     //”jŠü
     public virtual void OnDelete(PlayerController player) { }
+    //ƒ^[ƒ“Œo‰ß
+    public virtual void TurnCount(PlayerController player, StageUI stageUI) { }
 }
 
 public enum Item

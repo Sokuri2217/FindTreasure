@@ -59,13 +59,13 @@ public class AddDigAreaW2H_1 : ItemBase
 
     public override void OnHold(PlayerController player)
     {
-        player.dig_width = (player.dig_width + addArea * 2);
-        player.dig_height = (player.dig_height - subArea * 2);
+        player.dig_width = (player.dig_width - subArea * 2);
+        player.dig_height = (player.dig_height + addArea * 2);
     }
     public override void OnDelete(PlayerController player)
     {
-        player.dig_width = (player.dig_width - addArea * 2);
-        player.dig_height = (player.dig_height + subArea * 2);
+        player.dig_width = (player.dig_width + subArea * 2);
+        player.dig_height = (player.dig_height - addArea * 2);
     }
 }
 
@@ -77,30 +77,40 @@ public class AddDigAreaW_1H2 : ItemBase
 
     public override void OnHold(PlayerController player)
     {
-        player.dig_width = (player.dig_width - subArea * 2);
-        player.dig_height = (player.dig_height + addArea * 2);
+        player.dig_width = (player.dig_width + addArea * 2);
+        player.dig_height = (player.dig_height - subArea * 2);
     }
     public override void OnDelete(PlayerController player)
     {
-        player.dig_width = (player.dig_width + subArea * 2);
-        player.dig_height = (player.dig_height - addArea * 2);
+        player.dig_width = (player.dig_width - addArea * 2);
+        player.dig_height = (player.dig_height + subArea * 2);
     }
 }
 
 [CreateAssetMenu(menuName = "Items/AddDigLimit1turn3")] 
 public class AddDigLimit1turn3 : ItemBase
 {
-    public int turn = 3;
+    public int startTurrn;
+    public int endTurn;
 
     public override void OnUse(PlayerController player)
     {
         player.digLimit++;
         player.isActiveItems.Add(this);
+        startTurrn = player.stageUI.currentTurn;
     }
 
     public override void OnDelete(PlayerController player)
     {
         player.digLimit--;
         player.isActiveItems.Remove(this);
+    }
+
+    public override void TurnCount(PlayerController player, StageUI stageUI)
+    {
+        if ((startTurrn + endTurn) == stageUI.currentTurn)
+        {
+            OnDelete(player);
+        }
     }
 }
