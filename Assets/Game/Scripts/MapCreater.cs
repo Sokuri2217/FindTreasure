@@ -74,11 +74,12 @@ public class MapCreater : MonoBehaviour
             TileManager selected = candidates[index];
             selected.SetHasItem(true);  // ホリダシモノをセット
             selected.itemObj = itemPrefab; //オブジェクトを格納
-            ItemObject itemData = itemPrefab.GetComponent<ItemObject>();
             for (int k = 0; k < itemBases.Count; k++)
             {
+                ItemObject itemData = itemPrefab.GetComponent<ItemObject>();
+                ItemBase item = itemData.itemBase;
                 int itemIndex = Random.Range(0, itemBases.Count);
-                itemData.itemBase = itemBases[itemIndex];
+                item = itemBases[itemIndex];
             }
             // 重複しないように候補から削除
             candidates.RemoveAt(index); 

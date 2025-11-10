@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //アイテム取得
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if (stageUI.isPhase[(int)Phase.DIG]) 
         {
@@ -194,6 +194,18 @@ public class PlayerController : MonoBehaviour
             {
                 getItem = true;
                 hitItem = other.GetComponent<ItemObject>();
+            }
+        }
+    }
+    //アイテム取得
+    public void OnTriggerExit(Collider other)
+    {
+        if (stageUI.isPhase[(int)Phase.DIG])
+        {
+            if (other.gameObject.CompareTag("Item"))
+            {
+                getItem = false;
+                hitItem = null;            
             }
         }
     }

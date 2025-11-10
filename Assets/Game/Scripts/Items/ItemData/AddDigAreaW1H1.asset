@@ -10,15 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
-  m_Name: ItemBase
+  m_Name: AddDigAreaW1H1
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: 1
   description:
-  - 
-  - 
-  - 
-  icon: {fileID: 0}
-  effectType: 0
-  value1: 0
+  - 'qqqqqqq
+
+    sssssssssss
+
+    dddddddddd'
+  - 'rrrrrrrrrrrrrrrr
+
+    tttttttttttttt
+
+    yyyyyyyyyyyyyy
+
+    ttttttttttttttttt'
+  - 'rrrrrrrrrrrrrrrrrrrrrr
+
+    wwwwwwwwwwwwwww
+
+    wwwwwwwwwwww'
+  icon: {fileID: 2028777849, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
+  effectType: 2
+  value1: 1
   value2: 0
   duration: 0

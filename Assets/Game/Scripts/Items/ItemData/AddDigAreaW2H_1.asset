@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
+  m_Name: AddDigAreaW2H_1
+  m_EditorClassIdentifier: 
+  itemName: 2
+  description:
+  - eeeeeeeeeeeeeeeeee
+  - wwwwwwwwwwwwwwww
+  - qqqqqqqqqqqqqqqqq
+  icon: {fileID: -993759289, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
+  effectType: 2
+  value1: 2
+  value2: -1
+  duration: 0

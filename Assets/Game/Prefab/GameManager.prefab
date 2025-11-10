@@ -53,11 +53,11 @@ MonoBehaviour:
   basicSetTreasure: 5
   basicSetItem: 20
   items:
-  - {fileID: 11400000, guid: 9883c87365cdfa0479f27d3255a3126d, type: 2}
-  - {fileID: 11400000, guid: 4bc4cd577dc45dd4aa2685322068f2c8, type: 2}
-  - {fileID: 11400000, guid: 92d3432377979844e84bc176bfd88449, type: 2}
-  - {fileID: 11400000, guid: f179a741589a1f649b66393bf95c4b73, type: 2}
-  - {fileID: 11400000, guid: 9c62705e032317d4fb4576464ea8e7ee, type: 2}
+  - {fileID: 11400000, guid: 3c1b0ad4703cc1b44a8629aa6de4d504, type: 2}
+  - {fileID: 11400000, guid: c8cad0cd473715c4385e78657966d49c, type: 2}
+  - {fileID: 11400000, guid: 1de677b60e624b948b497ed66ebc4d88, type: 2}
+  - {fileID: 11400000, guid: 42d74eb22847e2445a870b0bd46de81c, type: 2}
+  - {fileID: 11400000, guid: 0bd9ae8e0430a1b468f66341cfb0883c, type: 2}
   bgm: {fileID: 3486459211164472280}
 --- !u!82 &3486459211164472280
 AudioSource:
