@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class TitleUI : MonoBehaviour
+public class TitleUI : UIManager
 {
     [Header("描画系")]
     public Image pressAnyKey;
@@ -14,21 +14,15 @@ public class TitleUI : MonoBehaviour
     [Header("シーン名")]
     public string sceneName;
 
-    [Header("BGM")]
-    public AudioClip bgm;
-
-    [Header("スクリプト参照")]
-    public GameManager gameManager;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         //スクリプト取得
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         //初回設定
-        //BGM
-        gameManager.PlayBGM(bgm);
         //フェードアウトからスタート
         fadeIn = false;
         fadeOut = true;
@@ -36,8 +30,10 @@ public class TitleUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
+
         if(fadeIn)
         {
             fadeTimer += Time.deltaTime;

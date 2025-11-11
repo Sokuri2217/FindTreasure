@@ -1,7 +1,8 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StageUI : MonoBehaviour
+public class StageUI : UIManager
 {
     [Header("フェーズ関係")]
     public bool[] isPhase;
@@ -18,6 +19,7 @@ public class StageUI : MonoBehaviour
     [Header("表示パネル")]
     public GameObject itemDataPanel;  //アイテムの詳細
     public GameObject inventoryPanel; //所持アイテム一覧
+    public Image[] slotImage;         //アイテムスロット
 
     [Header("アイテム情報")]
     public Image icon;    //アイテム画像
@@ -34,8 +36,9 @@ public class StageUI : MonoBehaviour
     private Inventory inventory;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
+        base.Start();
         //初回設定
         isPhase[(int)Phase.ITEM] = true;
         itemDataPanel.SetActive(false);
@@ -44,8 +47,9 @@ public class StageUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
         //プレイヤー取得
         if (playerObj == null)
             playerObj = GameObject.FindWithTag("Player");

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuUI : MonoBehaviour
+public class MenuUI : UIManager
 {
     [Header("主な設定項目(マップ選択・ステージ設定・その他)")]
     public bool[] setting;       //設定項目(マップ選択・ステージ設定・その他)
@@ -30,12 +30,6 @@ public class MenuUI : MonoBehaviour
     public bool fadeIn;
     public bool fadeOut;
 
-    [Header("BGM")]
-    public AudioClip bgm;
-
-    [Header("スクリプト参照")]
-    public GameManager gameManager;
-
     enum Set
     {
         MAP,
@@ -51,11 +45,9 @@ public class MenuUI : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
-        //スクリプト取得
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
+        base.Start();
         //初回設定
         //点滅するUIはフェードアウトからスタート
         fadeIn = false;
@@ -64,8 +56,6 @@ public class MenuUI : MonoBehaviour
         //選択状態
         setting[(int)Set.MAP] = true;
         isSetStage[(int)SetStage.STAGE] = true;
-        //BGM
-        gameManager.PlayBGM(bgm);
 
         for (int i = 0; i < setting.Length; i++)
         {
@@ -74,8 +64,9 @@ public class MenuUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
         //Enterでゲーム開始
         if (Input.GetKeyDown(KeyCode.Return) && !changeScene) 
         {
