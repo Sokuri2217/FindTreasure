@@ -6,8 +6,15 @@ public class Inventory : MonoBehaviour
     [Header("アイテム情報")]
     public List<ItemBase> items = new List<ItemBase>();
 
+    [Header("選択中")]
+    public int isSelectItem;
+    public int lineHeight; //縦列
+    public int lineWidth;  //横列
+
     [Header("所持可能数")]
     public int getMaxItem;
+    public int lineMaxHeight;
+    public int lineMaxWidth;
 
     [Header("スクリプト参照")]
     public PlayerController player;

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool getItem;      //アイテムを取得可能かどうか
 
     [Header("移動関係")]
-    private bool isMoving;           //移動中かどうか
+    public bool isMoving;           //移動中かどうか
     private Vector3 targetPosition;  //移動先の座標
     private Vector3 moveDirection;   //移動ベクトル 
 
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //アイテム取得
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerStay(Collider other)
     {
         if (stageUI.isPhase[(int)Phase.DIG]) 
         {

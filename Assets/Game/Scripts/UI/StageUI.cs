@@ -16,7 +16,8 @@ public class StageUI : MonoBehaviour
     public float timer;
 
     [Header("表示パネル")]
-    public GameObject itemData; //アイテムの詳細
+    public GameObject itemDataPanel;  //アイテムの詳細
+    public GameObject inventoryPanel; //所持アイテム一覧
 
     [Header("アイテム情報")]
     public Image icon;    //アイテム画像
@@ -37,7 +38,8 @@ public class StageUI : MonoBehaviour
     {
         //初回設定
         isPhase[(int)Phase.ITEM] = true;
-        itemData.SetActive(false);
+        itemDataPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
         currentTurn++;
     }
 
@@ -71,6 +73,8 @@ public class StageUI : MonoBehaviour
 
         //アイテムの詳細表示
         CheckHitItem();
+        //所持アイテムを確認
+        CheckInventory();
     }
 
     //フェーズごとに色やUIを変える
@@ -145,18 +149,18 @@ public class StageUI : MonoBehaviour
     //取得可能なアイテムの詳細を確認
     public void CheckHitItem()
     {
-        if (player.hitItem != null)
+        if (player.hitItem != null && !player.isMoving) 
         {
             ItemBase itemBase = player.hitItem.itemBase;
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (!itemData.activeSelf)
+                if (!itemDataPanel.activeSelf)
                 {
-                    itemData.SetActive(true);
+                    itemDataPanel.SetActive(true);
                 }
                 else
                 {
-                    itemData.SetActive(false);
+                    itemDataPanel.SetActive(false);
                 }
 
             }
@@ -167,7 +171,60 @@ public class StageUI : MonoBehaviour
             hold.text = itemBase.description[(int)Item.HOLD];
             active.text = itemBase.description[(int)Item.ACTIVE];
         }
+        else
+        {
+            //詳細パネルを非表示
+            itemDataPanel.SetActive(false);
+            //アイテム情報を空にする
+            icon.sprite = null;
+            itemName.text = null;
+            get.text = null;
+            hold.text = null;
+            active.text = null;
+        }
+    }
 
+    //所持アイテムを確認
+    public void CheckInventory()
+    {
+        if (isPhase[(int)Phase.DIG])
+        {
+            //インベントリを表示
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                inventoryPanel.SetActive(true);
+            }
+        }
+
+        //確認するアイテムを選択
+        if (inventoryPanel.activeSelf)
+        {
+            //インベントリの行数を選択（縦・横）
+            if (Input.GetKeyDown(KeyCode.W))
+                inventory.lineHeight--;
+            else if (Input.GetKeyDown(KeyCode.S))
+                inventory.lineHeight++;
+            else if (Input.GetKeyDown(KeyCode.A))
+                inventory.lineWidth--;
+            else if (Input.GetKeyDown(KeyCode.D))
+                inventory.lineWidth++;
+
+            //超過しないよう制御
+            if (inventory.lineHeight >= inventory.lineMaxHeight)
+                inventory.lineHeight = 0;
+            if (inventory.lineHeight < 0)
+                inventory.lineHeight = inventory.lineMaxHeight;
+            if (inventory.lineWidth >= inventory.lineMaxWidth)
+                inventory.lineWidth = 0;
+            if (inventory.lineWidth < 0)
+                inventory.lineWidth = inventory.lineMaxWidth;
+
+            //行数に基づいて選択中のアイテムを設定
+            // 横 ＋ ( 縦 × 横の最大値 ) = インベントリの番号
+            inventory.isSelectItem = (inventory.lineWidth + (inventory.lineHeight * inventory.lineMaxWidth));
+
+
+        }
     }
 }
 

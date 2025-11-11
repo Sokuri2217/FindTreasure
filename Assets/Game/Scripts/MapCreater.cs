@@ -62,27 +62,35 @@ public class MapCreater : MonoBehaviour
         {
             int index = Random.Range(0, candidates.Count);
             TileManager selected = candidates[index];
-            selected.SetHasTreasure(true); // タカラモノをセット
-            selected.treasureObj = treasurePrefab; //オブジェクトを格納
+
+            // タカラモノをセット
+            selected.SetHasTreasure(true);
+
+            //オブジェクトを格納
+            selected.treasureObj = treasurePrefab;
             selected.deep = 1;
-            candidates.RemoveAt(index); // 重複しないように候補から削除
+
+            // 重複しないように候補から削除
+            candidates.RemoveAt(index);
         }
         //ホリダシモノを設定
         for (int j = 0; j < itemCount; j++) 
         {
             int index = Random.Range(0, candidates.Count);
             TileManager selected = candidates[index];
-            selected.SetHasItem(true);  // ホリダシモノをセット
-            selected.itemObj = itemPrefab; //オブジェクトを格納
-            for (int k = 0; k < itemBases.Count; k++)
-            {
-                ItemObject itemData = itemPrefab.GetComponent<ItemObject>();
-                ItemBase item = itemData.itemBase;
-                int itemIndex = Random.Range(0, itemBases.Count);
-                item = itemBases[itemIndex];
-            }
-            // 重複しないように候補から削除
-            candidates.RemoveAt(index); 
+            selected.SetHasItem(true);
+
+            // アイテムを新しく生成
+            GameObject newItem = Instantiate(itemPrefab);
+
+            // ランダムなアイテムデータを設定
+            int itemIndex = Random.Range(0, itemBases.Count);
+            ItemObject itemData = newItem.GetComponent<ItemObject>();
+            itemData.itemBase = itemBases[itemIndex];
+
+            // TileManager に保持
+            selected.itemObj = newItem;
+            selected.deep = 1;
         }
     }
 

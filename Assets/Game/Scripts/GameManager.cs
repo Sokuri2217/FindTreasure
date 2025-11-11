@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
         //ステージ設定
         {
             //マップ上におけるタカラモノとホリダシモノの上限設定
-            CreateStageLimit(setTreasure, basicSetTreasure);
-            CreateStageLimit(setItem, basicSetItem);
+            setTreasure = CreateStageLimit(setTreasure, basicSetTreasure);
+            setItem = CreateStageLimit(setItem, basicSetItem);
         }
     }
 
@@ -56,11 +56,13 @@ public class GameManager : MonoBehaviour
     }
 
     //マップ生成における上限設定
-    public void CreateStageLimit(int set, int basicSet)
+    public int CreateStageLimit(int set, int basicSet)
     {
         //マップサイズに応じた上限を超えないようにする
         //タカラモノ
-        if (set > (basicSet + setStage))
+        if ((basicSet + setStage) <= set) 
             set = (basicSet + setStage);
+
+        return set;
     }
 }

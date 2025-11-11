@@ -9,7 +9,7 @@ public enum ItemEffectType
     AddDigPower,
     AddDigArea,
     AddDigLimit,
-    RecoverDigCount
+    AddUseItemCount,
 }
 
 /// <summary>
@@ -39,12 +39,10 @@ public class ItemManager : ItemBase
     /// </summary>
     public override void OnGet(PlayerController player)
     {
-        switch (effectType)
-        {
-            case ItemEffectType.RecoverDigCount:
-                player.digCurrent = Mathf.Min(player.digCurrent + value1, player.digLimit);
-                break;
-        }
+        //switch (effectType)
+        //{
+            
+        //}
     }
 
     /// <summary>
@@ -66,6 +64,9 @@ public class ItemManager : ItemBase
             case ItemEffectType.AddDigLimit:
                 player.digLimit += value1;
                 break;
+            case ItemEffectType.AddUseItemCount:
+                //
+                break;
         }
     }
 
@@ -79,14 +80,15 @@ public class ItemManager : ItemBase
             case ItemEffectType.AddDigPower:
                 player.digPower -= value1;
                 break;
-
             case ItemEffectType.AddDigArea:
                 player.dig_width -= value1 * 2;
                 player.dig_height -= value2 * 2;
                 break;
-
             case ItemEffectType.AddDigLimit:
                 player.digLimit -= value1;
+                break;
+            case ItemEffectType.AddUseItemCount:
+                //
                 break;
         }
     }

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
-  m_Name: AddDigPower1
+  m_Name: AddUseItemCount
   m_EditorClassIdentifier: 
-  itemName: 5
+  itemName: 
   description:
   - 
-  - "\u3057\u3093\u3069\u3066\u3044\u304B(+1)"
   - 
-  icon: {fileID: -316971858, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
-  effectType: 1
+  - 
+  icon: {fileID: 0}
+  effectType: 4
   value1: 1
   value2: 0
   duration: 0
