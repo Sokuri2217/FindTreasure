@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: 5
   description:
   - 
-  - "\u3057\u3093\u3069\u3066\u3044\u304B(+1)"
+  - "\u3055\u3044\u304F\u3064\u304D\u3087\u3046\u304B+1"
   - 
   icon: {fileID: -316971858, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
   effectType: 1

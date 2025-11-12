@@ -11,9 +11,6 @@ public class TitleUI : UIManager
     public bool fadeIn;
     public bool fadeOut;
 
-    [Header("ÉVÅ[Éìñº")]
-    public string sceneName;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {

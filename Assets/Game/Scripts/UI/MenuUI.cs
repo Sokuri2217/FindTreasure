@@ -20,7 +20,7 @@ public class MenuUI : UIManager
     public int setNum;        //İ’è€–Ú‚Ì¯•Ê”Ô†
 
     [Header("ƒV[ƒ“ˆÚ“®")]
-    public string[] sceneName;
+    public string[] stageName;
     public bool changeScene;
 
     [Header("•`‰æŒn")]

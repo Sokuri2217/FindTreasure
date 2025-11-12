@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -342,11 +342,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945718bc43937aa49ae1d5207c80ffd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSceneMove: 0
+  fadePanel: {fileID: 0}
+  sceneFadeLimit: 1
+  sceneFadeTimer: 0
+  sceneName: Menu
+  bgm: {fileID: 8300000, guid: 8b77b42bc3f369f408431b55e03494ad, type: 3}
+  gameManager: {fileID: 0}
   pressAnyKey: {fileID: 5350204853772943508}
   fadeLimit: 2
   fadeTimer: 0
   fadeIn: 0
   fadeOut: 0
-  sceneName: Menu
-  bgm: {fileID: 8300000, guid: 8b77b42bc3f369f408431b55e03494ad, type: 3}
-  gameManager: {fileID: 0}
