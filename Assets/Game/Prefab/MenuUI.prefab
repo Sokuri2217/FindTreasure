@@ -494,6 +494,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181f7cd84b5cc364cb9930fde6ebf28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSceneMove: 0
+  fadeState: 0
+  fadePanel: {fileID: 3266383592577002546, guid: 8d1ead97eac76e44ca576c20c28a10b9, type: 3}
+  fadeImage: {fileID: 0}
+  sceneFadeLimit: 1
+  sceneFadeTimer: 0
+  sceneName: 
+  bgm: {fileID: 8300000, guid: d84bdbb3ce521db4f90f7e0260b3230d, type: 3}
+  gameManager: {fileID: 0}
   setting: 000000
   settingNum: 0
   settingImage:
@@ -509,18 +518,13 @@ MonoBehaviour:
   mapMaxNum: 3
   isSetStage: 000000
   setNum: 0
-  sceneName:
-  - Stage1
-  - Stage1
-  - Stage1
+  stageName: []
   changeScene: 0
   enterToStart: {fileID: 5990749771206061807}
   fadeLimit: 2
   fadeTimer: 0
   fadeIn: 0
   fadeOut: 0
-  bgm: {fileID: 8300000, guid: d84bdbb3ce521db4f90f7e0260b3230d, type: 3}
-  gameManager: {fileID: 0}
 --- !u!1 &4166400171593505124
 GameObject:
   m_ObjectHideFlags: 0

@@ -258,8 +258,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3075583072865433335}
-  - {fileID: 37359311335225099}
   - {fileID: 1142875940889382739}
+  - {fileID: 37359311335225099}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -343,9 +343,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSceneMove: 0
-  fadePanel: {fileID: 0}
-  sceneFadeLimit: 1
-  sceneFadeTimer: 0
+  fadeState: 0
+  fadePanel: {fileID: 3266383592577002546, guid: 8d1ead97eac76e44ca576c20c28a10b9, type: 3}
+  fadeImage: {fileID: 0}
+  sceneFadeTime: 2
   sceneName: Menu
   bgm: {fileID: 8300000, guid: 8b77b42bc3f369f408431b55e03494ad, type: 3}
   gameManager: {fileID: 0}

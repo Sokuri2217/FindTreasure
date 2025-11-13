@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class MenuUI : UIManager
 {
@@ -68,17 +69,15 @@ public class MenuUI : UIManager
     {
         base.Update();
         //Enterでゲーム開始
-        if (Input.GetKeyDown(KeyCode.Return) && !changeScene) 
+        if (Input.GetKeyDown(KeyCode.Return)) 
         {
-            SceneManager.LoadScene(sceneName[mapNum]);
-            changeScene = true;
+            fadeState = (int)FadeState.END;
+            StartCoroutine(SceneMove());
+            SceneManager.LoadScene(sceneName);
         }
 
         //UIの点滅
         FadeInOut();
-
-        //シーン移動が始まると他の入力は出来ない
-        if (changeScene) return;
 
         //選択中の設定画面
         SelectSettingMode();
@@ -147,6 +146,8 @@ public class MenuUI : UIManager
             if (mapNum >= mapMaxNum) 
                 mapNum = 0;
         }
+
+        sceneName = stageName[mapNum];
     }
 
     //選択項目を変更

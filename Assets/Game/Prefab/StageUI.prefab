@@ -118,6 +118,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27955386d4366ad45adff192b313d2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSceneMove: 0
+  fadeState: 0
+  fadePanel: {fileID: 3266383592577002546, guid: 8d1ead97eac76e44ca576c20c28a10b9, type: 3}
+  fadeImage: {fileID: 0}
+  sceneFadeTime: 2
+  sceneName: Menu
+  bgm: {fileID: 0}
+  gameManager: {fileID: 0}
   isPhase: 0000
   phaseColor:
   - {r: 0.6792453, g: 0.36398828, b: 0, a: 1}
@@ -145,6 +153,8 @@ MonoBehaviour:
   - {fileID: 7509469847773217520}
   - {fileID: 7810519311702130976}
   - {fileID: 7243068211438920823}
+  originSlotScale: []
+  zoomNum: 1.2
   icon: {fileID: 1507643647864161233}
   itemName: {fileID: 4279229745881318740}
   get: {fileID: 8452284072712455921}

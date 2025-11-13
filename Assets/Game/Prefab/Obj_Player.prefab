@@ -283,6 +283,11 @@ MonoBehaviour:
   digLimit: 5
   digCurrent: 0
   getItem: 0
+  isMoving: 0
+  isActiveItems: []
+  gameManager: {fileID: 0}
+  stageUI: {fileID: 0}
+  inventory: {fileID: 0}
   hitItem: {fileID: 0}
 --- !u!114 &8268773201293922205
 MonoBehaviour:
@@ -297,7 +302,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+  isSelectItem: 0
+  lineHeight: 0
+  lineWidth: 0
   getMaxItem: 10
+  lineMaxHeight: 2
+  lineMaxWidth: 5
   player: {fileID: 0}
 --- !u!136 &6373011168084637786
 CapsuleCollider:

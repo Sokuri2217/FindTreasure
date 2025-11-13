@@ -58,6 +58,8 @@ public class TitleUI : UIManager
         //何かしらボタンを押すと、シーンを移動
         if (Input.anyKeyDown)
         {
+            fadeState = (int)FadeState.END;
+            StartCoroutine(SceneMove());
             SceneManager.LoadScene(sceneName);
         }
     }

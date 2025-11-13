@@ -1,37 +1,53 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+
+public enum  FadeState
+{
+    START,
+    END,
+}
+
 
 public class UIManager : MonoBehaviour
 {
     [Header("フェード処理")]
     public bool isSceneMove;
-    public Image fadePanel;
-    public float sceneFadeLimit;
-    public float sceneFadeTimer;
+    public int fadeState;
+    public GameObject fadePanel;
+    public Image fadeImage;
+    public float sceneFadeTime;
 
     [Header("シーン移動")]
     public string sceneName;
 
+    [Header("スクリプト参照")]
+    public GameManager gameManager;
+
     [Header("BGM")]
     public AudioClip bgm;
 
-    [Header("スクリプト参照")]
-    public GameManager gameManager;
+    [Header("SE")]
+    public List<AudioClip> se = new List<AudioClip>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
         //スクリプト取得
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         //BGM
-        gameManager.PlayBGM(bgm);
+        //gameManager.PlayBGM(bgm);
 
         //初回フェード
-        do
-        {
-            SceneMove("fadeOut");
-        }while (isSceneMove);
+        //パネル生成
+        GameObject createFade = Instantiate(fadePanel, transform);
+        fadeImage = createFade.GetComponent<Image>();
+        fadeState = (int)FadeState.START;
+        //フェード処理
+        StartCoroutine(SceneMove());
+        isSceneMove = false;
     }
 
     // Update is called once per frame
@@ -40,40 +56,30 @@ public class UIManager : MonoBehaviour
         if (isSceneMove) return;
     }
 
-    public void SceneMove(string fade)
+    protected IEnumerator SceneMove()
     {
         //シーン移動フラグをtrueにする
         isSceneMove = true;
+        float sceneFadeTimer = 0.0f;
         //徐々に色を変えていく
-        Color color = fadePanel.color;
-        color.a = (sceneFadeTimer / sceneFadeLimit);
-        //与えられた文字列でフェードを切り替える
-        switch (fade)
+        Color color = fadeImage.color;
+        while (sceneFadeTimer < sceneFadeTime)
         {
-            case "fadeIn":
-                if (color.a < 1.0f)
-                {
-                    sceneFadeTimer += Time.deltaTime;
-                }
-                else
-                {
-                    color.a = 1.0f;
-                    SceneManager.LoadScene(sceneName);
-
-                }
-                break;
-            case "fadeOut":
-                if (color.a > 0.0f)
-                {
-                    sceneFadeTimer -= Time.deltaTime;
-                }
-                else
-                {
-                    color.a = 0.0f;
-                    isSceneMove = false;
-                }
-                break;
+            //与えられた文字列でフェードを切り替える
+            switch (fadeState)
+            {
+                case (int)FadeState.START:
+                    color.a = Mathf.Lerp(1.0f, 0.0f, sceneFadeTimer / sceneFadeTime);
+                    break;
+                case (int)FadeState.END:
+                    color.a = Mathf.Lerp(0.0f, 1.0f, sceneFadeTimer / sceneFadeTime);
+                    break;
+            }
+            fadeImage.color = color;
+            sceneFadeTimer += Time.deltaTime;
+            yield return null;
         }
-        fadePanel.color = color;
+        
+        fadeImage.color = color;
     }
 }

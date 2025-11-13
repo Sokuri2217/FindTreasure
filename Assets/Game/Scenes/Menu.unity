@@ -468,6 +468,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: sceneFadeTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: stageName.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: 'stageName.Array.data[0]'
+      value: Stage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: 'stageName.Array.data[1]'
+      value: Stage1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: 'stageName.Array.data[2]'
+      value: Stage1
+      objectReference: {fileID: 0}
     - target: {fileID: 4236556785684035605, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
       propertyPath: m_Pivot.x
       value: 0

@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageUI : UIManager
@@ -20,6 +20,8 @@ public class StageUI : UIManager
     public GameObject itemDataPanel;  //アイテムの詳細
     public GameObject inventoryPanel; //所持アイテム一覧
     public Image[] slotImage;         //アイテムスロット
+    public Vector3[] originSlotScale;  //通常サイズ
+    public float zoomNum;        //拡大率
 
     [Header("アイテム情報")]
     public Image icon;    //アイテム画像
@@ -44,6 +46,9 @@ public class StageUI : UIManager
         itemDataPanel.SetActive(false);
         inventoryPanel.SetActive(false);
         currentTurn++;
+        originSlotScale = new Vector3[slotImage.Length];
+        for(int i = 0; i < originSlotScale.Length; i++)
+            originSlotScale[i] = slotImage[i].transform.localScale;
     }
 
     // Update is called once per frame
@@ -79,6 +84,8 @@ public class StageUI : UIManager
         CheckHitItem();
         //所持アイテムを確認
         CheckInventory();
+        //シーン移動
+        BackMenu();
     }
 
     //フェーズごとに色やUIを変える
@@ -196,8 +203,15 @@ public class StageUI : UIManager
             //インベントリを表示
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                inventoryPanel.SetActive(true);
+                if (!inventoryPanel.activeSelf)
+                    inventoryPanel.SetActive(true);
+                else
+                    inventoryPanel.SetActive(false);
             }
+        }
+        else if (isPhase[(int)Phase.ITEM]) 
+        {
+            inventoryPanel.SetActive(true);
         }
 
         //確認するアイテムを選択
@@ -227,7 +241,35 @@ public class StageUI : UIManager
             // 横 ＋ ( 縦 × 横の最大値 ) = インベントリの番号
             inventory.isSelectItem = (inventory.lineWidth + (inventory.lineHeight * inventory.lineMaxWidth));
 
+            for (int i = 0; i < slotImage.Length; i++)
+            {
+                if (inventory.isSelectItem == i)
+                {
+                    Transform imageScale = slotImage[i].transform;
+                    imageScale.localScale = new Vector3(
+                        (originSlotScale[i].x * zoomNum),
+                        (originSlotScale[i].y * zoomNum),
+                        (originSlotScale[i].z * zoomNum)
+                        );
+                    slotImage[i].transform.localScale = imageScale.localScale;
+                }
+                else
+                {
+                    slotImage[i].transform.localScale = originSlotScale[i];
+                }
+            }
 
+        }
+    }
+
+    //メニューに戻る
+    public void BackMenu()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            fadeState = (int)FadeState.END;
+            StartCoroutine(SceneMove());
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
