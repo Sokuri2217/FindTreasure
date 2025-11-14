@@ -17,7 +17,7 @@ public class MapCreater : MonoBehaviour
     void Start()
     {
         //スクリプト取得
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         //マップ生成
         PlacePlayerOnStart();    // プレイヤーをスタート位置に配置
         GenerateGrid();          // グリッドマップを生成

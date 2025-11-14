@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //スクリプト取得
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         stageUI = GameObject.Find("StageUI").GetComponent<StageUI>();
         inventory = GetComponent<Inventory>();
 

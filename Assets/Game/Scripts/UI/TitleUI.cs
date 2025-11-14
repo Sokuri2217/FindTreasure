@@ -16,9 +16,6 @@ public class TitleUI : UIManager
     {
         base.Start();
 
-        //スクリプト取得
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
         //初回設定
         //フェードアウトからスタート
         fadeIn = false;

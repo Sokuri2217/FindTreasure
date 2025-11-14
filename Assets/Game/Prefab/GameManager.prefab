@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3486459211164472280}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,6 +58,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1de677b60e624b948b497ed66ebc4d88, type: 2}
   - {fileID: 11400000, guid: 42d74eb22847e2445a870b0bd46de81c, type: 2}
   - {fileID: 11400000, guid: 0bd9ae8e0430a1b468f66341cfb0883c, type: 2}
+  - {fileID: 11400000, guid: 2d5b4b53109de1547b0c5527a7e76761, type: 2}
   bgm: {fileID: 3486459211164472280}
 --- !u!82 &3486459211164472280
 AudioSource:
@@ -71,8 +72,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0

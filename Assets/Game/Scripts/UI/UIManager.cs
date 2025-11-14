@@ -35,10 +35,10 @@ public class UIManager : MonoBehaviour
     public virtual void Start()
     {
         //スクリプト取得
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         //BGM
-        //gameManager.PlayBGM(bgm);
+        gameManager.PlayBGM(bgm);
 
         //初回フェード
         //パネル生成
