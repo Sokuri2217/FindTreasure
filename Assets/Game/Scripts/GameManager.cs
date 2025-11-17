@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [Header("アイテム情報")]
     public List<ItemBase> items = new List<ItemBase>();
 
+    [Header("固有アイテム")]
+    public List<ItemBase> uniqueItems = new List<ItemBase>();
+
     [Header("BGM")]
     public AudioSource bgm;
 

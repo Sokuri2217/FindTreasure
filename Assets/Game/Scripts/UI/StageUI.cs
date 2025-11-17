@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageUI : UIManager
@@ -20,8 +19,8 @@ public class StageUI : UIManager
     public GameObject itemDataPanel;  //アイテムの詳細
     public GameObject inventoryPanel; //所持アイテム一覧
     public Image[] slotImage;         //アイテムスロット
-    public Vector3[] originSlotScale;  //通常サイズ
-    public float zoomNum;        //拡大率
+    public Vector3[] originSlotScale; //通常サイズ
+    public float zoomNum;             //拡大率
 
     [Header("アイテム情報")]
     public Image icon;    //アイテム画像
@@ -29,6 +28,9 @@ public class StageUI : UIManager
     public Text get;      //獲得時効果
     public Text hold;     //常在効果
     public Text active;   //任意効果
+
+    [Header("フラグ")]
+    public bool isPause;
 
     [Header("プレイヤー参照")]
     private GameObject playerObj; 
@@ -64,6 +66,11 @@ public class StageUI : UIManager
         if (inventory == null)
             inventory = playerObj.GetComponent<Inventory>();
 
+        //シーン移動
+        OpenPauseMenu();
+
+        if (isPause) return;
+
         //フェーズ表示
         ChangePhaseImage();
         //採掘フェーズの強制終了
@@ -84,8 +91,6 @@ public class StageUI : UIManager
         CheckHitItem();
         //所持アイテムを確認
         CheckInventory();
-        //シーン移動
-        BackMenu();
     }
 
     //フェーズごとに色やUIを変える
@@ -228,22 +233,30 @@ public class StageUI : UIManager
                 inventory.lineWidth++;
 
             //超過しないよう制御
+            if (inventory.lineWidth >= inventory.lineMaxWidth)
+            {
+                inventory.lineWidth = 0;
+                inventory.lineHeight++;
+            }
+            if (inventory.lineWidth < 0)
+            {
+                inventory.lineWidth = inventory.lineMaxWidth;
+                inventory.lineHeight--;
+            }
             if (inventory.lineHeight >= inventory.lineMaxHeight)
                 inventory.lineHeight = 0;
             if (inventory.lineHeight < 0)
                 inventory.lineHeight = inventory.lineMaxHeight;
-            if (inventory.lineWidth >= inventory.lineMaxWidth)
-                inventory.lineWidth = 0;
-            if (inventory.lineWidth < 0)
-                inventory.lineWidth = inventory.lineMaxWidth;
 
             //行数に基づいて選択中のアイテムを設定
             // 横 ＋ ( 縦 × 横の最大値 ) = インベントリの番号
             inventory.isSelectItem = (inventory.lineWidth + (inventory.lineHeight * inventory.lineMaxWidth));
 
+
+
             for (int i = 0; i < slotImage.Length; i++)
             {
-                if (inventory.isSelectItem == i)
+                if ((inventory.isSelectItem == i) && inventory.items[i] != null) 
                 {
                     Transform imageScale = slotImage[i].transform;
                     imageScale.localScale = new Vector3(
@@ -252,24 +265,53 @@ public class StageUI : UIManager
                         (originSlotScale[i].z * zoomNum)
                         );
                     slotImage[i].transform.localScale = imageScale.localScale;
+
+                    //詳細パネルを非表示
+                    itemDataPanel.SetActive(true);
+                    //アイテムの情報を取得しUIに反映
+                    icon.sprite = inventory.items[i].icon;
+                    itemName.text = inventory.items[i].itemName;
+                    get.text = inventory.items[i].description[(int)Item.GET];
+                    hold.text = inventory.items[i].description[(int)Item.HOLD];
+                    active.text = inventory.items[i].description[(int)Item.ACTIVE];
                 }
                 else
                 {
                     slotImage[i].transform.localScale = originSlotScale[i];
+                    //詳細パネルを非表示
+                    itemDataPanel.SetActive(false);
+                    //アイテム情報を空にする
+                    icon.sprite = null;
+                    itemName.text = null;
+                    get.text = null;
+                    hold.text = null;
+                    active.text = null;
                 }
+                //インベントリに所持アイテムのアイコンを表示
+                slotImage[i].sprite = inventory.items[i].icon;
             }
 
         }
     }
 
-    //メニューに戻る
-    public void BackMenu()
+    //ポーズ画面
+    public void OpenPauseMenu()
     {
+        //
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            fadeState = (int)FadeState.END;
-            StartCoroutine(SceneMove());
-            SceneManager.LoadScene(sceneName);
+            switch (isPause)
+            {
+                case true:
+                    isPause = false;
+                    break;
+                case false:
+                    isPause = true;
+                    break;
+            }
+            //fadeState = (int)FadeState.END;
+            //StartCoroutine(SceneMove());
+            //SceneManager.LoadScene(sceneName);
         }
     }
 }

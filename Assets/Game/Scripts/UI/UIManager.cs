@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
 
     [Header("スクリプト参照")]
     public GameManager gameManager;
+    public BGMManager bgmManager;
+    public SEManager seManager;
 
     [Header("BGM")]
     public AudioClip bgm;

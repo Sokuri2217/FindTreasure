@@ -10,6 +10,7 @@ public enum ItemEffectType
     AddDigArea,
     AddDigLimit,
     AddUseItemCount,
+
 }
 
 /// <summary>

@@ -48,6 +48,8 @@ public class MenuUI : UIManager
     enum SE
     {
         SELECTSET,
+        SCENEMOVE,
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3483591546143191761, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
+      propertyPath: zoomNum
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4991378895000083570, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
       propertyPath: m_Color.b
       value: 0
