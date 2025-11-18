@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     public int setItem;          //ホリダシモノの数
     public int basicSetTreasure; //タカラモノの基準値
     public int basicSetItem;     //ホリダシモノの基準値
+    public int[] clearTurnLimit; //クリア条件(何ターン以内)
+
+    [Header("ステージ設定")]
+    public int mapNum;     //マップ番号
+    public int mapMaxNum;  //マップ番号の最大値
 
     [Header("アイテム情報")]
     public List<ItemBase> items = new List<ItemBase>();

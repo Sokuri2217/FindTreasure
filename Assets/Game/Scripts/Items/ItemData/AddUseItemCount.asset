@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
   m_Name: AddUseItemCount
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: 6
   description:
   - 
   - "\u300EItem\u300F\u3057\u3088\u3046\u304B\u306E\u3046\u30A2\u30A4\u30C6\u30E0+1"
   - 
-  icon: {fileID: 0}
+  icon: {fileID: 1769906845, guid: 35cbddb49522e224eaaeaeed808c32ba, type: 3}
   effectType: 4
   value1: 1
   value2: 0

@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
     {
         //スクリプト取得
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        //bgmManager= GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        //seManager= GameObject.Find("SEManager").GetComponent<SEManager>();
 
         //BGM
         gameManager.PlayBGM(bgm);

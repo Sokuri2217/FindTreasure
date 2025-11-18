@@ -12,10 +12,6 @@ public class MenuUI : UIManager
     public Vector3[] originScale;  //通常サイズ
     public float zoomNum;        //拡大率
 
-    [Header("ステージ設定")]
-    public int mapNum;     //マップ番号
-    public int mapMaxNum;  //マップ番号の最大値
-
     [Header("設定中フラグ(マップ・ホリダシモノ・タカラモノ)")]
     public bool[] isSetStage; //
     public int setNum;        //設定項目の識別番号
@@ -143,18 +139,18 @@ public class MenuUI : UIManager
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            mapNum--;
-            if (mapNum < 0) 
-                mapNum = (mapMaxNum - 1);
+            gameManager.mapNum--;
+            if (gameManager.mapNum < 0)
+                gameManager.mapNum = (gameManager.mapMaxNum - 1);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            mapNum++;
-            if (mapNum >= mapMaxNum) 
-                mapNum = 0;
+            gameManager.mapNum++;
+            if (gameManager.mapNum >= gameManager.mapMaxNum)
+                gameManager.mapNum = 0;
         }
 
-        sceneName = stageName[mapNum];
+        sceneName = stageName[gameManager.mapNum];
     }
 
     //選択項目を変更
