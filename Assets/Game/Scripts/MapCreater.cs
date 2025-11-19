@@ -8,6 +8,7 @@ public class MapCreater : MonoBehaviour
     public GameObject playerPrefab;   // プレイヤーオブジェクト
     public GameObject treasurePrefab; //タカラモノオブジェクト
     public GameObject itemPrefab;     //ホリダシモノオブジェクト
+    public Terrain ground;            //地面(Terrain)
 
     //タイル情報
     private List<TileManager> allTiles = new List<TileManager>();
@@ -22,6 +23,7 @@ public class MapCreater : MonoBehaviour
         PlacePlayerOnStart();    // プレイヤーをスタート位置に配置
         GenerateGrid();          // グリッドマップを生成
         PlaceItemsRandomly();    // タイルにアイテムをランダムに埋め込む
+        ChangeGroundPoint();     //地面オブジェクトを移動させる
     }
 
     void GenerateGrid()
@@ -98,5 +100,17 @@ public class MapCreater : MonoBehaviour
     {
         Vector3 startPos = new Vector3(Mathf.Round(gameManager.setStage * 10 / 2), 1.25f, Mathf.Round(gameManager.setStage * 10 / 2));
         GameObject playerObj = Instantiate(playerPrefab, startPos, Quaternion.identity);
+    }
+
+    //地面の位置を調整
+    public void ChangeGroundPoint()
+    {
+        //地面オブジェクトを取得
+        ground = GameObject.FindWithTag("Ground").GetComponent<Terrain>();
+        Transform groundPos = ground.transform;
+        Vector3 groundSize = ground.terrainData.size;
+        //グリッドマップの広さに応じて調整
+        groundPos.position -= new Vector3(groundSize.x / 2, 0.0f, groundSize.z / 2);
+        groundPos.position += new Vector3((gameManager.setStage * 10 / 2), 0.0f, (gameManager.setStage * 10 / 2));
     }
 }

@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 1460208594}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -503,10 +503,6 @@ PrefabInstance:
     - target: {fileID: 208148744933667337, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
       propertyPath: m_Name
       value: StageUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3483591546143191761, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: ground
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
