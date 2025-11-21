@@ -19,23 +19,27 @@ public class StageUI : UIManager
     [Header("表示パネル")]
     public GameObject itemDataPanel;  //アイテムの詳細
     public GameObject inventoryPanel; //所持アイテム一覧
+    public GameObject clearPanel;     //ゲームクリア画面
+    public GameObject overPanel;      //ゲームオーバー画面
+
+    [Header("アイテム情報")]
+    public Image icon;      //アイテム画像
+    public Text itemName;   //名前
+    public Text get;        //獲得時効果
+    public Text hold;       //常在効果
+    public Text active;     //任意効果
+    public Sprite nullSlot; //空きスロット画像
+
+    [Header("インベントリ情報")]
     public Image[] slotImage;         //アイテムスロット
     public Vector3[] originSlotScale; //通常サイズ
     public float zoomNum;             //拡大率
-    public GameObject clearPanel; //ゲームクリア画面
-    public GameObject overPanel;  //ゲームオーバー画面
-
-    [Header("アイテム情報")]
-    public Image icon;    //アイテム画像
-    public Text itemName; //名前
-    public Text get;      //獲得時効果
-    public Text hold;     //常在効果
-    public Text active;   //任意効果
 
     [Header("フラグ")]
     public bool isPause;
     public bool gameClear;
     public bool gameOver;
+    public bool isFocusItem;
 
 
     [Header("ステージ関係")]
@@ -61,7 +65,7 @@ public class StageUI : UIManager
             originSlotScale[i] = slotImage[i].transform.localScale;
         //パネル
         itemDataPanel.SetActive(false);
-        //inventoryPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
         clearPanel.SetActive(false);
         overPanel.SetActive(false);
 
@@ -164,7 +168,7 @@ public class StageUI : UIManager
         timer = 0.0f;
         isPhase[(int)Phase.ITEM] = false;
         isPhase[(int)Phase.DIG] = true;
-        //inventoryPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
     }
 
@@ -173,7 +177,7 @@ public class StageUI : UIManager
         timer = 0.0f;
         isPhase[(int)Phase.DIG] = false;
         isPhase[(int)Phase.ITEM] = true;
-        //inventoryPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
         //ターンを経過させる
         currentTurn++;
@@ -201,20 +205,22 @@ public class StageUI : UIManager
     //取得可能なアイテムの詳細を確認
     public void CheckHitItem()
     {
-        if (player.hitItem != null && !player.isMoving) 
+        if (inventoryPanel.activeSelf) return;
+
+        if (player.hitItem != null && !player.isMoving)
         {
             ItemBase itemBase = player.hitItem.itemBase;
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (!itemDataPanel.activeSelf)
+                if (!isFocusItem) 
                 {
-                    itemDataPanel.SetActive(true);
+                    isFocusItem = true;
                 }
                 else
                 {
-                    itemDataPanel.SetActive(false);
+                    isFocusItem = false;
                 }
-
+                itemDataPanel.SetActive(isFocusItem);
             }
             //アイテムの情報を取得しUIに反映
             icon.sprite = itemBase.icon;
@@ -244,10 +250,18 @@ public class StageUI : UIManager
             //インベントリを表示
             if (Input.GetKeyDown(KeyCode.Tab))
             {
+                isFocusItem = false;
                 if (!inventoryPanel.activeSelf)
+                {
                     inventoryPanel.SetActive(true);
+                    itemDataPanel.SetActive(true);
+                }
                 else
+                {
                     inventoryPanel.SetActive(false);
+                    itemDataPanel.SetActive(false);
+                }
+                    
             }
         }
         else if (isPhase[(int)Phase.ITEM])
@@ -258,6 +272,9 @@ public class StageUI : UIManager
         //確認するアイテムを選択
         if (inventoryPanel.activeSelf)
         {
+            //詳細パネルを表示
+            itemDataPanel.SetActive(true);
+
             //インベントリの行数を選択（縦・横）
             if (Input.GetKeyDown(KeyCode.W))
                 inventory.lineHeight--;
@@ -276,24 +293,35 @@ public class StageUI : UIManager
             }
             if (inventory.lineWidth < 0)
             {
-                inventory.lineWidth = inventory.lineMaxWidth;
+                inventory.lineWidth = (inventory.lineMaxWidth - 1);
                 inventory.lineHeight--;
             }
             if (inventory.lineHeight >= inventory.lineMaxHeight)
                 inventory.lineHeight = 0;
             if (inventory.lineHeight < 0)
-                inventory.lineHeight = inventory.lineMaxHeight;
+                inventory.lineHeight = (inventory.lineMaxHeight - 1);
 
             //行数に基づいて選択中のアイテムを設定
             // 横 ＋ ( 縦 × 横の最大値 ) = インベントリの番号
             inventory.isSelectItem = (inventory.lineWidth + (inventory.lineHeight * inventory.lineMaxWidth));
-
-
-
+            
+            //選択中のアイテムアイコンを拡大表示
             for (int i = 0; i < slotImage.Length; i++)
             {
-                if ((inventory.isSelectItem == i) && inventory.items[i] != null)
+                if (inventory.items[i] != null)
                 {
+                    //各スロットにアイコンを表示
+                    slotImage[i].sprite = inventory.items[i].icon;
+                }
+                else
+                {
+                    //各スロットに空白アイコンを表示
+                    slotImage[i].sprite = nullSlot;
+                }
+                //現在選択中のアイテムに関する情報を表示
+                if ((inventory.isSelectItem == i))
+                {
+                    //拡大させる
                     Transform imageScale = slotImage[i].transform;
                     imageScale.localScale = new Vector3(
                         (originSlotScale[i].x * zoomNum),
@@ -302,31 +330,34 @@ public class StageUI : UIManager
                         );
                     slotImage[i].transform.localScale = imageScale.localScale;
 
-                    //詳細パネルを非表示
-                    itemDataPanel.SetActive(true);
-                    //アイテムの情報を取得しUIに反映
-                    icon.sprite = inventory.items[i].icon;
-                    itemName.text = inventory.items[i].itemName;
-                    get.text = inventory.items[i].description[(int)Item.GET];
-                    hold.text = inventory.items[i].description[(int)Item.HOLD];
-                    active.text = inventory.items[i].description[(int)Item.ACTIVE];
+                    if (inventory.items[i] != null)
+                    {
+                        //アイテムの情報を取得しUIに反映
+                        icon.sprite = inventory.items[i].icon;
+                        itemName.text = inventory.items[i].itemName;
+                        get.text = inventory.items[i].description[(int)Item.GET];
+                        hold.text = inventory.items[i].description[(int)Item.HOLD];
+                        active.text = inventory.items[i].description[(int)Item.ACTIVE];
+                    }
+                    else
+                    {
+                        //選択スロットにアイテムが格納されていないとき
+                        icon.sprite = nullSlot;
+                        itemName.text = "---";
+                        get.text = "---";
+                        hold.text = "---";
+                        active.text = "---";
+                    }
+                    
                 }
+                //非選択中のアイテムに関する処理
                 else
                 {
+                    //拡大率を普通に戻す
                     slotImage[i].transform.localScale = originSlotScale[i];
-                    //詳細パネルを非表示
-                    itemDataPanel.SetActive(false);
-                    //アイテム情報を空にする
-                    icon.sprite = null;
-                    itemName.text = null;
-                    get.text = null;
-                    hold.text = null;
-                    active.text = null;
-                }
-                //インベントリに所持アイテムのアイコンを表示
-                slotImage[i].sprite = inventory.items[i].icon;
-            }
 
+                }
+            }
         }
     }
 

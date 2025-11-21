@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8cb61108212f33545885a50ddd3e9126
+guid: 07a9c1277949f424ab91b9a85168828b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,57 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Image_Item_Inventory_0
+      name: Image_Control_2_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 442
-        width: 1078
-        height: 638
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5669fd40edea8fe48a98f50b938c9161
-      internalID: -856354266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_Item_Inventory_1
-      rect:
-        serializedVersion: 2
-        x: 113
-        y: 66
-        width: 325
-        height: 327
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f6877dcc101eb214c811d57c360bc49c
-      internalID: 849065949
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_Item_Inventory_2
-      rect:
-        serializedVersion: 2
-        x: 504
-        y: 211
-        width: 195
-        height: 31
+        x: 18
+        y: 636
+        width: 350
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,8 +112,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02227f1b826184e46b273c0c0a3d50be
-      internalID: 1794131302
+      spriteID: ec3d08503b5bea248b4b59641d0f0caf
+      internalID: -877894476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Control_2_1
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 879
+        width: 320
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98db4f5f5515774c8b3bf9698430bc4
+      internalID: 1456148310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Control_2_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 976
+        width: 378
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8c1f7317e9b2624098411665836ab2c
+      internalID: -227690522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Control_2_3
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 975
+        width: 242
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1008b45983828b4f87cfed4801d7cce
+      internalID: -1182108395
       vertices: []
       indices: 
       edges: []
@@ -166,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d956f803ebdaa634c85fe0beab45411a
+    spriteID: b6b9106a2ff9a8648af17e93d26e7220
     internalID: 0
     vertices: []
     indices: 
@@ -176,9 +198,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Image_Item_Inventory_0: -856354266
-      Image_Item_Inventory_1: 849065949
-      Image_Item_Inventory_2: 1794131302
+      Image_Control_2_0: -877894476
+      Image_Control_2_1: 1456148310
+      Image_Control_2_2: -227690522
+      Image_Control_2_3: -1182108395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

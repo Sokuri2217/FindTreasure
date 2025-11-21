@@ -22,22 +22,40 @@ public class Inventory : MonoBehaviour
     public void Start()
     {
         player = GetComponent<PlayerController>();
+        SetInventory(getMaxItem);
+    }
+
+    //インベントリの初期化
+    public void SetInventory(int slotNum)
+    {
+        //最大所持数に応じて、インベントリの容量を決まる
+        for (int i = 0; i < slotNum; i++) 
+        {
+            items.Add(null);
+        }
     }
 
     // アイテムを追加
     public bool AddItem(ItemBase item)
     {
-        //上限に達していた場合
-        if (items.Count >= getMaxItem)
+        for (int i = 0; i < getMaxItem; i++) 
         {
-            return false;
+            //インベントリが全て埋まっているとき
+            if (items[(getMaxItem - 1)] != null)
+            {
+                Debug.Log($"これ以上アイテムを取得できません");
+                return false;
+            }
+            //インベントリに空白があるとき
+            if (items[i] == null)
+            {
+                items[i] = item;
+                item.OnGet(player);    // 即時効果を発動
+                item.OnHold(player);   // 所持時効果を適用
+                Debug.Log($"{item.name} を追加しました");
+                break;
+            }
         }
-
-        items.Add(item);
-        item.OnGet(player);    // 即時効果を発動
-        item.OnHold(player);   // 所持時効果を適用
-        Debug.Log($"{item.name} を追加しました");
-
         return true;
     }
 
@@ -48,6 +66,7 @@ public class Inventory : MonoBehaviour
         {
             item.OnDelete(player); // 効果解除
             items.Remove(item);
+            items.Add(null);
             Debug.Log($"{item.name} を削除しました");
         }
     }

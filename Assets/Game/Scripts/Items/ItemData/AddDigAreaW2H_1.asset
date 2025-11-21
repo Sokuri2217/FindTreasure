@@ -14,11 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 2
   description:
-  - eeeeeeeeeeeeeeeeee
-  - wwwwwwwwwwwwwwww
-  - qqqqqqqqqqqqqqqqq
+  - 
+  - "\u306F\u3093\u3044\u304D\u3087\u3046\u304B\n\u2192\u3088\u3053(+2)\u30FB\u305F\u3066(-1)"
+  - 
   icon: {fileID: -993759289, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
-  effectType: 2
+  effectType: 3
   value1: 2
   value2: -1
+  value3: 0
+  value4: 0
   duration: 0
+  coolTime: 0

@@ -5,12 +5,19 @@ using UnityEngine;
 /// </summary>
 public enum ItemEffectType
 {
+    /// <summary>
+    /// 命名規則
+    /// Add + 変更点 + VX(変数のvalue1など) + Y(変更値→プラスなら"P"、マイナスなら"M"をつける)
+    /// ターン制限があるものはTX(何ターンか) + CX(クールタイム)
+    /// </summary>
     None,
-    AddDigPower,
-    AddDigArea,
-    AddDigLimit,
-    AddUseItemCount,
-
+    AddDigPowerV1P1,
+    AddDigWidthAreaV1P1HeightAreaV2P1,
+    AddDigWidthAreaV1P2HeightAreaV2M1,
+    AddDigWidthAreaV1M1HeightAreaV2P2,
+    AddDigLimitV1P1T3C2,
+    AddUseItemV1P1,
+    AddSpeedV1P5AddDigTimeV2M10
 }
 
 /// <summary>
@@ -20,16 +27,21 @@ public enum ItemEffectType
 public class ItemManager : ItemBase
 {
     [Header("効果設定")]
-    public ItemEffectType effectType = ItemEffectType.None;
+    public ItemEffectType effectType;
 
-    [Tooltip("数値パラメータ1（例：追加値、幅、強化量など）")]
-    public int value1 = 0;
-
-    [Tooltip("数値パラメータ2（例：高さ、縮小値など）")]
-    public int value2 = 0;
+    [Tooltip("数値パラメータ1")]
+    public float value1;
+    [Tooltip("数値パラメータ2")]
+    public float value2;
+    [Tooltip("数値パラメータ3")]
+    public float value3;
+    [Tooltip("数値パラメータ4")]
+    public float value4;
 
     [Tooltip("持続ターン数（0なら常在効果）")]
-    public int duration = 0;
+    public int duration;
+    [Tooltip("クールタイム")]
+    public int coolTime;
 
     // ==============================
     // 効果適用処理
@@ -53,19 +65,22 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            case ItemEffectType.AddDigPower:
-                player.digPower += value1;
+            case ItemEffectType.AddDigPowerV1P1:
+                player.digPower += (int)value1;
                 break;
-
-            case ItemEffectType.AddDigArea:
-                player.dig_width += value1 * 2;
-                player.dig_height += value2 * 2;
+            case ItemEffectType.AddDigWidthAreaV1P1HeightAreaV2P1:
+                player.dig_width += (int)value1 * 2;
+                player.dig_height += (int)value2 * 2;
                 break;
-
-            case ItemEffectType.AddDigLimit:
-                player.digLimit += value1;
+            case ItemEffectType.AddDigWidthAreaV1P2HeightAreaV2M1:
+                player.dig_width += (int)value1 * 2;
+                player.dig_height += (int)value2 * 2;
                 break;
-            case ItemEffectType.AddUseItemCount:
+            case ItemEffectType.AddDigWidthAreaV1M1HeightAreaV2P2:
+                player.dig_width += (int)value1 * 2;
+                player.dig_height += (int)value2 * 2;
+                break;
+            case ItemEffectType.AddUseItemV1P1:
                 //
                 break;
         }
@@ -78,17 +93,22 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            case ItemEffectType.AddDigPower:
-                player.digPower -= value1;
+            case ItemEffectType.AddDigPowerV1P1:
+                player.digPower -= (int)value1;
                 break;
-            case ItemEffectType.AddDigArea:
-                player.dig_width -= value1 * 2;
-                player.dig_height -= value2 * 2;
+            case ItemEffectType.AddDigWidthAreaV1P1HeightAreaV2P1:
+                player.dig_width -= (int)value1 * 2;
+                player.dig_height -= (int)value2 * 2;
                 break;
-            case ItemEffectType.AddDigLimit:
-                player.digLimit -= value1;
+            case ItemEffectType.AddDigWidthAreaV1P2HeightAreaV2M1:
+                player.dig_width -= (int)value1 * 2;
+                player.dig_height -= (int)value2 * 2;
                 break;
-            case ItemEffectType.AddUseItemCount:
+            case ItemEffectType.AddDigWidthAreaV1M1HeightAreaV2P2:
+                player.dig_width -= (int)value1 * 2;
+                player.dig_height -= (int)value2 * 2;
+                break;
+            case ItemEffectType.AddUseItemV1P1:
                 //
                 break;
         }

@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
     }
     private void GridMove()
     {
+        if (stageUI.inventoryPanel.activeSelf) return;
+
         if (!isMoving && stageUI.isPhase[(int)Phase.DIG])
         {
             float horizontal = 0.0f;

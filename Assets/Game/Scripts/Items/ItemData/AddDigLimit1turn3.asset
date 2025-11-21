@@ -16,9 +16,13 @@ MonoBehaviour:
   description:
   - 
   - 
-  - "\u3055\u3044\u304F\u3064\u3058\u3087\u3046\u3052\u3093+1(3\u30BF\u30FC\u30F3)"
+  - "\u30EB\u30FC\u30EB\u3078\u3093\u3053\u3046\n\u2192\u3055\u3044\u304F\u3064\u304B\u3044\u3059\u3046(+1)
+    / 3\u30BF\u30FC\u30F3"
   icon: {fileID: -221857388, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
-  effectType: 3
+  effectType: 5
   value1: 1
   value2: 0
+  value3: 0
+  value4: 0
   duration: 3
+  coolTime: 2
