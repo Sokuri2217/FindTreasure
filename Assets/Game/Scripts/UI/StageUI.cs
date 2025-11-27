@@ -21,6 +21,7 @@ public class StageUI : UIManager
     public GameObject inventoryPanel; //所持アイテム一覧
     public GameObject clearPanel;     //ゲームクリア画面
     public GameObject overPanel;      //ゲームオーバー画面
+    public GameObject[] inputPanel;   //入力案内
 
     [Header("アイテム情報")]
     public Image icon;      //アイテム画像
@@ -68,6 +69,8 @@ public class StageUI : UIManager
         inventoryPanel.SetActive(false);
         clearPanel.SetActive(false);
         overPanel.SetActive(false);
+        inputPanel[(int)Phase.ITEM].SetActive(true);
+        inputPanel[(int)Phase.DIG].SetActive(false);
 
         //ターンをUIに反映
         turnText.text = currentTurn.ToString();
@@ -170,6 +173,8 @@ public class StageUI : UIManager
         isPhase[(int)Phase.DIG] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
+        inputPanel[(int)Phase.ITEM].SetActive(true);
+        inputPanel[(int)Phase.DIG].SetActive(false);
     }
 
     public void EndDig()
@@ -179,6 +184,8 @@ public class StageUI : UIManager
         isPhase[(int)Phase.ITEM] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
+        inputPanel[(int)Phase.ITEM].SetActive(false);
+        inputPanel[(int)Phase.DIG].SetActive(true);
         //ターンを経過させる
         currentTurn++;
         //ターンをUIに反映
