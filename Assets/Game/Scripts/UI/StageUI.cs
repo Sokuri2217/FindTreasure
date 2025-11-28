@@ -150,6 +150,7 @@ public class StageUI : UIManager
     //フェーズ変更までの時間計測
     public void PhaseTimer(int currentPhase)
     {
+        if (inventoryPanel.activeSelf && isPhase[(int)Phase.DIG]) return;
         timer += Time.deltaTime;
         if (timer >= phaseLimit[currentPhase])
         {
@@ -173,8 +174,8 @@ public class StageUI : UIManager
         isPhase[(int)Phase.DIG] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
-        inputPanel[(int)Phase.ITEM].SetActive(true);
-        inputPanel[(int)Phase.DIG].SetActive(false);
+        inputPanel[(int)Phase.ITEM].SetActive(false);
+        inputPanel[(int)Phase.DIG].SetActive(true);
     }
 
     public void EndDig()
@@ -184,8 +185,8 @@ public class StageUI : UIManager
         isPhase[(int)Phase.ITEM] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
-        inputPanel[(int)Phase.ITEM].SetActive(false);
-        inputPanel[(int)Phase.DIG].SetActive(true);
+        inputPanel[(int)Phase.ITEM].SetActive(true);
+        inputPanel[(int)Phase.DIG].SetActive(false);
         //ターンを経過させる
         currentTurn++;
         //ターンをUIに反映
