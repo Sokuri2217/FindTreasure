@@ -561,26 +561,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
-      propertyPath: mapMaxNum
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
-      propertyPath: clearTurnLimit.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
-      propertyPath: 'clearTurnLimit.Array.data[0]'
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
-      propertyPath: 'clearTurnLimit.Array.data[1]'
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
-      propertyPath: 'clearTurnLimit.Array.data[2]'
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3606117402114989330, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
       propertyPath: m_Name
       value: GameManager

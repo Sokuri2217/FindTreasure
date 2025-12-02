@@ -5,19 +5,12 @@ using UnityEngine;
 /// </summary>
 public enum ItemEffectType
 {
-    /// <summary>
-    /// 命名規則
-    /// Add + 変更点 + VX(変数のvalue1など) + Y(変更値→プラスなら"P"、マイナスなら"M"をつける)
-    /// ターン制限があるものはTX(何ターンか) + CX(クールタイム)
-    /// </summary>
     None,
-    AddDigPowerV1P1,
-    AddDigWidthAreaV1P1HeightAreaV2P1,
-    AddDigWidthAreaV1P2HeightAreaV2M1,
-    AddDigWidthAreaV1M1HeightAreaV2P2,
-    AddDigLimitV1P1T3C2,
-    AddUseItemV1P1,
-    AddSpeedV1P5AddDigTimeV2M10
+    AddPower1,
+    AddDigArea,
+    AddLimit1Turn3Cool2,
+    AddUse1,
+    AddSpeed5SubTime10
 }
 
 /// <summary>
@@ -65,23 +58,21 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            case ItemEffectType.AddDigPowerV1P1:
+            case ItemEffectType.AddPower1:
                 player.digPower += (int)value1;
                 break;
-            case ItemEffectType.AddDigWidthAreaV1P1HeightAreaV2P1:
+            case ItemEffectType.AddDigArea:
                 player.dig_width += (int)value1 * 2;
                 player.dig_height += (int)value2 * 2;
                 break;
-            case ItemEffectType.AddDigWidthAreaV1P2HeightAreaV2M1:
-                player.dig_width += (int)value1 * 2;
-                player.dig_height += (int)value2 * 2;
+            case ItemEffectType.AddUse1:
+                player.useItem += (int)value1;
                 break;
-            case ItemEffectType.AddDigWidthAreaV1M1HeightAreaV2P2:
-                player.dig_width += (int)value1 * 2;
-                player.dig_height += (int)value2 * 2;
+            case ItemEffectType.AddSpeed5SubTime10:
+                player.moveSpeed += (int)value1;
+                player.stageUI.phaseLimit[(int)Phase.DIG] -= value2;
                 break;
-            case ItemEffectType.AddUseItemV1P1:
-                //
+            default:
                 break;
         }
     }
@@ -89,27 +80,25 @@ public class ItemManager : ItemBase
     /// <summary>
     /// 常在効果の解除（削除時）
     /// </summary>
-    public override void OnDelete(PlayerController player)
+    public override void OnHoldDelete(PlayerController player)
     {
         switch (effectType)
         {
-            case ItemEffectType.AddDigPowerV1P1:
+            case ItemEffectType.AddPower1:
                 player.digPower -= (int)value1;
                 break;
-            case ItemEffectType.AddDigWidthAreaV1P1HeightAreaV2P1:
+            case ItemEffectType.AddDigArea:
                 player.dig_width -= (int)value1 * 2;
                 player.dig_height -= (int)value2 * 2;
                 break;
-            case ItemEffectType.AddDigWidthAreaV1P2HeightAreaV2M1:
-                player.dig_width -= (int)value1 * 2;
-                player.dig_height -= (int)value2 * 2;
+            case ItemEffectType.AddUse1:
+                player.useItem -= (int)value1;
                 break;
-            case ItemEffectType.AddDigWidthAreaV1M1HeightAreaV2P2:
-                player.dig_width -= (int)value1 * 2;
-                player.dig_height -= (int)value2 * 2;
+            case ItemEffectType.AddSpeed5SubTime10:
+                player.moveSpeed -= (int)value1;
+                player.stageUI.phaseLimit[(int)Phase.DIG] += value2;
                 break;
-            case ItemEffectType.AddUseItemV1P1:
-                //
+            default:
                 break;
         }
     }
@@ -119,10 +108,15 @@ public class ItemManager : ItemBase
     /// </summary>
     public override void OnUse(PlayerController player)
     {
+        switch (effectType)
+        {
+            default:
+                break;
+        }
+
         if (duration > 0)
         {
             player.isActiveItems.Add(this);
-            OnHold(player); // 使用と同時に効果発動
         }
     }
 
@@ -136,9 +130,21 @@ public class ItemManager : ItemBase
             // 持続ターンが過ぎたら効果解除
             if (stageUI.currentTurn >= duration)
             {
-                OnDelete(player);
+                OnActiveDelete(player);
                 player.isActiveItems.Remove(this);
             }
+        }
+    }
+
+    /// <summary>
+    /// 常在効果の解除（削除時）
+    /// </summary>
+    public override void OnActiveDelete(PlayerController player)
+    {
+        switch (effectType)
+        {
+            default:
+                break;
         }
     }
 }

@@ -64,7 +64,8 @@ public class Inventory : MonoBehaviour
     {
         if (items.Contains(item))
         {
-            item.OnDelete(player); // Œø‰Ê‰ğœ
+            item.OnHoldDelete(player); // Œø‰Ê‰ğœ
+            item.OnActiveDelete(player); // Œø‰Ê‰ğœ
             items.Remove(item);
             items.Add(null);
             Debug.Log($"{item.name} ‚ğíœ‚µ‚Ü‚µ‚½");

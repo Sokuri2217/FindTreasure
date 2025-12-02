@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageUI : UIManager
@@ -19,8 +20,10 @@ public class StageUI : UIManager
     [Header("表示パネル")]
     public GameObject itemDataPanel;  //アイテムの詳細
     public GameObject inventoryPanel; //所持アイテム一覧
+    public GameObject gamePanel;      //ゲーム画面
     public GameObject clearPanel;     //ゲームクリア画面
     public GameObject overPanel;      //ゲームオーバー画面
+    public GameObject resultPanel;      //リザルト画面の共通部分
     public GameObject[] inputPanel;   //入力案内
 
     [Header("アイテム情報")]
@@ -42,9 +45,18 @@ public class StageUI : UIManager
     public bool gameOver;
     public bool isFocusItem;
 
-
     [Header("ステージ関係")]
-    public int clearTurn;  //クリア条件
+    public int clearTurn;     //クリア条件
+    public int allTreasures;  //クリアに必要なタカラモノの数
+
+    [Header("リザルト画面")]
+    public int setMoveScene;
+    public Image[] setMode;
+    public Image selectImage;
+
+    [Header("シーン移動")]
+    public string menu;
+    public string currentScene;
 
     [Header("プレイヤー参照")]
     private GameObject playerObj; 
@@ -61,19 +73,25 @@ public class StageUI : UIManager
         isPhase[(int)Phase.ITEM] = true;
         currentTurn++;
         clearTurn = gameManager.clearTurnLimit[gameManager.mapNum];
+        allTreasures = gameManager.setTreasure;
         originSlotScale = new Vector3[slotImage.Length];
         for(int i = 0; i < originSlotScale.Length; i++)
             originSlotScale[i] = slotImage[i].transform.localScale;
         //パネル
         itemDataPanel.SetActive(false);
         inventoryPanel.SetActive(false);
+        gamePanel.SetActive(true);
         clearPanel.SetActive(false);
         overPanel.SetActive(false);
+        resultPanel.SetActive(false);
         inputPanel[(int)Phase.ITEM].SetActive(true);
         inputPanel[(int)Phase.DIG].SetActive(false);
 
         //ターンをUIに反映
         turnText.text = currentTurn.ToString();
+
+        //現在のシーン名を保存
+        currentScene = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
@@ -126,6 +144,8 @@ public class StageUI : UIManager
         CheckHitItem();
         //所持アイテムを確認
         CheckInventory();
+        //結果判定
+        GameResult();
     }
 
     //フェーズごとに色やUIを変える
@@ -356,7 +376,12 @@ public class StageUI : UIManager
                         hold.text = "---";
                         active.text = "---";
                     }
-                    
+
+
+                    if (Input.GetKeyDown(KeyCode.R) && inventory.items[i] != null) 
+                    {
+                        inventory.RemoveItem(inventory.items[i]);
+                    }
                 }
                 //非選択中のアイテムに関する処理
                 else
@@ -390,16 +415,88 @@ public class StageUI : UIManager
         }
     }
 
+    //結果の判定
+    public void GameResult()
+    {
+        if (currentTurn > clearTurn)
+        {
+            gameOver = true;
+        }
+        else if (player.getTreasure >= allTreasures) 
+        {
+            gameClear = true;
+        }
+    }
+
     public void GameClear()
     {
         gameClear = true;
+        gamePanel.SetActive(false);
         clearPanel.SetActive(gameClear);
+        resultPanel.SetActive(true);
+        SelectResultMenu();
     }
 
     public void GameOver()
     {
         gameOver = true;
+        gamePanel.SetActive(false);
         overPanel.SetActive(gameOver);
+        resultPanel.SetActive(true);
+        SelectResultMenu();
+    }
+
+    public void SelectResultMenu()
+    {
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            setMoveScene--;
+            if (setMoveScene < 0) 
+            {
+                setMoveScene = (setMode.Length - 1);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.S))
+        {
+            setMoveScene++;
+            if (setMoveScene >= setMode.Length) 
+            {
+                setMoveScene = 0;
+            }
+        }
+
+        for (int i = 0; i < setMode.Length; i++) 
+        {
+            if (i == setMoveScene)
+            {
+                Transform selectPos = selectImage.transform;
+                selectPos.position = new Vector3(
+                    selectPos.position.x, 
+                    setMode[i].transform.position.y, 
+                    selectPos.position.z
+                    );
+                selectImage.transform.position = selectPos.position;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            switch(setMoveScene)
+            {
+                case (int)Result.RETRY:
+                    ResultSceneMove(currentScene);
+                    break;
+                case (int)Result.BACKMENU:
+                    ResultSceneMove(menu);
+                    break;
+            }
+        }
+    }
+
+    public void ResultSceneMove(string sceneName)
+    {
+        StartCoroutine(SceneMove());
+        SceneManager.LoadScene(sceneName);
     }
 }
 
@@ -408,4 +505,9 @@ public enum Phase
     ITEM,
     DIG,
 
+}
+public enum Result
+{
+    RETRY,
+    BACKMENU,
 }

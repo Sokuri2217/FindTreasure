@@ -14,14 +14,18 @@ public class PlayerController : MonoBehaviour
     public int digLimit;      //採掘回数の上限
     public int digCurrent;    //現在の採掘回数
     public bool getItem;      //アイテムを取得可能かどうか
+    public int useItem;       //使用可能アイテム数
 
     [Header("移動関係")]
     public bool isMoving;           //移動中かどうか
-    private Vector3 targetPosition;  //移動先の座標
-    private Vector3 moveDirection;   //移動ベクトル 
+    private Vector3 targetPosition; //移動先の座標
+    private Vector3 moveDirection;  //移動ベクトル 
 
     [Header("アクティブ効果発動中")]
     public List<ItemBase> isActiveItems = new List<ItemBase>();
+
+    [Header("獲得したタカラモノの数")]
+    public int getTreasure;
 
     [Header("スクリプト参照")]
     public GameManager gameManager; //ゲームの基本情報

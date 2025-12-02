@@ -52,6 +52,9 @@ MonoBehaviour:
   setItem: 1
   basicSetTreasure: 5
   basicSetItem: 20
+  clearTurnLimit: 140000000f0000000a000000
+  mapNum: 0
+  mapMaxNum: 5
   items:
   - {fileID: 11400000, guid: 3c1b0ad4703cc1b44a8629aa6de4d504, type: 2}
   - {fileID: 11400000, guid: c8cad0cd473715c4385e78657966d49c, type: 2}
@@ -59,6 +62,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42d74eb22847e2445a870b0bd46de81c, type: 2}
   - {fileID: 11400000, guid: 0bd9ae8e0430a1b468f66341cfb0883c, type: 2}
   - {fileID: 11400000, guid: 2d5b4b53109de1547b0c5527a7e76761, type: 2}
+  - {fileID: 11400000, guid: 8c017bdbf86aa3843b9452f62fae1e4e, type: 2}
+  uniqueItems: []
   bgm: {fileID: 3486459211164472280}
 --- !u!82 &3486459211164472280
 AudioSource:
