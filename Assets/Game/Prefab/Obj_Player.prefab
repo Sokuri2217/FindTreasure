@@ -283,8 +283,12 @@ MonoBehaviour:
   digLimit: 5
   digCurrent: 0
   getItem: 0
+  getTreasure: 0
+  useItem: 0
   isMoving: 0
   isActiveItems: []
+  isGetTreasure: 0
+  treasure: {fileID: 0}
   gameManager: {fileID: 0}
   stageUI: {fileID: 0}
   inventory: {fileID: 0}
@@ -301,7 +305,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac3d334075806448da4c7cfda84ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   isSelectItem: 0
   lineHeight: 0
   lineWidth: 0

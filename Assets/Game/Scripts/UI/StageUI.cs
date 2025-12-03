@@ -422,7 +422,7 @@ public class StageUI : UIManager
         {
             gameOver = true;
         }
-        else if (player.getTreasure >= allTreasures) 
+        else if (player.isGetTreasure >= allTreasures) 
         {
             gameClear = true;
         }

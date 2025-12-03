@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public int digLimit;      //採掘回数の上限
     public int digCurrent;    //現在の採掘回数
     public bool getItem;      //アイテムを取得可能かどうか
+    public bool getTreasure;      //タカラモノを取得可能かどうか
     public int useItem;       //使用可能アイテム数
 
     [Header("移動関係")]
@@ -24,8 +25,9 @@ public class PlayerController : MonoBehaviour
     [Header("アクティブ効果発動中")]
     public List<ItemBase> isActiveItems = new List<ItemBase>();
 
-    [Header("獲得したタカラモノの数")]
-    public int getTreasure;
+    [Header("タカラモノ")]
+    public int isGetTreasure;
+    public GameObject treasure;
 
     [Header("スクリプト参照")]
     public GameManager gameManager; //ゲームの基本情報
@@ -49,16 +51,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (stageUI.gameClear || stageUI.gameOver) return;
+
         //グリッド移動
         GridMove();
         //採掘処理
         GridDig();
         //採掘範囲の増減制限
         DigAreaLimit();
-        //アイテム取得
-        GetItem();
         //プレイヤー回転
         RotationPlayer();
+
+        if (stageUI.isPhase[(int)Phase.DIG]) 
+        {
+            //アイテム取得
+            GetItem();
+            //タカラモノ取得
+            GetTreasure();
+        }
     }
     private void GridMove()
     {
@@ -177,6 +187,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //タカラモノ取得
+    public void GetTreasure()
+    {
+        if (Input.GetKeyDown(KeyCode.G) && getTreasure)
+        {
+            isGetTreasure++;
+            Destroy(treasure);
+            getTreasure = false;
+        }
+    }
+
     //プレイヤー回転(カメラは常に後方から)
     private void RotationPlayer()
     {
@@ -199,6 +220,11 @@ public class PlayerController : MonoBehaviour
             {
                 getItem = true;
                 hitItem = other.GetComponent<ItemObject>();
+            }
+            else if (other.gameObject.CompareTag("Treasure"))
+            {
+                treasure = other.gameObject;
+                getTreasure = true;
             }
         }
     }

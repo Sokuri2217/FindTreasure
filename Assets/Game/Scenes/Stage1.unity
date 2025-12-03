@@ -504,9 +504,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2108433911155091159, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3483591546143191761, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
       propertyPath: menu
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4496894999131264001, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719132239535835166, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086079135283523001, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
