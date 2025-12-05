@@ -42,7 +42,7 @@ public class MenuUI : UIManager
 
     enum SE
     {
-        SELECTSET,
+        SELECTMODE,
         SCENEMOVE,
 
     }
@@ -120,6 +120,8 @@ public class MenuUI : UIManager
             {
                 settingNum = (setting.Length - 1);
             }
+            //SEÇçƒê∂
+            PlaySE(se[(int)SE.SELECTMODE]);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
@@ -129,6 +131,8 @@ public class MenuUI : UIManager
             {
                 settingNum = 0;
             }
+            //SEÇçƒê∂
+            PlaySE(se[(int)SE.SELECTMODE]);
         }
         setting[settingNum] = true;
     }

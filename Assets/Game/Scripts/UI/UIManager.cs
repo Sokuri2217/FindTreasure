@@ -86,4 +86,9 @@ public class UIManager : MonoBehaviour
         
         fadeImage.color = color;
     }
+
+    public void PlaySE(AudioClip seClip)
+    {
+        seManager.source.PlayOneShot(seClip);
+    }
 }
