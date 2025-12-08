@@ -8,7 +8,7 @@ public class MenuUI : UIManager
     public bool[] setting;       //設定項目(マップ選択・ステージ設定・その他)
     public int settingNum;       //選択項目の識別番号
     public Image[] settingImage; //UI反映
-    public Vector3[] originScale;  //通常サイズ
+    public Vector3[] originScale;//通常サイズ
     public float zoomNum;        //拡大率
 
     [Header("設定中フラグ(マップ・ホリダシモノ・タカラモノ)")]
@@ -121,7 +121,7 @@ public class MenuUI : UIManager
                 settingNum = (setting.Length - 1);
             }
             //SEを再生
-            PlaySE(se[(int)SE.SELECTMODE]);
+            seManager.PlaySE(se[(int)SE.SELECTMODE]);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
@@ -132,7 +132,7 @@ public class MenuUI : UIManager
                 settingNum = 0;
             }
             //SEを再生
-            PlaySE(se[(int)SE.SELECTMODE]);
+            seManager.PlaySE(se[(int)SE.SELECTMODE]);
         }
         setting[settingNum] = true;
     }
@@ -269,10 +269,12 @@ public class MenuUI : UIManager
                     (originScale[i].z * zoomNum)
                     );
                 settingImage[i].transform.localScale = imageScale.localScale;
+                settingImage[i].color = Color.green;
             }
             else
             {
                 settingImage[i].transform.localScale = originScale[i];
+                settingImage[i].color = Color.white;
             }
         }
     }

@@ -21,14 +21,21 @@ public class SEManager : SoundManager
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    //SEÇçƒê∂
+    public void PlaySE(AudioClip clip)
+    {
+        source.clip = clip;
+        source.PlayOneShot(source.clip);
     }
 }

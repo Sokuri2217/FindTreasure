@@ -348,8 +348,11 @@ MonoBehaviour:
   fadeImage: {fileID: 0}
   sceneFadeTime: 2
   sceneName: Menu
-  bgm: {fileID: 8300000, guid: 8b77b42bc3f369f408431b55e03494ad, type: 3}
   gameManager: {fileID: 0}
+  bgmManager: {fileID: 0}
+  seManager: {fileID: 0}
+  bgm: {fileID: 8300000, guid: 8532266a9c03e43409da84f1fc40ac1f, type: 3}
+  se: []
   pressAnyKey: {fileID: 5350204853772943508}
   fadeLimit: 2
   fadeTimer: 0

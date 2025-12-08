@@ -468,6 +468,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: 'se.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3e410d009dcdeb34590acd872b28cb82, type: 3}
+    - target: {fileID: 3429137008326117171, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e39a58e1d436fb845be2042fef1eb196, type: 3}
     - target: {fileID: 4236556785684035605, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -547,6 +555,18 @@ PrefabInstance:
     - target: {fileID: 4236556785684035605, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912914521021727589, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912914521021727589, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912914521021727589, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

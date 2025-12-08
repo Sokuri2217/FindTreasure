@@ -22,9 +22,9 @@ public class BGMManager : SoundManager
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
@@ -32,4 +32,12 @@ public class BGMManager : SoundManager
     {
         
     }
+
+    //BGM‚ğÄ¶
+    public void PlayBGM(AudioClip clip)
+    {
+        source.clip = clip;
+        source.Play();
+    }
+
 }

@@ -38,11 +38,11 @@ public class UIManager : MonoBehaviour
     {
         //スクリプト取得
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        //bgmManager= GameObject.Find("BGMManager").GetComponent<BGMManager>();
-        //seManager= GameObject.Find("SEManager").GetComponent<SEManager>();
+        bgmManager= GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        seManager= GameObject.Find("SEManager").GetComponent<SEManager>();
 
         //BGM
-        gameManager.PlayBGM(bgm);
+        //bgmManager.PlayBGM(bgm);
 
         //初回フェード
         //パネル生成
@@ -85,10 +85,5 @@ public class UIManager : MonoBehaviour
         }
         
         fadeImage.color = color;
-    }
-
-    public void PlaySE(AudioClip seClip)
-    {
-        seManager.source.PlayOneShot(seClip);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -57,6 +58,14 @@ public class Inventory : MonoBehaviour
             }
         }
         return true;
+    }
+
+    //特殊アイテムを設定
+    public void SetUniqueItem(ItemBase uniqueItem)
+    {
+        items[0] = uniqueItem;
+        uniqueItem.OnGet(player);    // 即時効果を発動
+        uniqueItem.OnHold(player);   // 所持時効果を適用
     }
 
     // アイテムを削除

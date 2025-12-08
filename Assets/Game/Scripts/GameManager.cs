@@ -26,11 +26,11 @@ public class GameManager : MonoBehaviour
     [Header("固有アイテム")]
     public List<ItemBase> uniqueItems = new List<ItemBase>();
 
-    [Header("BGM")]
+    [Header("サウンド")]
     public AudioSource bgm;
+    public AudioSource se;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         //シングルトン
         {
@@ -45,6 +45,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        bgm = GameObject.Find("BGMManager").GetComponent<AudioSource>();
+        se = GameObject.Find("SEManager").GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -54,13 +61,6 @@ public class GameManager : MonoBehaviour
             setTreasure = CreateStageLimit(setTreasure, basicSetTreasure);
             setItem = CreateStageLimit(setItem, basicSetItem);
         }
-    }
-
-    //BGMを再生
-    public void PlayBGM(AudioClip clip)
-    {
-        bgm.clip = clip;
-        bgm.Play();
     }
 
     //マップ生成における上限設定

@@ -8,4 +8,10 @@ public class SoundManager : MonoBehaviour
     [Header("スクリプト参照")]
     public GameManager gameManager;
 
+
+    public virtual void Start()
+    {
+        source = GetComponent<AudioSource>();
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
 }

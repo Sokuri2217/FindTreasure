@@ -578,7 +578,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   bgmManager: {fileID: 0}
   seManager: {fileID: 0}
-  bgm: {fileID: 8300000, guid: d84bdbb3ce521db4f90f7e0260b3230d, type: 3}
+  bgm: {fileID: 8300000, guid: c71703b6b6a1fcd46ba505e68b153711, type: 3}
   se:
   - {fileID: 8300000, guid: 3e410d009dcdeb34590acd872b28cb82, type: 3}
   - {fileID: 8300000, guid: 6618802b436127a4292931f682f4ef20, type: 3}

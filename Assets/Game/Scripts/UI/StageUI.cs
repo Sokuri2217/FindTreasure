@@ -38,6 +38,7 @@ public class StageUI : UIManager
     public Image[] slotImage;         //アイテムスロット
     public Vector3[] originSlotScale; //通常サイズ
     public float zoomNum;             //拡大率
+    public GameObject removeImage;
 
     [Header("フラグ")]
     public bool isPause;
@@ -366,6 +367,9 @@ public class StageUI : UIManager
                         get.text = inventory.items[i].description[(int)Item.GET];
                         hold.text = inventory.items[i].description[(int)Item.HOLD];
                         active.text = inventory.items[i].description[(int)Item.ACTIVE];
+
+                        //削除アイコンを表示
+                        removeImage.SetActive(true);
                     }
                     else
                     {
@@ -375,6 +379,9 @@ public class StageUI : UIManager
                         get.text = "---";
                         hold.text = "---";
                         active.text = "---";
+
+                        //削除アイコンを非表示
+                        removeImage.SetActive(false);
                     }
 
 
