@@ -30,11 +30,11 @@ public class PlayerController : MonoBehaviour
     public GameObject treasure;
 
     [Header("スクリプト参照")]
-    public GameManager gameManager; //ゲームの基本情報
-    public StageUI stageUI;         //ステージ進行
-    public Inventory inventory;     //所持アイテム
-    public ItemObject hitItem;      //取得可能アイテム
-
+    public GameManager gameManager;       //ゲームの基本情報
+    public StageUI stageUI;               //ステージ進行
+    public Inventory inventory;           //所持アイテム
+    public ItemObject hitItem;            //取得可能アイテム
+    
     void Start()
     {
         //スクリプト取得

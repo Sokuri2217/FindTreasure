@@ -23,7 +23,8 @@ public class StageUI : UIManager
     public GameObject gamePanel;      //ゲーム画面
     public GameObject clearPanel;     //ゲームクリア画面
     public GameObject overPanel;      //ゲームオーバー画面
-    public GameObject resultPanel;      //リザルト画面の共通部分
+    public GameObject resultPanel;    //リザルト画面の共通部分
+    public GameObject pausePanel;     //一時停止
     public GameObject[] inputPanel;   //入力案内
 
     [Header("アイテム情報")]
@@ -49,6 +50,12 @@ public class StageUI : UIManager
     [Header("ステージ関係")]
     public int clearTurn;     //クリア条件
     public int allTreasures;  //クリアに必要なタカラモノの数
+
+    [Header("ポーズ画面")]
+    public bool[] isSelectOption;
+    public int isSelected;
+    public int maxSelectNum;
+    public GameObject[] pauseMenuPanel;
 
     [Header("リザルト画面")]
     public int setMoveScene;
@@ -87,6 +94,11 @@ public class StageUI : UIManager
         resultPanel.SetActive(false);
         inputPanel[(int)Phase.ITEM].SetActive(true);
         inputPanel[(int)Phase.DIG].SetActive(false);
+        pausePanel.SetActive(false);
+        for (int i = 0; i < pauseMenuPanel.Length; i++)
+        {
+            pauseMenuPanel[i].SetActive(false);
+        }
 
         //ターンをUIに反映
         turnText.text = currentTurn.ToString();
@@ -404,21 +416,70 @@ public class StageUI : UIManager
     //ポーズ画面
     public void OpenPauseMenu()
     {
-        //
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             switch (isPause)
             {
                 case true:
+                    for (int i = 0; i < pauseMenuPanel.Length; i++)
+                    {
+                        pauseMenuPanel[i].SetActive(false);
+                    }
                     isPause = false;
                     break;
                 case false:
                     isPause = true;
                     break;
             }
-            //fadeState = (int)FadeState.END;
-            //StartCoroutine(SceneMove());
-            //SceneManager.LoadScene(sceneName);
+            pausePanel.SetActive(isPause);
+
+            if(pausePanel.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    isSelected--;
+                    if (isSelected < 0)
+                    {
+                        isSelected = (isSelectOption.Length - 1);
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    isSelected++;
+                    if (isSelected >= maxSelectNum)
+                    {
+                        isSelected = 0;
+                    }
+                }
+
+                for (int i = 0; i < isSelectOption.Length; i++) 
+                {
+                    isSelectOption[i] = false;
+                    if (i == isSelected) 
+                    {
+                        isSelectOption[i] = true;
+                    }
+                }
+
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    switch(isSelected)
+                    {
+                        case (int)Pause.CONTROL:
+                            break;
+                        case (int)Pause.GIMMICK:
+                            break;
+                        case (int)Pause.EXIT:
+                            fadeState = (int)FadeState.END;
+                            StartCoroutine(SceneMove());
+                            sceneName = "Menu";
+                            SceneManager.LoadScene(sceneName);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }
     }
 
@@ -513,6 +574,14 @@ public enum Phase
     DIG,
 
 }
+
+public enum Pause
+{
+    CONTROL,
+    GIMMICK,
+    EXIT,
+}
+
 public enum Result
 {
     RETRY,

@@ -11,9 +11,18 @@ public class MenuUI : UIManager
     public Vector3[] originScale;//通常サイズ
     public float zoomNum;        //拡大率
 
+    [Header("ステージ選択")]
+    public Text stageNum;
+    public Text clearTurnNum;
+    public Text gimmick;
+
     [Header("設定中フラグ(マップ・ホリダシモノ・タカラモノ)")]
     public bool[] isSetStage; //
     public int setNum;        //設定項目の識別番号
+    public Text[] isSetText;  //
+    public Transform inputNaviImage;
+    public Transform[] setSlotPos;
+    public GameObject[] settingPanel;
 
     [Header("シーン移動")]
     public string[] stageName;
@@ -107,11 +116,17 @@ public class MenuUI : UIManager
 
         //選択項目のGUIを制御
         SetUISelectImage();
+        //
+        SetUIText();
     }
 
     //選択中の設定画面
     void SelectSettingMode()
     {
+        for (int i = 0; i < settingPanel.Length; i++) 
+        {
+            settingPanel[i].SetActive(false);
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             setting[settingNum] = false;
@@ -135,6 +150,7 @@ public class MenuUI : UIManager
             seManager.PlaySE(se[(int)SE.SELECTMODE]);
         }
         setting[settingNum] = true;
+        settingPanel[settingNum].SetActive(true);
     }
 
     //マップを変更
@@ -178,6 +194,7 @@ public class MenuUI : UIManager
             }
         }
         isSetStage[setNum] = true;
+        inputNaviImage.position = setSlotPos[setNum].position;
     }
 
 
@@ -269,13 +286,29 @@ public class MenuUI : UIManager
                     (originScale[i].z * zoomNum)
                     );
                 settingImage[i].transform.localScale = imageScale.localScale;
-                settingImage[i].color = Color.green;
+                settingImage[i].color = Color.white;
             }
             else
             {
                 settingImage[i].transform.localScale = originScale[i];
-                settingImage[i].color = Color.white;
+                Color32 color = new Color32(150, 150, 50, 255);
+                settingImage[i].color = color;
             }
         }
+    }
+
+    //
+    public void SetUIText()
+    {
+        for (int i = 0; i < isSetText.Length; i++) 
+        {
+            isSetText[(int)SetStage.STAGE].text = gameManager.setStage.ToString();
+            isSetText[(int)SetStage.TREASURE].text = gameManager.setTreasure.ToString();
+            isSetText[(int)SetStage.ITEM].text = gameManager.setItem.ToString();
+        }
+
+        stageNum.text = (gameManager.mapNum + 1).ToString();
+        clearTurnNum.text = gameManager.clearTurnLimit[gameManager.mapNum].ToString();
+        gimmick.text = gameManager.gimmickDescription[gameManager.mapNum].ToString();
     }
 }

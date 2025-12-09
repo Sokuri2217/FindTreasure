@@ -51,7 +51,23 @@ MonoBehaviour:
   setItem: 1
   basicSetTreasure: 5
   basicSetItem: 20
-  clearTurnLimit: 140000000f0000000a000000
+  clearTurnLimit: 140000000f0000000a0000000500000001000000
+  gimmickDescription:
+  - 'qqqqqqqqqqqqq
+
+    wwwwwwwwwwwwww'
+  - 'eeeeeeeeeee
+
+    rrrrrrrr'
+  - 'ttttttttttt
+
+    yyyyyyyyyyyyyyyyyyyyyyyy'
+  - 'uuuuuuuuuuuuuuuuuu
+
+    iiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
+  - 'oooooooooooooooooo
+
+    pppppppppppppppppppppppp'
   mapNum: 0
   mapMaxNum: 5
   items:
@@ -62,6 +78,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0bd9ae8e0430a1b468f66341cfb0883c, type: 2}
   - {fileID: 11400000, guid: 2d5b4b53109de1547b0c5527a7e76761, type: 2}
   - {fileID: 11400000, guid: 8c017bdbf86aa3843b9452f62fae1e4e, type: 2}
-  uniqueItems: []
+  uniqueItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   bgm: {fileID: 0}
   se: {fileID: 0}

@@ -105,7 +105,7 @@ TextureImporter:
         width: 326
         height: 327
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -114,6 +114,50 @@ TextureImporter:
       bones: []
       spriteID: b5b17084abca6c24aab9c86ede71da00
       internalID: -1348706398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Stage_1
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 301
+        width: 574
+        height: 773
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e24caba396fba50468a7591487e922db
+      internalID: -1526797495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Stage_2
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 326
+        width: 302
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 951740494cc4d9347a50f5648e7eaa6d
+      internalID: -1673758198
       vertices: []
       indices: 
       edges: []
@@ -133,6 +177,8 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Image_Stage_0: -1348706398
+      Image_Stage_1: -1526797495
+      Image_Stage_2: -1673758198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
