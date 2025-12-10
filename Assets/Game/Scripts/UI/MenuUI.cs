@@ -52,6 +52,8 @@ public class MenuUI : UIManager
     enum SE
     {
         SELECTMODE,
+        SELECTNUM,
+        SELECTSTAGESET,
         SCENEMOVE,
 
     }
@@ -84,7 +86,6 @@ public class MenuUI : UIManager
         {
             fadeState = (int)FadeState.END;
             StartCoroutine(SceneMove());
-            SceneManager.LoadScene(sceneName);
         }
 
         //UI‚Ì“_–Å
@@ -161,12 +162,16 @@ public class MenuUI : UIManager
             gameManager.mapNum--;
             if (gameManager.mapNum < 0)
                 gameManager.mapNum = (gameManager.mapMaxNum - 1);
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             gameManager.mapNum++;
             if (gameManager.mapNum >= gameManager.mapMaxNum)
                 gameManager.mapNum = 0;
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
 
         sceneName = stageName[gameManager.mapNum];
@@ -183,6 +188,8 @@ public class MenuUI : UIManager
             {
                 setNum = 0;
             }
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTSTAGESET]);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -192,6 +199,8 @@ public class MenuUI : UIManager
             {
                 setNum = (isSetStage.Length - 1);
             }
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTSTAGESET]);
         }
         isSetStage[setNum] = true;
         inputNaviImage.position = setSlotPos[setNum].position;
@@ -209,6 +218,8 @@ public class MenuUI : UIManager
             {
                 gameManager.setStage = gameManager.setMinStage;
             }
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -217,6 +228,8 @@ public class MenuUI : UIManager
             {
                 gameManager.setStage = gameManager.setMaxStage;
             }
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
     }
 
@@ -230,6 +243,8 @@ public class MenuUI : UIManager
             {
                 setObj = 1;
             }
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
@@ -238,6 +253,8 @@ public class MenuUI : UIManager
             {
                 setObj = setMaxObj;
             }
+            //SE‚ğÄ¶
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
 
         return setObj;

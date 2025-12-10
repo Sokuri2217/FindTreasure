@@ -57,7 +57,6 @@ public class TitleUI : UIManager
         {
             fadeState = (int)FadeState.END;
             StartCoroutine(SceneMove());
-            SceneManager.LoadScene(sceneName);
         }
     }
 }

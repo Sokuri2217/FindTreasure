@@ -358,6 +358,7 @@ MonoBehaviour:
   seManager: {fileID: 0}
   bgm: {fileID: 0}
   se: []
+  sceneMove: {fileID: 8300000, guid: f4e5bb00f0af72f48a04eee810f08127, type: 3}
   isPhase: 0000
   phaseColor:
   - {r: 0.6792453, g: 0.36398828, b: 0, a: 1}
@@ -411,7 +412,7 @@ MonoBehaviour:
   allTreasures: 0
   isSelectOption: 
   isSelected: 0
-  maxSelectNum: 0
+  maxSelectNum: 3
   pauseMenuPanel: []
   setMoveScene: 0
   setMode:

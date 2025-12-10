@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 213}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1034, y: 428}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2489819047994709981
 CanvasRenderer:
@@ -140,9 +140,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -736418665, guid: 55b56fc55ea2345438b9622e9de1fcf3, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -353,6 +353,7 @@ MonoBehaviour:
   seManager: {fileID: 0}
   bgm: {fileID: 8300000, guid: 8532266a9c03e43409da84f1fc40ac1f, type: 3}
   se: []
+  sceneMove: {fileID: 8300000, guid: f4e5bb00f0af72f48a04eee810f08127, type: 3}
   pressAnyKey: {fileID: 5350204853772943508}
   fadeLimit: 2
   fadeTimer: 0

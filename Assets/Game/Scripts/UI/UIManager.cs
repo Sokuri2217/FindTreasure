@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum  FadeState
 {
@@ -32,6 +33,7 @@ public class UIManager : MonoBehaviour
 
     [Header("SE")]
     public List<AudioClip> se = new List<AudioClip>();
+    public AudioClip sceneMove;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
@@ -40,9 +42,6 @@ public class UIManager : MonoBehaviour
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         bgmManager= GameObject.Find("BGMManager").GetComponent<BGMManager>();
         seManager= GameObject.Find("SEManager").GetComponent<SEManager>();
-
-        //BGM
-        //bgmManager.PlayBGM(bgm);
 
         //初回フェード
         //パネル生成
@@ -62,6 +61,12 @@ public class UIManager : MonoBehaviour
 
     protected IEnumerator SceneMove()
     {
+        if ((fadeState == (int)FadeState.END) && !isSceneMove) 
+        {
+            //SEを再生
+            seManager.PlaySE(sceneMove);
+        }
+
         //シーン移動フラグをtrueにする
         isSceneMove = true;
         float sceneFadeTimer = 0.0f;
@@ -83,7 +88,23 @@ public class UIManager : MonoBehaviour
             sceneFadeTimer += Time.deltaTime;
             yield return null;
         }
-        
+
+        if(isSceneMove)
+        {
+            if ((fadeState == (int)FadeState.END))
+            {
+                ActiveSceneMove(sceneName);
+            }
+            else if (fadeState == (int)FadeState.START)
+            {
+                bgmManager.PlayBGM(bgm);
+            }
+        }
         fadeImage.color = color;
+    }
+
+    public void ActiveSceneMove(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

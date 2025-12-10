@@ -470,10 +470,7 @@ public class StageUI : UIManager
                         case (int)Pause.GIMMICK:
                             break;
                         case (int)Pause.EXIT:
-                            fadeState = (int)FadeState.END;
-                            StartCoroutine(SceneMove());
-                            sceneName = "Menu";
-                            SceneManager.LoadScene(sceneName);
+                            ResultSceneMove(menu);
                             break;
                         default:
                             break;
@@ -561,10 +558,11 @@ public class StageUI : UIManager
         }
     }
 
-    public void ResultSceneMove(string sceneName)
+    public void ResultSceneMove(string moveSceneName)
     {
+        fadeState = (int)FadeState.END;
+        sceneName = moveSceneName;
         StartCoroutine(SceneMove());
-        SceneManager.LoadScene(sceneName);
     }
 }
 
