@@ -565,6 +565,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'uniqueItems.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e1ab5ab11d075864ea70fa897a4a1ffd, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'uniqueItems.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b448e460b37a9a14f8769bfe7f17383c, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'uniqueItems.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 644b769e4ea8bf64797f0beb73c322b9, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'uniqueItems.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 11f99ac0eee245e42b61af0884284aa7, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'uniqueItems.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: adbf8815ffc0bc041aaaaf06f6709334, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[0]'
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[1]'
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[2]'
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[3]'
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[4]'
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'gimmickDescription.Array.data[0]'
+      value: "\u306A\u3057"
+      objectReference: {fileID: 0}
     - target: {fileID: 3606117402114989330, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
       propertyPath: m_Name
       value: GameManager

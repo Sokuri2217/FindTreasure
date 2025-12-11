@@ -23,6 +23,11 @@ public class MenuUI : UIManager
     public Transform inputNaviImage;
     public Transform[] setSlotPos;
     public GameObject[] settingPanel;
+    public GameObject focusPanel;
+    public Image focusIcon;
+    public Sprite[] focusSprite;
+    public Text focusText;
+    [TextArea(2, 5)] public string[] explanation;
 
     [Header("シーン移動")]
     public string[] stageName;
@@ -47,6 +52,12 @@ public class MenuUI : UIManager
         STAGE,
         ITEM,
         TREASURE,
+    }
+
+    enum  ActiveObj
+    {
+        Open,
+        Close
     }
 
     enum SE
@@ -75,6 +86,9 @@ public class MenuUI : UIManager
         {
             originScale[i] = settingImage[i].transform.localScale;
         }
+
+        //パネル
+        focusPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -119,6 +133,8 @@ public class MenuUI : UIManager
         SetUISelectImage();
         //
         SetUIText();
+        //設定画面の各項目説明
+        SetStageExplanation();
     }
 
     //選択中の設定画面
@@ -204,8 +220,28 @@ public class MenuUI : UIManager
         }
         isSetStage[setNum] = true;
         inputNaviImage.position = setSlotPos[setNum].position;
+        focusText.text = explanation[setNum].ToString();
     }
 
+    //設定画面の各項目説明
+    void SetStageExplanation()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //閉じる
+            if(focusPanel.activeSelf)
+            {
+                focusPanel.SetActive(false);
+                focusIcon.sprite = focusSprite[(int)ActiveObj.Open];
+            }
+            //開く
+            else
+            {
+                focusPanel.SetActive(true);
+                focusIcon.sprite = focusSprite[(int)ActiveObj.Close];
+            }
+        }
+    }
 
     //ステージ設定
     void StageSetting()

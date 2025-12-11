@@ -18,11 +18,15 @@ public class Inventory : MonoBehaviour
 
     [Header("スクリプト参照")]
     public PlayerController player;
+    public GameManager gameManager;
 
     public void Start()
     {
+        //スクリプト取得
         player = GetComponent<PlayerController>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         SetInventory(getMaxItem);
+        SetUniqueItem(gameManager.uniqueItems[gameManager.mapNum]);
     }
 
     //インベントリの初期化

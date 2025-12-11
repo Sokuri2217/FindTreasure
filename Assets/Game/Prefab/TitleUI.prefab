@@ -346,7 +346,7 @@ MonoBehaviour:
   fadeState: 0
   fadePanel: {fileID: 3266383592577002546, guid: 8d1ead97eac76e44ca576c20c28a10b9, type: 3}
   fadeImage: {fileID: 0}
-  sceneFadeTime: 2
+  sceneFadeTime: 1
   sceneName: Menu
   gameManager: {fileID: 0}
   bgmManager: {fileID: 0}
