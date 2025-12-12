@@ -280,7 +280,7 @@ MonoBehaviour:
   dig_height: 3
   digPower: 1
   isDig: 0
-  digLimit: 0
+  digLimit: 5
   digCurrent: 0
   getItem: 0
   getTreasure: 0

@@ -110,6 +110,21 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
+            case ItemEffectType.AddLimit1Turn3Cool2:
+                player.digLimit += (int)value1;
+                player.digCurrent += (int)value2;
+                break;
+            case ItemEffectType.AddDigArea:
+                player.dig_width -= (int)value1 * 2;
+                player.dig_height -= (int)value2 * 2;
+                break;
+            case ItemEffectType.AddUse1:
+                player.useItem -= (int)value1;
+                break;
+            case ItemEffectType.AddSpeed5SubTime10:
+                player.moveSpeed -= (int)value1;
+                player.stageUI.phaseLimit[(int)Phase.DIG] += value2;
+                break;
             default:
                 break;
         }
@@ -128,7 +143,7 @@ public class ItemManager : ItemBase
         if (duration > 0 && player.isActiveItems.Contains(this))
         {
             // Ž‘±ƒ^[ƒ“‚ª‰ß‚¬‚½‚çŒø‰Ê‰ðœ
-            if (stageUI.currentTurn >= duration)
+            if ((stageUI.currentTurn - duration) >= duration) 
             {
                 OnActiveDelete(player);
                 player.isActiveItems.Remove(this);

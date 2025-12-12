@@ -25,6 +25,7 @@ public class StageUI : UIManager
     public GameObject overPanel;      //ゲームオーバー画面
     public GameObject resultPanel;    //リザルト画面の共通部分
     public GameObject pausePanel;     //一時停止
+    public GameObject notPausePanel;     //一時停止
     public GameObject[] inputPanel;   //入力案内
 
     [Header("アイテム情報")]
@@ -56,6 +57,8 @@ public class StageUI : UIManager
     public int isSelected;
     public int maxSelectNum;
     public GameObject[] pauseMenuPanel;
+    public Transform[] pauseMenu;
+    public Transform isSelectPin;
 
     [Header("リザルト画面")]
     public int setMoveScene;
@@ -127,11 +130,13 @@ public class StageUI : UIManager
         if (inventory == null)
             inventory = playerObj.GetComponent<Inventory>();
 
-        //シーン移動
+        //一時停止
         OpenPauseMenu();
+        //結果判定
+        GameResult();
 
         //プレイ結果
-        if(gameClear)
+        if (gameClear)
         {
             GameClear();
             return;
@@ -164,8 +169,6 @@ public class StageUI : UIManager
         CheckHitItem();
         //所持アイテムを確認
         CheckInventory();
-        //結果判定
-        GameResult();
     }
 
     //フェーズごとに色やUIを変える
@@ -411,7 +414,7 @@ public class StageUI : UIManager
                     {
                         if (inventory.items[i].description[(int)Item.ACTIVE] != null)
                         {
-
+                            inventory.items[i].OnUse(player);
                         }
                     }
 
@@ -439,6 +442,7 @@ public class StageUI : UIManager
             switch (isPause)
             {
                 case true:
+                    notPausePanel.SetActive(true);
                     for (int i = 0; i < pauseMenuPanel.Length; i++)
                     {
                         pauseMenuPanel[i].SetActive(false);
@@ -446,53 +450,59 @@ public class StageUI : UIManager
                     isPause = false;
                     break;
                 case false:
+                    notPausePanel.SetActive(false);
                     isPause = true;
                     break;
             }
             pausePanel.SetActive(isPause);
-
-            if(pausePanel.activeSelf)
+        }
+        if (pausePanel.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                if (Input.GetKeyDown(KeyCode.W))
+                isSelected--;
+                if (isSelected < 0)
                 {
-                    isSelected--;
-                    if (isSelected < 0)
-                    {
-                        isSelected = (isSelectOption.Length - 1);
-                    }
+                    isSelected = (isSelectOption.Length - 1);
                 }
-                else if (Input.GetKeyDown(KeyCode.S))
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                isSelected++;
+                if (isSelected >= isSelectOption.Length)
                 {
-                    isSelected++;
-                    if (isSelected >= maxSelectNum)
-                    {
-                        isSelected = 0;
-                    }
+                    isSelected = 0;
                 }
+            }
 
-                for (int i = 0; i < isSelectOption.Length; i++) 
+            for (int i = 0; i < isSelectOption.Length; i++)
+            {
+                isSelectOption[i] = false;
+                if (i == isSelected)
                 {
-                    isSelectOption[i] = false;
-                    if (i == isSelected) 
-                    {
-                        isSelectOption[i] = true;
-                    }
+                    isSelectOption[i] = true;
                 }
+            }
 
-                if(Input.GetKeyDown(KeyCode.Space))
+            isSelectPin.position = new Vector3(
+                isSelectPin.position.x,
+                pauseMenu[isSelected].transform.position.y,
+                isSelectPin.position.z
+                );
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                switch (isSelected)
                 {
-                    switch(isSelected)
-                    {
-                        case (int)Pause.CONTROL:
-                            break;
-                        case (int)Pause.GIMMICK:
-                            break;
-                        case (int)Pause.EXIT:
-                            ResultSceneMove(menu);
-                            break;
-                        default:
-                            break;
-                    }
+                    case (int)Pause.CONTROL:
+                        break;
+                    case (int)Pause.GIMMICK:
+                        break;
+                    case (int)Pause.EXIT:
+                        ResultSceneMove(menu);
+                        break;
+                    default:
+                        break;
                 }
             }
         }

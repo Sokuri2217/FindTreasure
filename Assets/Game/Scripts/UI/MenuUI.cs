@@ -30,13 +30,13 @@ public class MenuUI : UIManager
     [TextArea(2, 5)] public string[] explanation;
 
     [Header("その他")]
-    public bool[] selectOtherMode;
     public GameObject[] otherPanel;
     public int otherPanelNum;
     public int maxOtherPanel;
 
     [Header("シーン移動")]
     public string[] stageName;
+    public string titleName;
     public bool changeScene;
 
     [Header("描画系")]
@@ -63,7 +63,8 @@ public class MenuUI : UIManager
     enum SetOther
     {
         SOUND,
-
+        GAME,
+        LANGUAGE
     }
 
     enum  ActiveObj
@@ -112,15 +113,19 @@ public class MenuUI : UIManager
         //タイトルに戻る
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            NextScene("Title");
+            sceneName = titleName;
+            fadeState = (int)FadeState.END;
+            StartCoroutine(SceneMove());
         }
         //ゲーム開始
-        if (Input.GetKeyDown(KeyCode.Return)) 
+        else if (Input.GetKeyDown(KeyCode.Return))
         {
-            NextScene(stageName[gameManager.mapNum]);
+            sceneName = stageName[gameManager.mapNum];
+            fadeState = (int)FadeState.END;
+            StartCoroutine(SceneMove());
         }
-        
-        
+
+
 
         //UIの点滅
         FadeInOut();
@@ -211,8 +216,6 @@ public class MenuUI : UIManager
             //SEを再生
             seManager.PlaySE(se[(int)SE.SELECTNUM]);
         }
-
-        sceneName = stageName[gameManager.mapNum];
     }
 
     //選択項目を変更
@@ -391,14 +394,6 @@ public class MenuUI : UIManager
         stageNum.text = (gameManager.mapNum + 1).ToString();
         clearTurnNum.text = gameManager.clearTurnLimit[gameManager.mapNum].ToString();
         gimmick.text = gameManager.gimmickDescription[gameManager.mapNum].ToString();
-    }
-
-    //シーン移動
-    public void NextScene(string nextSceneName)
-    {
-        sceneName = nextSceneName;
-        fadeState = (int)FadeState.END;
-        StartCoroutine(SceneMove());
     }
 
     public void SetOtherMode()
