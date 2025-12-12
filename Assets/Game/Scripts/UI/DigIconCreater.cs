@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class DigIconCreater : MonoBehaviour
 {
+    [Header("アイコンを表示する親オブジェクト")]
+    public Transform iconParent;
+
     [Header("描画画像")]
-    public List<GameObject> digCount=new List<GameObject>();
     public GameObject digCountIcon;
-    public float imgWidth;
-    public float imgHeight;
-    public int beforeDigCount;
+    public int currentDigCount;
 
     [Header("スクリプト参照")]
     public PlayerController player;
@@ -16,33 +16,35 @@ public class DigIconCreater : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 
-        for (int i = 0; i < player.digCurrent; i++) 
-        {
-            Vector3 createPos = new Vector3(transform.position.x + (i * imgWidth), 0.0f, 0.0f);
-            GameObject iconImage = Instantiate(digCountIcon, createPos, Quaternion.identity);
-            digCount.Add(iconImage);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (beforeDigCount != player.digCurrent) 
+        if (player == null) 
         {
-            AddDigCount(player.digCurrent);
+            player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            currentDigCount = player.digLimit;
+            UpdateIcons(currentDigCount);
         }
+
+        currentDigCount = player.digCurrent;
+        UpdateIcons(currentDigCount);
     }
 
-    public void AddDigCount(int count)
+    public void UpdateIcons(int value)
     {
-        int offset = (beforeDigCount - player.digCurrent);
-        if(offset < 0)
+        // 既存アイコンを削除
+        foreach (Transform child in iconParent)
         {
-            digCount.Remove(digCountIcon);
+            Destroy(child.gameObject);
         }
-        Vector3 createPos = new Vector3(transform.position.x + (count * imgWidth), 0.0f, 0.0f);
-        GameObject iconImage = Instantiate(digCountIcon, createPos, Quaternion.identity);
+
+        // 新しくアイコンを生成
+        for (int i = 0; i < value; i++)
+        {
+            Instantiate(digCountIcon, iconParent);
+        }
     }
 }

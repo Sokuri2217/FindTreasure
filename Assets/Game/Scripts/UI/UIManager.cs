@@ -93,18 +93,13 @@ public class UIManager : MonoBehaviour
         {
             if ((fadeState == (int)FadeState.END))
             {
-                ActiveSceneMove(sceneName);
+                SceneManager.LoadScene(sceneName);
             }
-            else if (fadeState == (int)FadeState.START)
+            if (fadeState == (int)FadeState.START)
             {
                 bgmManager.PlayBGM(bgm);
             }
         }
         fadeImage.color = color;
-    }
-
-    public void ActiveSceneMove(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
     }
 }

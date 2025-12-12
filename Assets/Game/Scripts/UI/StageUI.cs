@@ -73,6 +73,13 @@ public class StageUI : UIManager
     private PlayerController player;
     private Inventory inventory;
 
+
+    enum SE
+    {
+        OPENFOCUS,
+        CLOSEFOCUS,
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {
@@ -256,10 +263,14 @@ public class StageUI : UIManager
                 if (!isFocusItem) 
                 {
                     isFocusItem = true;
+                    //SEを再生
+                    seManager.PlaySE(se[(int)SE.OPENFOCUS]);
                 }
                 else
                 {
                     isFocusItem = false;
+                    //SEを再生
+                    seManager.PlaySE(se[(int)SE.CLOSEFOCUS]);
                 }
                 itemDataPanel.SetActive(isFocusItem);
             }
@@ -387,15 +398,22 @@ public class StageUI : UIManager
                     {
                         //選択スロットにアイテムが格納されていないとき
                         icon.sprite = nullSlot;
-                        itemName.text = "---";
-                        get.text = "---";
-                        hold.text = "---";
-                        active.text = "---";
+                        itemName.text = null;
+                        get.text = null;
+                        hold.text = null;
+                        active.text = null;
 
                         //削除アイコンを非表示
                         removeImage.SetActive(false);
                     }
 
+                    if(Input.GetKeyUp(KeyCode.Space))
+                    {
+                        if (inventory.items[i].description[(int)Item.ACTIVE] != null)
+                        {
+
+                        }
+                    }
 
                     if (Input.GetKeyDown(KeyCode.R) && inventory.items[i] != null) 
                     {

@@ -280,7 +280,7 @@ MonoBehaviour:
   dig_height: 3
   digPower: 1
   isDig: 0
-  digLimit: 5
+  digLimit: 0
   digCurrent: 0
   getItem: 0
   getTreasure: 0
@@ -305,17 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac3d334075806448da4c7cfda84ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  items: []
   isSelectItem: 0
   lineHeight: 0
   lineWidth: 0
@@ -323,6 +313,7 @@ MonoBehaviour:
   lineMaxHeight: 2
   lineMaxWidth: 5
   player: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!136 &6373011168084637786
 CapsuleCollider:
   m_ObjectHideFlags: 0

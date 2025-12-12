@@ -29,6 +29,12 @@ public class MenuUI : UIManager
     public Text focusText;
     [TextArea(2, 5)] public string[] explanation;
 
+    [Header("その他")]
+    public bool[] selectOtherMode;
+    public GameObject[] otherPanel;
+    public int otherPanelNum;
+    public int maxOtherPanel;
+
     [Header("シーン移動")]
     public string[] stageName;
     public bool changeScene;
@@ -54,6 +60,12 @@ public class MenuUI : UIManager
         TREASURE,
     }
 
+    enum SetOther
+    {
+        SOUND,
+
+    }
+
     enum  ActiveObj
     {
         Open,
@@ -65,7 +77,8 @@ public class MenuUI : UIManager
         SELECTMODE,
         SELECTNUM,
         SELECTSTAGESET,
-        SCENEMOVE,
+        OPENFOCUS,
+        CLOSEFOCUS,
 
     }
 
@@ -95,12 +108,19 @@ public class MenuUI : UIManager
     public override void Update()
     {
         base.Update();
-        //Enterでゲーム開始
+
+        //タイトルに戻る
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            NextScene("Title");
+        }
+        //ゲーム開始
         if (Input.GetKeyDown(KeyCode.Return)) 
         {
-            fadeState = (int)FadeState.END;
-            StartCoroutine(SceneMove());
+            NextScene(stageName[gameManager.mapNum]);
         }
+        
+        
 
         //UIの点滅
         FadeInOut();
@@ -131,10 +151,12 @@ public class MenuUI : UIManager
 
         //選択項目のGUIを制御
         SetUISelectImage();
-        //
+        //選択項目をテキストとして表示
         SetUIText();
         //設定画面の各項目説明
         SetStageExplanation();
+        //その他の設定
+        SetOtherMode();
     }
 
     //選択中の設定画面
@@ -226,6 +248,8 @@ public class MenuUI : UIManager
     //設定画面の各項目説明
     void SetStageExplanation()
     {
+        if (!setting[(int)Set.STAGE]) return;
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             //閉じる
@@ -233,12 +257,16 @@ public class MenuUI : UIManager
             {
                 focusPanel.SetActive(false);
                 focusIcon.sprite = focusSprite[(int)ActiveObj.Open];
+                //SEを再生
+                seManager.PlaySE(se[(int)SE.CLOSEFOCUS]);
             }
             //開く
             else
             {
                 focusPanel.SetActive(true);
                 focusIcon.sprite = focusSprite[(int)ActiveObj.Close];
+                //SEを再生
+                seManager.PlaySE(se[(int)SE.OPENFOCUS]);
             }
         }
     }
@@ -350,7 +378,7 @@ public class MenuUI : UIManager
         }
     }
 
-    //
+    //選択項目をテキストとして表示
     public void SetUIText()
     {
         for (int i = 0; i < isSetText.Length; i++) 
@@ -363,5 +391,18 @@ public class MenuUI : UIManager
         stageNum.text = (gameManager.mapNum + 1).ToString();
         clearTurnNum.text = gameManager.clearTurnLimit[gameManager.mapNum].ToString();
         gimmick.text = gameManager.gimmickDescription[gameManager.mapNum].ToString();
+    }
+
+    //シーン移動
+    public void NextScene(string nextSceneName)
+    {
+        sceneName = nextSceneName;
+        fadeState = (int)FadeState.END;
+        StartCoroutine(SceneMove());
+    }
+
+    public void SetOtherMode()
+    {
+        //if(Input.GetKeyDown(KeyCode.W))
     }
 }

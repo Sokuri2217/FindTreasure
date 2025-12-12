@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     public void SetInventory(int slotNum)
     {
         //最大所持数に応じて、インベントリの容量を決まる
-        for (int i = 0; i < slotNum; i++) 
+        for (int i = 0; i < slotNum; i++)
         {
             items.Add(null);
         }
