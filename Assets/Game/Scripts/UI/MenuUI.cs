@@ -62,9 +62,10 @@ public class MenuUI : UIManager
 
     enum SetOther
     {
-        SOUND,
-        GAME,
-        LANGUAGE
+        SOUND,    //BGM/SE
+        GAME,     //UIê‡ñæ
+        LANGUAGE, //ópåÍê‡ñæ
+        ENDGAME,  //ÉQÅ[ÉÄèIóπ
     }
 
     enum  ActiveObj
@@ -398,6 +399,29 @@ public class MenuUI : UIManager
 
     public void SetOtherMode()
     {
-        //if(Input.GetKeyDown(KeyCode.W))
+        if (setting[(int)Set.OTHER])
+        {
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                otherPanelNum--;
+                if (otherPanelNum < 0)
+                    otherPanelNum = (maxOtherPanel - 1);
+            }
+            else if(Input.GetKeyDown(KeyCode.S))
+            {
+                otherPanelNum++;
+                if (otherPanelNum >= maxOtherPanel)
+                    otherPanelNum = 0;
+            }
+
+            for(int i = 0; i < maxOtherPanel; i++)
+            {
+                otherPanel[i].gameObject.SetActive(false);
+                if (i == otherPanelNum) 
+                    otherPanel[i].gameObject.SetActive(true);
+            }
+
+        }
+
     }
 }
