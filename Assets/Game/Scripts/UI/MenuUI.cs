@@ -30,6 +30,8 @@ public class MenuUI : UIManager
     [TextArea(2, 5)] public string[] explanation;
 
     [Header("‚»‚Ì‘¼")]
+    public Image[] otherMenu;
+    public Vector3[] originOtherScale;
     public GameObject[] otherPanel;
     public int otherPanelNum;
     public int maxOtherPanel;
@@ -414,12 +416,34 @@ public class MenuUI : UIManager
                     otherPanelNum = 0;
             }
 
-            for(int i = 0; i < maxOtherPanel; i++)
+            //‘I‘ð’†‚Ì€–Ú‚ð‹­’²•\Ž¦
+            for (int i = 0; i < otherMenu.Length; i++) 
             {
-                otherPanel[i].gameObject.SetActive(false);
                 if (i == otherPanelNum) 
-                    otherPanel[i].gameObject.SetActive(true);
+                {
+                    Transform imageScale = otherMenu[i].transform;
+                    imageScale.localScale = new Vector3(
+                        (originScale[i].x * zoomNum),
+                        (originScale[i].y * zoomNum),
+                        (originScale[i].z * zoomNum)
+                        );
+                    otherMenu[i].transform.localScale = imageScale.localScale;
+                    otherMenu[i].color = Color.white;
+                }
+                else
+                {
+                    settingImage[i].transform.localScale = originScale[i];
+                    Color32 color = new Color32(150, 150, 50, 255);
+                    settingImage[i].color = color;
+                }
             }
+
+            //for(int i = 0; i < maxOtherPanel; i++)
+            //{
+            //    otherPanel[i].gameObject.SetActive(false);
+            //    if (i == otherPanelNum) 
+            //        otherPanel[i].gameObject.SetActive(true);
+            //}
 
         }
 
