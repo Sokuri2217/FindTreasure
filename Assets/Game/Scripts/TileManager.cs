@@ -121,14 +121,14 @@ public class TileManager : MonoBehaviour
         {
             renderer.material.color = Color.red;
         }
-        else if (hasTreasure)
-        {
-            renderer.material.color = Color.green;
-        }
-        else if (hasItem) 
-        {
-            renderer.material.color = Color.blue;
-        }
+        //else if (hasTreasure)
+        //{
+        //    //renderer.material.color = Color.green;
+        //}
+        //else if (hasItem) 
+        //{
+        //    //renderer.material.color = Color.blue;
+        //}
         else
         {
             renderer.material.color = Color.white;
