@@ -103,3 +103,10 @@ public class UIManager : MonoBehaviour
         fadeImage.color = color;
     }
 }
+
+public enum Select 
+{
+    YES,
+    NO
+}
+

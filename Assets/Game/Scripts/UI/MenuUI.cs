@@ -30,11 +30,16 @@ public class MenuUI : UIManager
     [TextArea(2, 5)] public string[] explanation;
 
     [Header("その他")]
+    public GameObject other;
     public Image[] otherMenu;
     public Vector3[] originOtherScale;
+    public float zoomOtherScale;
     public GameObject[] otherPanel;
     public int otherPanelNum;
     public int maxOtherPanel;
+    public Text otherText;
+    [TextArea(2, 5)] public string[] otherExplanation;
+    public bool isOpenOtherMenu;
 
     [Header("シーン移動")]
     public string[] stageName;
@@ -100,9 +105,14 @@ public class MenuUI : UIManager
         isSetStage[(int)SetStage.STAGE] = true;
 
         for (int i = 0; i < setting.Length; i++)
-        {
             originScale[i] = settingImage[i].transform.localScale;
+
+        for (int j = 0; j < otherMenu.Length; j++)
+        {
+            originOtherScale[j] = otherMenu[j].transform.localScale;
+            otherPanel[j].SetActive(false);
         }
+            
 
         //パネル
         focusPanel.SetActive(false);
@@ -403,49 +413,116 @@ public class MenuUI : UIManager
     {
         if (setting[(int)Set.OTHER])
         {
-            if(Input.GetKeyDown(KeyCode.W))
+            if (other.activeSelf)
             {
-                otherPanelNum--;
-                if (otherPanelNum < 0)
-                    otherPanelNum = (maxOtherPanel - 1);
-            }
-            else if(Input.GetKeyDown(KeyCode.S))
-            {
-                otherPanelNum++;
-                if (otherPanelNum >= maxOtherPanel)
-                    otherPanelNum = 0;
-            }
-
-            //選択中の項目を強調表示
-            for (int i = 0; i < otherMenu.Length; i++) 
-            {
-                if (i == otherPanelNum) 
+                if (Input.GetKeyDown(KeyCode.W))
                 {
-                    Transform imageScale = otherMenu[i].transform;
-                    imageScale.localScale = new Vector3(
-                        (originScale[i].x * zoomNum),
-                        (originScale[i].y * zoomNum),
-                        (originScale[i].z * zoomNum)
-                        );
-                    otherMenu[i].transform.localScale = imageScale.localScale;
-                    otherMenu[i].color = Color.white;
-                }
-                else
+                    otherPanelNum = (int)SetOther.SOUND;
+                    seManager.PlaySE(se[(int)SE.SELECTNUM]);
+                }   
+                else if (Input.GetKeyDown(KeyCode.A))
                 {
-                    settingImage[i].transform.localScale = originScale[i];
-                    Color32 color = new Color32(150, 150, 50, 255);
-                    settingImage[i].color = color;
+                    otherPanelNum = (int)SetOther.GAME;
+                    seManager.PlaySE(se[(int)SE.SELECTNUM]);
+                }  
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    otherPanelNum = (int)SetOther.ENDGAME;
+                    seManager.PlaySE(se[(int)SE.SELECTNUM]);
+                } 
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    otherPanelNum = (int)SetOther.LANGUAGE;
+                    seManager.PlaySE(se[(int)SE.SELECTNUM]);
+                }
+                    
+
+                //選択中の項目を強調表示
+                for (int i = 0; i < otherMenu.Length; i++)
+                {
+                    if (i == otherPanelNum)
+                    {
+                        Transform imageScale = otherMenu[i].transform;
+                        imageScale.localScale = new Vector3(
+                            (originOtherScale[i].x * zoomOtherScale),
+                            (originOtherScale[i].y * zoomOtherScale),
+                            (originOtherScale[i].z * zoomOtherScale)
+                            );
+                        otherMenu[i].transform.localScale = imageScale.localScale;
+                        otherMenu[i].color = Color.white;
+                    }
+                    else
+                    {
+                        otherMenu[i].transform.localScale = originOtherScale[i];
+                        Color32 color = new Color32(150, 150, 50, 255);
+                        otherMenu[i].color = color;
+                    }
+                }
+
+                //選択項目の内容
+                otherText.text = otherExplanation[otherPanelNum].ToString();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                if (!isOpenOtherMenu)
+                {
+                    isOpenOtherMenu = true;
+                    other.SetActive(false);
+                    otherPanel[otherPanelNum].gameObject.SetActive(true);
+                }
+                else if (isOpenOtherMenu) 
+                {
+                    isOpenOtherMenu = false;
+                    other.SetActive(true);
+                    otherPanel[otherPanelNum].gameObject.SetActive(false);
+                }
+                
+            }
+
+            for (int i = 0; i < otherPanel.Length; i++) 
+            {
+                if (otherPanel[i].gameObject.activeSelf)
+                {
+                    switch (i)
+                    {
+                        case (int)SetOther.SOUND:
+                            OtherSound();
+                            break;
+                        case (int)SetOther.GAME:
+                            OtherGame();
+                            break;
+                        case (int)SetOther.LANGUAGE:
+                            OtherLanguage();
+                            break;
+                        case (int)SetOther.ENDGAME:
+                            OtherEndGame();
+                            break;
+                        default: 
+                            break;
+                    }
                 }
             }
 
-            //for(int i = 0; i < maxOtherPanel; i++)
-            //{
-            //    otherPanel[i].gameObject.SetActive(false);
-            //    if (i == otherPanelNum) 
-            //        otherPanel[i].gameObject.SetActive(true);
-            //}
-
+            
         }
+
+    }
+
+    public void OtherSound()
+    {
+
+    }
+    public void OtherGame()
+    {
+
+    }
+    public void OtherLanguage()
+    {
+
+    }
+    public void OtherEndGame()
+    {
 
     }
 }

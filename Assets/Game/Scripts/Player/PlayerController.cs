@@ -69,6 +69,12 @@ public class PlayerController : MonoBehaviour
             //ƒ^ƒJƒ‰ƒ‚ƒmæ“¾
             GetTreasure();
         }
+
+        //ÌŒ@ãŒÀ
+        if (digLimit <= digCurrent)
+        {
+            digCurrent = digLimit;
+        }
     }
     private void GridMove()
     {
@@ -148,7 +154,7 @@ public class PlayerController : MonoBehaviour
     private void GridDig()
     {
         //“ü—Í
-        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig)
+        if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig && !stageUI.inventoryPanel.activeSelf) 
         {
             isDig = true;
             digCurrent--;

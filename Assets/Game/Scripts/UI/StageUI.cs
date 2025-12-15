@@ -41,6 +41,7 @@ public class StageUI : UIManager
     public Vector3[] originSlotScale; //通常サイズ
     public float zoomNum;             //拡大率
     public GameObject removeImage;
+    public GameObject useActiveImage;
 
     [Header("フラグ")]
     public bool isPause;
@@ -410,15 +411,21 @@ public class StageUI : UIManager
                         removeImage.SetActive(false);
                     }
 
-                    if(Input.GetKeyUp(KeyCode.Space))
+                    if (inventory.items[i] != null)
                     {
-                        if (inventory.items[i].description[(int)Item.ACTIVE] != null)
+                        useActiveImage.SetActive(true);
+                        if (Input.GetKeyUp(KeyCode.Space) && !inventory.items[i].isUseActive) 
                         {
-                            inventory.items[i].OnUse(player);
+                            inventory.items[i].OnUse(player, this);
+                            inventory.items[i].isUseActive = true;
                         }
                     }
+                    else
+                    {
+                        useActiveImage.SetActive(false);
+                    }
 
-                    if (Input.GetKeyDown(KeyCode.R) && inventory.items[i] != null) 
+                    if (Input.GetKeyDown(KeyCode.R) && inventory.items[i] != null)
                     {
                         inventory.RemoveItem(inventory.items[i]);
                     }

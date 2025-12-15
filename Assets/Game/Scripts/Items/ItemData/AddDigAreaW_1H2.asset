@@ -20,10 +20,12 @@ MonoBehaviour:
 
 '
   icon: {fileID: -1626199086, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
+  isUseActive: 0
   effectType: 2
   value1: -1
   value2: 2
-  value3: 0
-  value4: 0
-  duration: 0
-  coolTime: 0
+  activeValue1: 5
+  activeValue2: 5
+  duration: 3
+  activeItemTurn: 0
+  coolTime: 2

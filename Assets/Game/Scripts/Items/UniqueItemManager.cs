@@ -68,7 +68,7 @@ public class UniqueItemManager : ItemBase
     /// <summary>
     /// 任意発動時（ボタンなどで使用）
     /// </summary>
-    public override void OnUse(PlayerController player)
+    public override void OnUse(PlayerController player, StageUI stageUI)
     {
 
         if (duration > 0)

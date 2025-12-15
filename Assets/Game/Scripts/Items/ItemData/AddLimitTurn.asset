@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
-  m_Name: AddDigAreaW1H1
+  m_Name: AddLimitTurn
   m_EditorClassIdentifier: 
-  itemName: 1
+  itemName: 
   description:
   - 
-  - "\u306F\u3093\u3044\u304D\u3087\u3046\u304B\n\u2192\u305F\u3066(+1)\u30FB\u3088\u3053(+1)"
   - 
-  icon: {fileID: 2028777849, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
+  - 
+  icon: {fileID: -705296579, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
   isUseActive: 0
-  effectType: 2
-  value1: 1
-  value2: 1
+  effectType: 3
+  value1: 0
+  value2: 0
   activeValue1: 5
-  activeValue2: 5
+  activeValue2: 0
   duration: 3
   activeItemTurn: 0
-  coolTime: 2
+  coolTime: 4
