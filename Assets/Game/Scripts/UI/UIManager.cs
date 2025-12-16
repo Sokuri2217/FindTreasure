@@ -40,8 +40,7 @@ public class UIManager : MonoBehaviour
     {
         //スクリプト取得
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-        bgmManager= GameObject.Find("BGMManager").GetComponent<BGMManager>();
-        seManager= GameObject.Find("SEManager").GetComponent<SEManager>();
+        
 
         //初回フェード
         //パネル生成
@@ -57,6 +56,15 @@ public class UIManager : MonoBehaviour
     public virtual void Update()
     {
         if (isSceneMove) return;
+
+        if (bgmManager == null)
+        {
+            bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+            bgmManager.PlayBGM(bgm);
+        }
+            
+        if (seManager == null) 
+            seManager = GameObject.Find("SEManager").GetComponent<SEManager>();
     }
 
     protected IEnumerator SceneMove()
@@ -94,10 +102,6 @@ public class UIManager : MonoBehaviour
             if ((fadeState == (int)FadeState.END))
             {
                 SceneManager.LoadScene(sceneName);
-            }
-            if (fadeState == (int)FadeState.START)
-            {
-                bgmManager.PlayBGM(bgm);
             }
         }
         fadeImage.color = color;

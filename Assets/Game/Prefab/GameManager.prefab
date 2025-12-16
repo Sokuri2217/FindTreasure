@@ -51,23 +51,13 @@ MonoBehaviour:
   setItem: 1
   basicSetTreasure: 5
   basicSetItem: 20
-  clearTurnLimit: 140000000f0000000a0000000500000001000000
+  clearTurnLimit: 6300000032000000280000001e00000014000000
   gimmickDescription:
-  - 'qqqqqqqqqqqqq
-
-    wwwwwwwwwwwwww'
-  - 'eeeeeeeeeee
-
-    rrrrrrrr'
-  - 'ttttttttttt
-
-    yyyyyyyyyyyyyyyyyyyyyyyy'
-  - 'uuuuuuuuuuuuuuuuuu
-
-    iiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
-  - 'oooooooooooooooooo
-
-    pppppppppppppppppppppppp'
+  - "\u306A\u3057"
+  - "\u30FB\u79FB\u52D5\u901F\u5EA6\u3092\u6E1B\u5C11\n\u30FB1\u30BF\u30FC\u30F3\u3067\u63A1\u6398\u51FA\u6765\u308B\u4E0A\u9650\u3092\u6E1B\u5C11\n\u30FB\u63A1\u6398\u5B8C\u4E86\u306B\u5FC5\u8981\u306A\u6DF1\u5EA6\u3092\u6E1B\u5C11"
+  - "\u30FB\u79FB\u52D5\u901F\u5EA6\u3092\u4E0A\u6607\n\u30FB\u63A1\u6398\u5B8C\u4E86\u306B\u5FC5\u8981\u306A\u6DF1\u5EA6\u3092\u4E0A\u6607\n\u30FB\u300EDig\u300F\u30D5\u30A7\u30FC\u30BA\u306E\u7DAD\u6301\u6642\u9593\u3092\u77ED\u7E2E"
+  - "\u30FB\u4F7F\u7528\u53EF\u80FD\u30DB\u30EA\u30C0\u30B7\u30E2\u30CE\u6570\u3092\u4E0A\u6607\n\u30FB1\u30BF\u30FC\u30F3\u3067\u63A1\u6398\u51FA\u6765\u308B\u4E0A\u9650\u3092\u5927\u6E1B\u5C11\n\u30FB\u63A1\u6398\u5B8C\u4E86\u306B\u5FC5\u8981\u306A\u6DF1\u5EA6\u3092\u6E1B\u5C11"
+  - "\u30FB\u79FB\u52D5\u901F\u5EA6\u3092\u6E1B\u5C11\n\u30FB\u63A1\u6398\u5B8C\u4E86\u306B\u5FC5\u8981\u306A\u6DF1\u5EA6\u3092\u4E0A\u6607\n\u30FB\u30DE\u30C3\u30D7\u4E0A\u306E\u30DB\u30EA\u30C0\u30B7\u30E2\u30CE\u306B\u6DF1\u5EA6\u3092\u8FFD\u52A0"
   mapNum: 0
   mapMaxNum: 5
   items:
@@ -79,10 +69,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2d5b4b53109de1547b0c5527a7e76761, type: 2}
   - {fileID: 11400000, guid: 8c017bdbf86aa3843b9452f62fae1e4e, type: 2}
   uniqueItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e1ab5ab11d075864ea70fa897a4a1ffd, type: 2}
+  - {fileID: 11400000, guid: b448e460b37a9a14f8769bfe7f17383c, type: 2}
+  - {fileID: 11400000, guid: 644b769e4ea8bf64797f0beb73c322b9, type: 2}
+  - {fileID: 11400000, guid: 11f99ac0eee245e42b61af0884284aa7, type: 2}
+  - {fileID: 11400000, guid: adbf8815ffc0bc041aaaaf06f6709334, type: 2}
   bgm: {fileID: 0}
   se: {fileID: 0}

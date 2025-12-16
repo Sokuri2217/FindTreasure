@@ -40,6 +40,28 @@ public class MenuUI : UIManager
     public Text otherText;
     [TextArea(2, 5)] public string[] otherExplanation;
     public bool isOpenOtherMenu;
+    public bool isInputSpace;
+
+    [Header("音の設定")]
+    public int SoundNum;
+    public int maxSoundNum;
+    [Header("ゲームUIの確認")]
+    public int gameNum;
+    public int maxGameNum;
+    [Header("用語の確認")]
+    public int languageNum;
+    public int maxLanguageNum;
+    public Image[] selectLanguageImage;
+    public Vector3[] originLanguageScale;
+    public float zoomLanguageScale;
+    public Text languageText;
+    [TextArea(2, 5)] public string[] languageExplanation;
+    [Header("ゲームを終了")]
+    public int endGameNum;
+    public int maxEndGameNum;
+    public Image[] selectEndGameImage;
+    public Vector3[] originEndGameScale;
+    public float zoomEndGameScale;
 
     [Header("シーン移動")]
     public string[] stageName;
@@ -91,6 +113,13 @@ public class MenuUI : UIManager
 
     }
 
+    enum LANGUAGE
+    {
+        TAKARAMONO,
+        HORIDASIMONO,
+        SINDO,
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {
@@ -112,7 +141,12 @@ public class MenuUI : UIManager
             originOtherScale[j] = otherMenu[j].transform.localScale;
             otherPanel[j].SetActive(false);
         }
-            
+
+        for (int i = 0; i < selectLanguageImage.Length; i++)
+            originLanguageScale[i] = selectLanguageImage[i].transform.localScale;
+        for (int i = 0; i < selectEndGameImage.Length; i++)
+            originEndGameScale[i] = selectEndGameImage[i].transform.localScale;
+        
 
         //パネル
         focusPanel.SetActive(false);
@@ -131,17 +165,30 @@ public class MenuUI : UIManager
             StartCoroutine(SceneMove());
         }
         //ゲーム開始
-        else if (Input.GetKeyDown(KeyCode.Return))
+        else if (Input.GetKeyDown(KeyCode.Return) && !otherPanel[(int)SetOther.ENDGAME].gameObject.activeSelf) 
         {
             sceneName = stageName[gameManager.mapNum];
             fadeState = (int)FadeState.END;
             StartCoroutine(SceneMove());
         }
 
+        //決定ボタンの長押し防止
+        if (Input.GetKeyUp(KeyCode.Space) && isInputSpace)
+        {
+            isInputSpace = false;
+        }
 
+        if (otherPanel[(int)SetOther.ENDGAME].gameObject.activeSelf)
+        {
+            enterToStart.gameObject.SetActive(false);
+        }
+        else
+        {
+            enterToStart.gameObject.SetActive(true);
+        }
 
-        //UIの点滅
-        FadeInOut();
+            //UIの点滅
+            FadeInOut();
 
         //選択中の設定画面
         SelectSettingMode();
@@ -463,50 +510,62 @@ public class MenuUI : UIManager
                 otherText.text = otherExplanation[otherPanelNum].ToString();
             }
 
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                //開く
                 if (!isOpenOtherMenu)
                 {
+                    isInputSpace = true;
                     isOpenOtherMenu = true;
                     other.SetActive(false);
                     otherPanel[otherPanelNum].gameObject.SetActive(true);
                 }
-                else if (isOpenOtherMenu) 
+            }
+            else if (Input.GetKeyDown(KeyCode.C))
+            {
+                //閉じる
+                if (isOpenOtherMenu)
                 {
                     isOpenOtherMenu = false;
                     other.SetActive(true);
                     otherPanel[otherPanelNum].gameObject.SetActive(false);
                 }
-                
             }
 
-            for (int i = 0; i < otherPanel.Length; i++) 
-            {
-                if (otherPanel[i].gameObject.activeSelf)
+                for (int i = 0; i < otherPanel.Length; i++)
                 {
-                    switch (i)
+                    if (otherPanel[i].gameObject.activeSelf)
                     {
-                        case (int)SetOther.SOUND:
-                            OtherSound();
-                            break;
-                        case (int)SetOther.GAME:
-                            OtherGame();
-                            break;
-                        case (int)SetOther.LANGUAGE:
-                            OtherLanguage();
-                            break;
-                        case (int)SetOther.ENDGAME:
-                            OtherEndGame();
-                            break;
-                        default: 
-                            break;
+                        switch (i)
+                        {
+                            case (int)SetOther.SOUND:
+                                OtherSound();
+                                break;
+                            case (int)SetOther.GAME:
+                                OtherGame();
+                                break;
+                            case (int)SetOther.LANGUAGE:
+                                OtherLanguage();
+                                break;
+                            case (int)SetOther.ENDGAME:
+                                OtherEndGame();
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
-            }
-
             
         }
-
+        else
+        {
+            for (int i = 0; i < otherPanel.Length; i++)
+            {
+                otherPanel[i].SetActive(false);
+            }
+            other.SetActive(true);
+            isOpenOtherMenu = false;
+        }
     }
 
     public void OtherSound()
@@ -519,10 +578,111 @@ public class MenuUI : UIManager
     }
     public void OtherLanguage()
     {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            languageNum--;
+            if (languageNum < 0)
+            {
+                languageNum = (maxLanguageNum - 1);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            languageNum++;
+            if (languageNum >= maxLanguageNum)
+            {
+                languageNum = 0;
+            }
+        }
 
+        //選択中の項目を強調表示
+        for (int i = 0; i < selectLanguageImage.Length; i++)
+        {
+            if (i == languageNum)
+            {
+                Transform imageScale = selectLanguageImage[i].transform;
+                imageScale.localScale = new Vector3(
+                    (originLanguageScale[i].x * zoomLanguageScale),
+                    (originLanguageScale[i].y * zoomLanguageScale),
+                    (originLanguageScale[i].z * zoomLanguageScale)
+                    );
+                selectLanguageImage[i].transform.localScale = imageScale.localScale;
+                selectLanguageImage[i].color = Color.white;
+            }
+            else
+            {
+                selectLanguageImage[i].transform.localScale = originLanguageScale[i];
+                Color32 color = new Color32(150, 150, 50, 255);
+                selectLanguageImage[i].color = color;
+            }
+
+            languageText.text = languageExplanation[i].ToString();
+        }
     }
     public void OtherEndGame()
     {
+        const int yes = 0;
+        const int no = 1;
 
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            endGameNum--;
+            if(endGameNum < 0)
+            {
+                endGameNum = (maxEndGameNum - 1);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.S))
+        {
+            endGameNum++;
+            if (endGameNum >= maxEndGameNum) 
+            {
+                endGameNum = 0;
+            }
+        }
+
+        //選択中の項目を強調表示
+        for (int i = 0; i < selectEndGameImage.Length; i++)
+        {
+            if (i == endGameNum) 
+            {
+                Transform imageScale = selectEndGameImage[i].transform;
+                imageScale.localScale = new Vector3(
+                    (originEndGameScale[i].x * zoomEndGameScale),
+                    (originEndGameScale[i].y * zoomEndGameScale),
+                    (originEndGameScale[i].z * zoomEndGameScale)
+                    );
+                selectEndGameImage[i].transform.localScale = imageScale.localScale;
+                selectEndGameImage[i].color = Color.white;
+            }
+            else
+            {
+                selectEndGameImage[i].transform.localScale = originEndGameScale[i];
+                Color32 color = new Color32(150, 150, 50, 255);
+                selectEndGameImage[i].color = color;
+            }
+        }
+
+        //実行
+        if (Input.GetKeyDown(KeyCode.Space) && !isInputSpace) 
+        {
+            isInputSpace = true;
+            switch (endGameNum)
+            {
+                case yes:
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+#endif
+                    break;
+                case no:
+                    isOpenOtherMenu = false;
+                    other.SetActive(true);
+                    otherPanel[otherPanelNum].gameObject.SetActive(false);
+                    endGameNum = yes;
+                    break;
+            }
+        }
     }
 }
