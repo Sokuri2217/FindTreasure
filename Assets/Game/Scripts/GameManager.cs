@@ -51,11 +51,15 @@ public class GameManager : MonoBehaviour
     {
         bgm = GameObject.Find("BGMManager").GetComponent<AudioSource>();
         se = GameObject.Find("SEManager").GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        // マウスカーソルを画面中央に固定
+        Cursor.lockState = CursorLockMode.Locked;
+
         //ステージ設定
         {
             //マップ上におけるタカラモノとホリダシモノの上限設定

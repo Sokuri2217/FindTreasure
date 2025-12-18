@@ -126,5 +126,6 @@ AssetOrigin:
   productId: 271990
   packageName: Terrain Textures - FREE
   packageVersion: 1.1.0
-  assetPath: Assets/MicroVerse-Extras/Terrain Textures/Textures/Sand 01/Sand 01_Height.png
+  assetPath: Assets/Game/Assets/MicroVerse-Extras/Terrain Textures/Textures/Sand
+    01/Sand 01_Height.png
   uploadId: 687417

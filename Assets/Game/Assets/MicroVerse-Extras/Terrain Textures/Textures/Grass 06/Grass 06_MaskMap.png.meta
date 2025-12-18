@@ -126,5 +126,6 @@ AssetOrigin:
   productId: 271990
   packageName: Terrain Textures - FREE
   packageVersion: 1.1.0
-  assetPath: Assets/MicroVerse-Extras/Terrain Textures/Textures/Grass 06/Grass 06_MaskMap.png
+  assetPath: Assets/Game/Assets/MicroVerse-Extras/Terrain Textures/Textures/Grass
+    06/Grass 06_MaskMap.png
   uploadId: 687417

@@ -608,6 +608,7 @@ public class MenuUI : UIManager
                     );
                 selectLanguageImage[i].transform.localScale = imageScale.localScale;
                 selectLanguageImage[i].color = Color.white;
+                languageText.text = languageExplanation[i].ToString();
             }
             else
             {
@@ -615,8 +616,6 @@ public class MenuUI : UIManager
                 Color32 color = new Color32(150, 150, 50, 255);
                 selectLanguageImage[i].color = color;
             }
-
-            languageText.text = languageExplanation[i].ToString();
         }
     }
     public void OtherEndGame()

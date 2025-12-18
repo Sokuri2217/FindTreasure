@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (stageUI.gameClear || stageUI.gameOver) return;
+        if (stageUI.isPause ||stageUI.gameClear || stageUI.gameOver) return;
 
         //ƒOƒŠƒbƒhˆÚ“®
         GridMove();
