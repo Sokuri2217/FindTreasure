@@ -9,6 +9,8 @@ public class MapCreater : MonoBehaviour
     public GameObject treasurePrefab; //タカラモノオブジェクト
     public GameObject itemPrefab;     //ホリダシモノオブジェクト
     public Terrain ground;            //地面(Terrain)
+    public int minDeep;               //最小深度
+    public int maxDeep;               //最大深度
 
     //タイル情報
     private List<TileManager> allTiles = new List<TileManager>();
@@ -67,6 +69,9 @@ public class MapCreater : MonoBehaviour
 
             // タカラモノをセット
             selected.SetHasTreasure(true);
+
+            //深度を設定
+            selected.deep = Random.Range(minDeep, maxDeep);
 
             //オブジェクトを格納
             selected.treasureObj = treasurePrefab;
