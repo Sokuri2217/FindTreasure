@@ -2290,8 +2290,12 @@ MonoBehaviour:
   - "\u30B2\u30FC\u30E0\u3092\u7D42\u4E86"
   isOpenOtherMenu: 0
   isInputSpace: 0
-  SoundNum: 0
-  maxSoundNum: 0
+  soundNum: 0
+  maxSoundNum: 3
+  volume:
+  - 1
+  - 1
+  - 1
   gameNum: 0
   maxGameNum: 0
   languageNum: 0
@@ -4854,7 +4858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2774609156530976378
 RectTransform:
   m_ObjectHideFlags: 0

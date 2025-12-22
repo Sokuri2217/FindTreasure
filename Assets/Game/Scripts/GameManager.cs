@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // マウスカーソルを画面中央に固定
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         //ステージ設定
         {
