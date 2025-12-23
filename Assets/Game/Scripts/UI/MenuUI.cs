@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuUI : UIManager
@@ -43,9 +42,14 @@ public class MenuUI : UIManager
     public bool isInputSpace;
 
     [Header("音の設定")]
+    public bool firstSoundSet;
     public int soundNum;
     public int maxSoundNum;
     public float[] volume;
+    public Transform[] soundMeter;
+    public GameObject soundMeterImage;
+    public Transform[] soundInput;
+    public Transform soundInputNavi;
     [Header("ゲームUIの確認")]
     public int gameNum;
     public int maxGameNum;
@@ -111,7 +115,7 @@ public class MenuUI : UIManager
         SELECTSTAGESET,
         OPENFOCUS,
         CLOSEFOCUS,
-
+        SELECTSOUNDSET,
     }
 
     enum Sound
@@ -226,6 +230,14 @@ public class MenuUI : UIManager
             //ホリダシモノ設定
             if (isSetStage[(int)SetStage.ITEM])
                 gameManager.setItem = ObjectSetting(gameManager.setItem, (gameManager.basicSetItem + gameManager.setStage));
+        }
+
+        if(!firstSoundSet)
+        {
+            //音量
+            volume[(int)Sound.BGM] = bgmManager.source.volume;
+            volume[(int)Sound.SE] = seManager.source.volume;
+            firstSoundSet = true;
         }
 
         //選択項目のGUIを制御
@@ -351,27 +363,7 @@ public class MenuUI : UIManager
     //ステージ設定
     void StageSetting()
     {
-        //マップの広さ
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            gameManager.setStage++;
-            if (gameManager.setStage > gameManager.setMaxStage)
-            {
-                gameManager.setStage = gameManager.setMinStage;
-            }
-            //SEを再生
-            seManager.PlaySE(se[(int)SE.SELECTNUM]);
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            gameManager.setStage--;
-            if (gameManager.setStage < gameManager.setMinStage)
-            {
-                gameManager.setStage = gameManager.setMaxStage;
-            }
-            //SEを再生
-            seManager.PlaySE(se[(int)SE.SELECTNUM]);
-        }
+        gameManager.setStage = ChangeSelectNum(gameManager.setStage, gameManager.setMaxStage, Input.GetKeyDown(KeyCode.D), Input.GetKeyDown(KeyCode.A), se[(int)SE.SELECTNUM]);
     }
 
     //オブジェクト設定
@@ -585,7 +577,7 @@ public class MenuUI : UIManager
     public void OtherSound()
     {
         //調整項目を選択
-        soundNum= ChangeSelectNum(soundNum, maxSoundNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W));
+        soundNum = ChangeSelectNum(soundNum, maxSoundNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), se[(int)SE.SELECTSOUNDSET]);
 
         //音量調整
         if (Input.GetKeyDown(KeyCode.A))
@@ -593,15 +585,15 @@ public class MenuUI : UIManager
             switch(soundNum)
             {
                 case (int)Sound.MASTER:
-                    volume[(int)Sound.MASTER] -= 0.25f;
+                    volume[(int)Sound.MASTER] -= 0.2f;
                     break;
                 case (int)Sound.BGM:
-                    bgmManager.source.volume -= 0.25f;
-                    volume[(int)Sound.BGM] -= 0.25f;
+                    bgmManager.source.volume -= 0.2f;
+                    volume[(int)Sound.BGM] -= 0.2f;
                     break;
                 case (int)Sound.SE:
-                    seManager.source.volume -= 0.25f;
-                    volume[(int)Sound.SE] -= 0.25f;
+                    seManager.source.volume -= 0.2f;
+                    volume[(int)Sound.SE] -= 0.2f;
                     break;
             }
         }
@@ -610,17 +602,17 @@ public class MenuUI : UIManager
             switch (soundNum)
             {
                 case (int)Sound.MASTER:
-                    volume[(int)Sound.MASTER] += 0.25f;
+                    volume[(int)Sound.MASTER] += 0.2f;
                     bgmManager.source.volume = volume[(int)Sound.BGM] * volume[(int)Sound.MASTER];
                     seManager.source.volume = volume[(int)Sound.SE] * volume[(int)Sound.MASTER];
                     break;
                 case (int)Sound.BGM:
-                    bgmManager.source.volume += 0.25f;
-                    volume[(int)Sound.BGM] += 0.25f;
+                    bgmManager.source.volume += 0.2f;
+                    volume[(int)Sound.BGM] += 0.2f;
                     break;
                 case (int)Sound.SE:
-                    seManager.source.volume += 0.25f;
-                    volume[(int)Sound.SE] += 0.25f;
+                    seManager.source.volume += 0.2f;
+                    volume[(int)Sound.SE] += 0.2f;
                     break;
             }
         }
@@ -635,6 +627,31 @@ public class MenuUI : UIManager
 
         bgmManager.source.volume = volume[(int)Sound.BGM] * volume[(int)Sound.MASTER];
         seManager.source.volume = volume[(int)Sound.SE] * volume[(int)Sound.MASTER];
+
+        //UIに反映
+        for (int i = 0; i < volume.Length; i++) 
+        {
+            // 既存アイコンを削除
+            foreach (Transform child in soundMeter[i]) 
+            {
+                Destroy(child.gameObject);
+            }
+
+            // 新しくアイコンを生成
+            for (int j = 0; j < Mathf.Round(volume[i] * 5); j++)
+            {
+                Instantiate(soundMeterImage, soundMeter[i]);
+            }
+
+            if (i == soundNum) 
+            {
+                soundInputNavi.position = new Vector3(
+                    soundInputNavi.position.x,
+                    soundInput[i].transform.position.y,
+                    soundInputNavi.position.z
+                    );
+            }
+        }
     }
     public void OtherGame()
     {
@@ -642,7 +659,7 @@ public class MenuUI : UIManager
     }
     public void OtherLanguage()
     {
-        languageNum = ChangeSelectNum(languageNum, maxLanguageNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W));
+        languageNum = ChangeSelectNum(languageNum, maxLanguageNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), null);
 
         //選択中の項目を強調表示
         for (int i = 0; i < selectLanguageImage.Length; i++)
@@ -672,7 +689,7 @@ public class MenuUI : UIManager
         const int yes = 0;
         const int no = 1;
 
-        endGameNum= ChangeSelectNum(endGameNum, maxEndGameNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W));
+        endGameNum = ChangeSelectNum(endGameNum, maxEndGameNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), se[(int)SE.SELECTSOUNDSET]);
 
         //選択中の項目を強調表示
         for (int i = 0; i < selectEndGameImage.Length; i++)
@@ -719,19 +736,30 @@ public class MenuUI : UIManager
         }
     }
 
-    public int ChangeSelectNum(int selectNum, int maxSelectNum, bool plusInput, bool minusInput)
+    public int ChangeSelectNum(int selectNum, int maxSelectNum, bool plusInput, bool minusInput, AudioClip clip)
     {
         if(plusInput)
         {
             selectNum++;
             if (selectNum >= maxSelectNum)
                 selectNum = 0;
+
+            if(clip != null)
+            {
+                //SEを再生
+                seManager.PlaySE(clip);
+            }
         }
         if(minusInput)
         {
             selectNum--;
             if (selectNum < 0)
                 selectNum = (maxSelectNum - 1);
+            if (clip != null)
+            {
+                //SEを再生
+                seManager.PlaySE(clip);
+            }
         }
 
         return selectNum;

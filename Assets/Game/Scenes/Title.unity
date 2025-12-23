@@ -474,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8041153521305436885, guid: 2642e019734fcfe42aa844c661febac2, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8041153521305436885, guid: 2642e019734fcfe42aa844c661febac2, type: 3}
       propertyPath: m_PlayOnAwake
@@ -648,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5080513730638788179, guid: 739126b29d54a6043aefd6a81b47516f, type: 3}
       propertyPath: m_Volume
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8841784396669461104, guid: 739126b29d54a6043aefd6a81b47516f, type: 3}
       propertyPath: m_Name

@@ -93,9 +93,15 @@ public class TileManager : MonoBehaviour
             }
             else if (hasItem && dig) 
             {
-                hasItem = false;
-                //オブジェクト生成
-                Instantiate(itemObj, transform.position, Quaternion.identity);
+                //深度を下げ、深度が0以下になると、タカラモノを地表に出す
+                deep -= playerController.digPower;
+                if (deep <= 0)
+                {
+                    hasItem = false;
+                    //オブジェクト生成
+                    Instantiate(itemObj, transform.position, Quaternion.identity);
+                }
+                
             }
         }
     }

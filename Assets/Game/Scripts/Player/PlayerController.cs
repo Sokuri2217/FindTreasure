@@ -14,13 +14,20 @@ public class PlayerController : MonoBehaviour
     public int digLimit;      //採掘回数の上限
     public int digCurrent;    //現在の採掘回数
     public bool getItem;      //アイテムを取得可能かどうか
-    public bool getTreasure;      //タカラモノを取得可能かどうか
+    public bool getTreasure;  //タカラモノを取得可能かどうか
     public int useItem;       //使用可能アイテム数
 
     [Header("移動関係")]
     public bool isMoving;           //移動中かどうか
     private Vector3 targetPosition; //移動先の座標
     private Vector3 moveDirection;  //移動ベクトル 
+
+    [Header("カメラ")]
+    public Transform rotationCore;
+    public float rotationSpeed;
+    public float rotationX;
+    public float minRotation;
+    public float maxRotation;
 
     [Header("アクティブ効果発動中")]
     public List<ItemBase> isActiveItems = new List<ItemBase>();
@@ -214,6 +221,13 @@ public class PlayerController : MonoBehaviour
                 transform.Rotate(0.0f, -90.0f, 0.0f);
             else if (Input.GetKeyDown(KeyCode.L))
                 transform.Rotate(0.0f, 90.0f, 0.0f);
+            if (Input.GetKey(KeyCode.I))
+                rotationX += rotationSpeed * Time.deltaTime;
+            else if (Input.GetKey(KeyCode.K))
+                rotationX -= rotationSpeed * Time.deltaTime;
+
+            rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
+            rotationCore.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         }
     }
 

@@ -70,12 +70,12 @@ public class MapCreater : MonoBehaviour
             // タカラモノをセット
             selected.SetHasTreasure(true);
 
-            //深度を設定
-            selected.deep = Random.Range(minDeep, maxDeep);
+            
 
             //オブジェクトを格納
             selected.treasureObj = treasurePrefab;
-            selected.deep = 1;
+            //シンドを設定(minDeep～maxDeep-1の値をランダムでシンドとして設定する)
+            selected.deep = Random.Range(minDeep, maxDeep);
 
             // 重複しないように候補から削除
             candidates.RemoveAt(index);
@@ -103,7 +103,7 @@ public class MapCreater : MonoBehaviour
 
     void PlacePlayerOnStart()
     {
-        Vector3 startPos = new Vector3(Mathf.Round(gameManager.setStage * 10 / 2), 1.25f, Mathf.Round(gameManager.setStage * 10 / 2));
+        Vector3 startPos = new Vector3(Mathf.Round(gameManager.setStage * 10 / 2), playerPrefab.transform.position.y, Mathf.Round(gameManager.setStage * 10 / 2));
         GameObject playerObj = Instantiate(playerPrefab, startPos, Quaternion.identity);
     }
 
