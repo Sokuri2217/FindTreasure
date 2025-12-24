@@ -199,15 +199,10 @@ public class StageUI : UIManager
         if (timer >= phaseLimit[currentPhase])
         {
             timer = 0.0f;
-            isPhase[currentPhase] = false;
-            if ((currentPhase + 1) >= phaseLimit.Length)
-            {
-                isPhase[(int)Phase.ITEM] = true;
-            }
-            else if ((currentPhase + 1) < phaseLimit.Length)
-            {
-                isPhase[(currentPhase + 1)] = true;
-            }
+            if (isPhase[(int)Phase.ITEM])
+                EndItem();
+            else if (isPhase[(int)Phase.DIG]) 
+                EndDig();
         }
     }
 

@@ -234,6 +234,8 @@ public class PlayerController : MonoBehaviour
     //アイテム取得
     public void OnTriggerStay(Collider other)
     {
+        if (stageUI == null) return;
+
         if (stageUI.isPhase[(int)Phase.DIG]) 
         {
             if (other.gameObject.CompareTag("Item"))
@@ -251,6 +253,8 @@ public class PlayerController : MonoBehaviour
     //アイテム取得
     public void OnTriggerExit(Collider other)
     {
+        if (stageUI == null) return;
+
         if (stageUI.isPhase[(int)Phase.DIG])
         {
             if (other.gameObject.CompareTag("Item"))

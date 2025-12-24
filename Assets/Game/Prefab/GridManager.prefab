@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4197627197344140721}
   - component: {fileID: 1304699068066510946}
+  - component: {fileID: 7288232260107310672}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -50,5 +51,21 @@ MonoBehaviour:
   treasurePrefab: {fileID: 7042934620684045663, guid: 45d85171931a3ad43a0ce126e26e4a2a, type: 3}
   itemPrefab: {fileID: 8849484869483780692, guid: b0280ef145b3aac47888b26f1955cb35, type: 3}
   ground: {fileID: 0}
-  minDeep: 3
-  maxDeep: 6
+  minDeep: 0300000001000000
+  maxDeep: 0600000001000000
+--- !u!114 &7288232260107310672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7299027778667754096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d09c9592bec8f41b1a2a70f0c5671a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageUI: {fileID: 0}
+  player: {fileID: 0}
+  gameManager: {fileID: 0}
+  mapCreater: {fileID: 1304699068066510946}

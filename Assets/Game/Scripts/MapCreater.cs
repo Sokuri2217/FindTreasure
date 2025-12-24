@@ -9,23 +9,27 @@ public class MapCreater : MonoBehaviour
     public GameObject treasurePrefab; //タカラモノオブジェクト
     public GameObject itemPrefab;     //ホリダシモノオブジェクト
     public Terrain ground;            //地面(Terrain)
-    public int minDeep;               //最小深度
-    public int maxDeep;               //最大深度
+    public int[] minDeep;             //最小深度
+    public int[] maxDeep;             //最大深度
+    public bool createMap;            //タイルマップ生成許可フラグ
 
     //タイル情報
-    private List<TileManager> allTiles = new List<TileManager>();
-    //スクリプト情報
-    private GameManager gameManager;
+    public List<TileManager> allTiles = new List<TileManager>();
+    [Header("スクリプト情報")]
+    public GameManager gameManager;
+    public MapGimmick mapGimmick;
 
     void Start()
     {
         //スクリプト取得
+        mapGimmick = GetComponent<MapGimmick>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         //マップ生成
-        PlacePlayerOnStart();    // プレイヤーをスタート位置に配置
-        GenerateGrid();          // グリッドマップを生成
-        PlaceItemsRandomly();    // タイルにアイテムをランダムに埋め込む
-        ChangeGroundPoint();     //地面オブジェクトを移動させる
+        PlacePlayerOnStart();                      // プレイヤーをスタート位置に配置
+        GenerateGrid();                            // グリッドマップを生成
+        mapGimmick.SetGimmick(gameManager.mapNum); // ギミックを適応
+        PlaceItemsRandomly();                      // タイルにアイテムをランダムに埋め込む
+        ChangeGroundPoint();                       // 地面オブジェクトを移動させる
     }
 
     void GenerateGrid()
@@ -50,10 +54,14 @@ public class MapCreater : MonoBehaviour
                 allTiles.Add(tile);
             }
         }
+
+        createMap = true;
     }
 
-    void PlaceItemsRandomly()
+    public void PlaceItemsRandomly()
     {
+        if (!createMap) return;
+
         // 設定された個数以内で、ユニークにランダム選択
         int treasureCount = Mathf.Min(gameManager.setTreasure, allTiles.Count);
         int itemCount = Mathf.Min(gameManager.setItem, allTiles.Count);
@@ -75,7 +83,7 @@ public class MapCreater : MonoBehaviour
             //オブジェクトを格納
             selected.treasureObj = treasurePrefab;
             //シンドを設定(minDeep～maxDeep-1の値をランダムでシンドとして設定する)
-            selected.deep = Random.Range(minDeep, maxDeep);
+            selected.deep = Random.Range(minDeep[(int)Deep.TREASURE], maxDeep[(int)Deep.TREASURE]);
 
             // 重複しないように候補から削除
             candidates.RemoveAt(index);
@@ -95,6 +103,9 @@ public class MapCreater : MonoBehaviour
             ItemObject itemData = newItem.GetComponent<ItemObject>();
             itemData.itemBase = itemBases[itemIndex];
 
+            //シンドを設定(minDeep～maxDeep-1の値をランダムでシンドとして設定する)
+            selected.deep = Random.Range(minDeep[(int)Deep.ITEM], maxDeep[(int)Deep.ITEM]);
+
             // TileManager に保持
             selected.itemObj = newItem;
             selected.deep = 1;
@@ -105,6 +116,7 @@ public class MapCreater : MonoBehaviour
     {
         Vector3 startPos = new Vector3(Mathf.Round(gameManager.setStage * 10 / 2), playerPrefab.transform.position.y, Mathf.Round(gameManager.setStage * 10 / 2));
         GameObject playerObj = Instantiate(playerPrefab, startPos, Quaternion.identity);
+        mapGimmick.player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     //地面の位置を調整
@@ -118,4 +130,10 @@ public class MapCreater : MonoBehaviour
         groundPos.position -= new Vector3(groundSize.x / 2, 0.0f, groundSize.z / 2);
         groundPos.position += new Vector3((gameManager.setStage * 10 / 2), 0.0f, (gameManager.setStage * 10 / 2));
     }
+}
+
+public enum Deep
+{
+    TREASURE,
+    ITEM
 }
