@@ -93,7 +93,7 @@ public class TileManager : MonoBehaviour
             }
             else if (hasItem && dig) 
             {
-                //深度を下げ、深度が0以下になると、タカラモノを地表に出す
+                //深度を下げ、深度が0以下になると、ホリダシモノを地表に出す
                 deep -= playerController.digPower;
                 if (deep <= 0)
                 {
@@ -127,14 +127,14 @@ public class TileManager : MonoBehaviour
         {
             renderer.material.color = Color.red;
         }
-        //else if (hasTreasure)
-        //{
-        //    //renderer.material.color = Color.green;
-        //}
-        //else if (hasItem) 
-        //{
-        //    //renderer.material.color = Color.blue;
-        //}
+        else if (hasTreasure)
+        {
+            renderer.material.color = Color.green;
+        }
+        else if (hasItem)
+        {
+            renderer.material.color = Color.blue;
+        }
         else
         {
             renderer.material.color = Color.white;

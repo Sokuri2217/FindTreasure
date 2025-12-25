@@ -363,7 +363,22 @@ public class MenuUI : UIManager
     //ステージ設定
     void StageSetting()
     {
-        gameManager.setStage = ChangeSelectNum(gameManager.setStage, gameManager.setMaxStage, Input.GetKeyDown(KeyCode.D), Input.GetKeyDown(KeyCode.A), se[(int)SE.SELECTNUM]);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            gameManager.setStage++;
+            if (gameManager.setStage > gameManager.setMaxStage)
+                gameManager.setStage = gameManager.setMinStage;
+            //SEを再生
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            gameManager.setStage--;
+            if (gameManager.setStage < gameManager.setMinStage)
+                gameManager.setStage = gameManager.setMaxStage;
+            //SEを再生
+            seManager.PlaySE(se[(int)SE.SELECTNUM]);
+        }
     }
 
     //オブジェクト設定
@@ -577,7 +592,7 @@ public class MenuUI : UIManager
     public void OtherSound()
     {
         //調整項目を選択
-        soundNum = ChangeSelectNum(soundNum, maxSoundNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), se[(int)SE.SELECTSOUNDSET]);
+        soundNum = ChangeSelectNum(soundNum, 0, maxSoundNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), se[(int)SE.SELECTSOUNDSET]);
 
         //音量調整
         if (Input.GetKeyDown(KeyCode.A))
@@ -659,7 +674,7 @@ public class MenuUI : UIManager
     }
     public void OtherLanguage()
     {
-        languageNum = ChangeSelectNum(languageNum, maxLanguageNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), null);
+        languageNum = ChangeSelectNum(languageNum, 0, maxLanguageNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), null);
 
         //選択中の項目を強調表示
         for (int i = 0; i < selectLanguageImage.Length; i++)
@@ -689,7 +704,7 @@ public class MenuUI : UIManager
         const int yes = 0;
         const int no = 1;
 
-        endGameNum = ChangeSelectNum(endGameNum, maxEndGameNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), se[(int)SE.SELECTSOUNDSET]);
+        endGameNum = ChangeSelectNum(endGameNum, 0, maxEndGameNum, Input.GetKeyDown(KeyCode.S), Input.GetKeyDown(KeyCode.W), se[(int)SE.SELECTSOUNDSET]);
 
         //選択中の項目を強調表示
         for (int i = 0; i < selectEndGameImage.Length; i++)
@@ -736,13 +751,13 @@ public class MenuUI : UIManager
         }
     }
 
-    public int ChangeSelectNum(int selectNum, int maxSelectNum, bool plusInput, bool minusInput, AudioClip clip)
+    public int ChangeSelectNum(int selectNum, int minSelectNum, int maxSelectNum, bool plusInput, bool minusInput, AudioClip clip)
     {
         if(plusInput)
         {
             selectNum++;
             if (selectNum >= maxSelectNum)
-                selectNum = 0;
+                selectNum = minSelectNum;
 
             if(clip != null)
             {
@@ -753,7 +768,7 @@ public class MenuUI : UIManager
         if(minusInput)
         {
             selectNum--;
-            if (selectNum < 0)
+            if (selectNum < minSelectNum) 
                 selectNum = (maxSelectNum - 1);
             if (clip != null)
             {

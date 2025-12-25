@@ -53,6 +53,10 @@ MonoBehaviour:
   ground: {fileID: 0}
   minDeep: 0300000001000000
   maxDeep: 0600000001000000
+  createMap: 0
+  allTiles: []
+  gameManager: {fileID: 0}
+  mapGimmick: {fileID: 0}
 --- !u!114 &7288232260107310672
 MonoBehaviour:
   m_ObjectHideFlags: 0

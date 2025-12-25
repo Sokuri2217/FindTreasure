@@ -96,7 +96,7 @@ public class MapCreater : MonoBehaviour
             selected.SetHasItem(true);
 
             // アイテムを新しく生成
-            GameObject newItem = Instantiate(itemPrefab);
+            GameObject newItem = itemPrefab;
 
             // ランダムなアイテムデータを設定
             int itemIndex = Random.Range(0, itemBases.Count);
