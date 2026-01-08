@@ -57,9 +57,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // マウスカーソルを画面中央に固定
-        //Cursor.lockState = CursorLockMode.Locked;
-
         //ステージ設定
         {
             //マップ上におけるタカラモノとホリダシモノの上限設定

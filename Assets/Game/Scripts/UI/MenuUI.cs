@@ -10,8 +10,11 @@ public class MenuUI : UIManager
     public Vector3[] originScale;//通常サイズ
     public float zoomNum;        //拡大率
 
+    [Header("マップ選択")]
+    public Image mapIcon;
+    public Sprite[] mapSprites;
+
     [Header("ステージ選択")]
-    public Text stageNum;
     public Text clearTurnNum;
     public Text gimmick;
 
@@ -472,7 +475,7 @@ public class MenuUI : UIManager
             isSetText[(int)SetStage.ITEM].text = gameManager.setItem.ToString();
         }
 
-        stageNum.text = (gameManager.mapNum + 1).ToString();
+        mapIcon.sprite = mapSprites[gameManager.mapNum];
         clearTurnNum.text = gameManager.clearTurnLimit[gameManager.mapNum].ToString();
         gimmick.text = gameManager.gimmickDescription[gameManager.mapNum].ToString();
     }

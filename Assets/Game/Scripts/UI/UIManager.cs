@@ -38,10 +38,12 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
+        // マウスカーソルを画面中央に固定
+        Cursor.lockState = CursorLockMode.Locked;
+
         //スクリプト取得
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         
-
         //初回フェード
         //パネル生成
         GameObject createFade = Instantiate(fadePanel, transform);
