@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2a733a7178cb64aaa1fc412566d99b, type: 3}
   m_Name: Stage3
   m_EditorClassIdentifier: 
-  itemName: Unique3
+  itemName: "\u3055\u3044\u304F\u3064\u304A\u3046"
   description:
   - 
   - ggggggggggggggggggg

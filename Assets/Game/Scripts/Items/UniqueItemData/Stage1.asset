@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2a733a7178cb64aaa1fc412566d99b, type: 3}
   m_Name: Stage1
   m_EditorClassIdentifier: 
-  itemName: Unique1
+  itemName: "\u3055\u3044\u304F\u3064\u304A\u3046"
   description:
   - 
   - ssssssssssssssssssss
   - 
   icon: {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
-  isUseActive: 0
+  isUseActive: 1
   type: 0
   value1: 0
   value2: 0

@@ -98,8 +98,14 @@ public class TileManager : MonoBehaviour
                 if (deep <= 0)
                 {
                     hasItem = false;
+                    Transform itemPos = itemObj.transform;
+                    itemPos.position = new Vector3(
+                        transform.position.x,
+                        itemPos.position.y,
+                        transform.position.z
+                        );
                     //オブジェクト生成
-                    Instantiate(itemObj, transform.position, Quaternion.identity);
+                    Instantiate(itemObj, itemPos.position, Quaternion.identity);
                 }
                 
             }
@@ -127,14 +133,14 @@ public class TileManager : MonoBehaviour
         {
             renderer.material.color = Color.red;
         }
-        else if (hasTreasure)
-        {
-            renderer.material.color = Color.green;
-        }
-        else if (hasItem)
-        {
-            renderer.material.color = Color.blue;
-        }
+        //else if (hasTreasure)
+        //{
+        //    renderer.material.color = Color.green;
+        //}
+        //else if (hasItem)
+        //{
+        //    renderer.material.color = Color.blue;
+        //}
         else
         {
             renderer.material.color = Color.white;
