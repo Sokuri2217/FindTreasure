@@ -9,20 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b2a733a7178cb64aaa1fc412566d99b, type: 3}
-  m_Name: Stage2
+  m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
+  m_Name: HealItemCoolTime
   m_EditorClassIdentifier: 
-  itemName: "\u3055\u3044\u304F\u3064\u304A\u3046"
+  itemName: 
   description:
   - 
   - 
   - 
-  icon: {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
+  icon: {fileID: 0}
   isUseActive: 0
-  type: 1
+  effectType: 0
   value1: 0
   value2: 0
-  value3: 0
-  value4: 0
+  activeValue1: 0
+  activeValue2: 0
   duration: 0
+  activeItemTurn: 0
   coolTime: 0
+  coolTimeTurn: 0

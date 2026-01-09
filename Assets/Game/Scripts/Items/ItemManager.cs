@@ -8,10 +8,12 @@ public enum ItemEffectType
     None,
     AddPower1,
     AddDigArea,
+    AddDigCount,
     AddLimitTurn,
     AddLimit1Turn3Cool2,
     AddUse1,
-    AddSpeed5SubTime10
+    AddSpeed5SubTime10,
+    HealCoolTime
 }
 
 /// <summary>
@@ -38,6 +40,10 @@ public class ItemManager : ItemBase
     public int activeItemTurn;
     [Tooltip("クールタイム")]
     public int coolTime;
+    [Tooltip("クールタイムに入ったターン")]
+    public int coolTimeTurn;
+
+    
 
     // ==============================
     // 効果適用処理
@@ -48,10 +54,12 @@ public class ItemManager : ItemBase
     /// </summary>
     public override void OnGet(PlayerController player)
     {
-        //switch (effectType)
-        //{
-            
-        //}
+        switch (effectType)
+        {
+            case ItemEffectType.AddDigCount:
+                player.digCurrent += (int)value1;
+                break;
+        }
     }
 
     /// <summary>

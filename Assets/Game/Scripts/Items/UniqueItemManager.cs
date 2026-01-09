@@ -43,10 +43,21 @@ public class UniqueItemManager : ItemBase
     /// </summary>
     public override void OnGet(PlayerController player)
     {
-        //switch (effectType)
-        //{
-
-        //}
+        switch (type)
+        {
+            case UniqueEffectType.Stage1:
+                break;
+            case UniqueEffectType.Stage2:
+                break;
+            case UniqueEffectType.Stage3:
+                break;
+            case UniqueEffectType.Stage4:
+                break;
+            case UniqueEffectType.Stage5:
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -54,7 +65,21 @@ public class UniqueItemManager : ItemBase
     /// </summary>
     public override void OnHold(PlayerController player)
     {
-        
+        switch (type)
+        {
+            case UniqueEffectType.Stage1:
+                break;
+            case UniqueEffectType.Stage2:
+                break;
+            case UniqueEffectType.Stage3:
+                break;
+            case UniqueEffectType.Stage4:
+                break;
+            case UniqueEffectType.Stage5:
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -62,7 +87,21 @@ public class UniqueItemManager : ItemBase
     /// </summary>
     public override void OnHoldDelete(PlayerController player)
     {
-        
+        switch (type)
+        {
+            case UniqueEffectType.Stage1:
+                break;
+            case UniqueEffectType.Stage2:
+                break;
+            case UniqueEffectType.Stage3:
+                break;
+            case UniqueEffectType.Stage4:
+                break;
+            case UniqueEffectType.Stage5:
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -70,6 +109,21 @@ public class UniqueItemManager : ItemBase
     /// </summary>
     public override void OnUse(PlayerController player, StageUI stageUI)
     {
+        switch (type)
+        {
+            case UniqueEffectType.Stage1:
+                break;
+            case UniqueEffectType.Stage2:
+                break;
+            case UniqueEffectType.Stage3:
+                break;
+            case UniqueEffectType.Stage4:
+                break;
+            case UniqueEffectType.Stage5:
+                break;
+            default:
+                break;
+        }
 
         if (duration > 0)
         {
@@ -98,6 +152,20 @@ public class UniqueItemManager : ItemBase
     /// </summary>
     public override void OnActiveDelete(PlayerController player)
     {
-        
+        switch (type)
+        {
+            case UniqueEffectType.Stage1:
+                break;
+            case UniqueEffectType.Stage2:
+                break;
+            case UniqueEffectType.Stage3:
+                break;
+            case UniqueEffectType.Stage4:
+                break;
+            case UniqueEffectType.Stage5:
+                break;
+            default:
+                break;
+        }
     }
 }

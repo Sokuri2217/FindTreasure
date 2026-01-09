@@ -15,8 +15,8 @@ MonoBehaviour:
   itemName: "\u3055\u3044\u304F\u3064\u304A\u3046"
   description:
   - 
-  - ssssssssssssssssssss
   - 
+  - "\u30D5\u30A7\u30FC\u30BA\u5EF6\u9577\uFF1A\u5168\u3066\n"
   icon: {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
   isUseActive: 1
   type: 0
