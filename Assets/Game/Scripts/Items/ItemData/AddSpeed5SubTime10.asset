@@ -17,11 +17,13 @@ MonoBehaviour:
   - 
   - 
   - 
-  icon: {fileID: -993759289, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
+  icon: {fileID: 21300000, guid: 21aaf952377b6a34797313ec6fd7708e, type: 3}
+  isUseActive: 0
   effectType: 5
   value1: 5
   value2: 10
-  value3: 0
-  value4: 0
+  activeValue1: 0
+  activeValue2: 0
   duration: 0
+  activeItemTurn: 0
   coolTime: 0

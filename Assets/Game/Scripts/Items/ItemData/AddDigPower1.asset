@@ -17,11 +17,13 @@ MonoBehaviour:
   - 
   - "\u3055\u3044\u304F\u3064\u304D\u3087\u3046\u304B\n\u2192\u3057\u3093\u3069\u3066\u3044\u304B(+1)"
   - 
-  icon: {fileID: -316971858, guid: 8bbde9eba154c864d8cf95fc002a5e8e, type: 3}
+  icon: {fileID: 21300000, guid: 18bcbb32d185cd44ca53ed95ee040d65, type: 3}
+  isUseActive: 0
   effectType: 1
   value1: 1
   value2: 0
-  value3: 0
-  value4: 0
+  activeValue1: 0
+  activeValue2: 0
   duration: 0
+  activeItemTurn: 0
   coolTime: 0
