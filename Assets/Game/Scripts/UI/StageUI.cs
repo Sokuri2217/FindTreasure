@@ -25,7 +25,7 @@ public class StageUI : UIManager
     public GameObject overPanel;      //ゲームオーバー画面
     public GameObject resultPanel;    //リザルト画面の共通部分
     public GameObject pausePanel;     //一時停止
-    public GameObject notPausePanel;     //一時停止
+    public GameObject notPausePanel;  //一時停止
     public GameObject[] inputPanel;   //入力案内
 
     [Header("アイテム情報")]

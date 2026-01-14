@@ -464,21 +464,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2645653841720976304, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2709862609023048738, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
       propertyPath: m_Name
       value: MenuUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
-      propertyPath: maxOtherPanel
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325409227463857936, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
-      propertyPath: otherPanel.Array.size
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4236556785684035605, guid: 81a913de1625efd4c87dfc9893fbf2a8, type: 3}
       propertyPath: m_Pivot.x

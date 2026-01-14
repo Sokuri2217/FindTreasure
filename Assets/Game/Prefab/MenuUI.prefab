@@ -2707,7 +2707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6075742275250652873
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2949,6 +2949,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a5cbf6c787b711d4bab14c5ab30f643b, type: 3}
   - {fileID: 8300000, guid: 88756b0c0bd58a949ad61a7a73720536, type: 3}
   - {fileID: 8300000, guid: 7ed7a180af10bd640b5d6ddbeaf4b2c8, type: 3}
+  - {fileID: 8300000, guid: 3337d177e2878ef46a1355d3d815dc6b, type: 3}
+  - {fileID: 8300000, guid: 3337d177e2878ef46a1355d3d815dc6b, type: 3}
   sceneMove: {fileID: 8300000, guid: f4e5bb00f0af72f48a04eee810f08127, type: 3}
   setting: 000000
   settingNum: 0

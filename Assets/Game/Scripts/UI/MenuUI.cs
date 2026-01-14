@@ -119,6 +119,8 @@ public class MenuUI : UIManager
         OPENFOCUS,
         CLOSEFOCUS,
         SELECTSOUNDSET,
+        OPENOTHERMENU,
+        CLOSEOTHERMENU
     }
 
     enum Sound
@@ -543,6 +545,8 @@ public class MenuUI : UIManager
                     isOpenOtherMenu = true;
                     other.SetActive(false);
                     otherPanel[otherPanelNum].gameObject.SetActive(true);
+                    //SEÇçƒê∂
+                    seManager.PlaySE(se[(int)SE.OPENOTHERMENU]);
                 }
             }
             else if (Input.GetKeyDown(KeyCode.C))
@@ -553,6 +557,8 @@ public class MenuUI : UIManager
                     isOpenOtherMenu = false;
                     other.SetActive(true);
                     otherPanel[otherPanelNum].gameObject.SetActive(false);
+                    //SEÇçƒê∂
+                    seManager.PlaySE(se[(int)SE.CLOSEOTHERMENU]);
                 }
             }
 
@@ -738,6 +744,8 @@ public class MenuUI : UIManager
             switch (endGameNum)
             {
                 case yes:
+                    //SEÇçƒê∂
+                    seManager.PlaySE(se[(int)SE.CLOSEOTHERMENU]);
 #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -745,6 +753,8 @@ public class MenuUI : UIManager
 #endif
                     break;
                 case no:
+                    //SEÇçƒê∂
+                    seManager.PlaySE(se[(int)SE.CLOSEOTHERMENU]);
                     isOpenOtherMenu = false;
                     other.SetActive(true);
                     otherPanel[otherPanelNum].gameObject.SetActive(false);

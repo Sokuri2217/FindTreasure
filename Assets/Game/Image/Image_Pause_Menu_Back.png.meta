@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c6363c56a4863be4c81f956c5cc499f8
+guid: 74e1f85563227e24f9abb19fa47b9c46
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,67 +97,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Image_Stage_0
+      name: Image_Pause_Menu_Back_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 750
-        width: 326
-        height: 327
+        x: 32
+        y: 334
+        width: 466
+        height: 717
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5b17084abca6c24aab9c86ede71da00
-      internalID: -1348706398
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_Stage_1
-      rect:
-        serializedVersion: 2
-        x: 506
-        y: 301
-        width: 574
-        height: 773
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e24caba396fba50468a7591487e922db
-      internalID: -1526797495
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_Stage_2
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 314
-        width: 350
-        height: 330
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 951740494cc4d9347a50f5648e7eaa6d
-      internalID: -1673758198
+      spriteID: 92e1489b82f15ee4cb157e1ef0a881e4
+      internalID: 1884071918
       vertices: []
       indices: 
       edges: []
@@ -166,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a0818aed776250344967be8a5ed83a32
+    spriteID: 3d3ea6899cebd7b47a440ced760234d0
     internalID: 0
     vertices: []
     indices: 
@@ -176,9 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Image_Stage_0: -1348706398
-      Image_Stage_1: -1526797495
-      Image_Stage_2: -1673758198
+      Image_Pause_Menu_Back_0: 1884071918
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
