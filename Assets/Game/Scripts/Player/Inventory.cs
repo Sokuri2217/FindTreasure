@@ -54,8 +54,9 @@ public class Inventory : MonoBehaviour
             if (items[i] == null)
             {
                 items[i] = item;
-                item.OnGet(player);    // 即時効果を発動
-                item.OnHold(player);   // 所持時効果を適用
+                item.OnGet(player);       //即時効果を発動
+                item.OnHold(player);      //所持時効果を適用
+                item.isUseActive = false; //アクティブ効果を未使用状態にする
                 Debug.Log($"{item.name} を追加しました");
                 break;
             }

@@ -468,38 +468,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StageUI
       objectReference: {fileID: 0}
-    - target: {fileID: 796039223161844568, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: digCountIcon
-      value: 
-      objectReference: {fileID: 8222665961037355535, guid: 39760b9585e4bc94db1d5349307a4cce, type: 3}
-    - target: {fileID: 1696734578206439834, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -957
-      objectReference: {fileID: 0}
-    - target: {fileID: 1696734578206439834, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 302
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485799995167713139, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_Spacing.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485799995167713139, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_Spacing.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485799995167713139, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_CellSize.x
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485799995167713139, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_CellSize.y
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 5485799995167713139, guid: 407b1e9f7d12ae947898ea52cd75f7c3, type: 3}
-      propertyPath: m_ChildAlignment
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

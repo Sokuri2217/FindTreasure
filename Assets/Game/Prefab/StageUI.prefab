@@ -508,6 +508,7 @@ MonoBehaviour:
   selectImage: {fileID: 9141400640191392634}
   menu: Menu
   currentScene: 
+  useItem: {fileID: 8300000, guid: 5af70d6ab0932fa4a9ddb516374ec511, type: 3}
 --- !u!1 &327310208407156172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,7 +1318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -938.4387, y: 290}
+  m_AnchoredPosition: {x: -957, y: 302}
   m_SizeDelta: {x: 7.1226, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &796039223161844568
@@ -1333,7 +1334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconParent: {fileID: 1696734578206439834}
-  digCountIcon: {fileID: 2430345077219719224, guid: 39760b9585e4bc94db1d5349307a4cce, type: 3}
+  digCountIcon: {fileID: 8222665961037355535, guid: 39760b9585e4bc94db1d5349307a4cce, type: 3}
   currentDigCount: 0
   player: {fileID: 0}
 --- !u!114 &5485799995167713139
@@ -1356,8 +1357,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 35, y: 35}
-  m_Spacing: {x: 1, y: 1}
+  m_CellSize: {x: 80, y: 75}
+  m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 5
 --- !u!1 &1236832812960783758

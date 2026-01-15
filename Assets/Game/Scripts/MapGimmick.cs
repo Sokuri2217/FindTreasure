@@ -24,7 +24,7 @@ public class MapGimmick : MonoBehaviour
         switch(gimmickNum)
         { 
             case (int)MapNum.MAP1:
-                //特にギミックはなし
+                //特にギミックはなし 
                 break;
             case (int)MapNum.MAP2:
                 player.originSpeed *= 0.75f;                //移動速度低下
@@ -60,6 +60,6 @@ public class MapGimmick : MonoBehaviour
         MAP2,
         MAP3,
         MAP4,
-        MAP5,
+        MAP5
     }
 }

@@ -77,6 +77,9 @@ public class StageUI : UIManager
     private PlayerController player;
     private Inventory inventory;
 
+    [Header("Œø‰Ê‰¹")]
+    public AudioClip useItem;
+
 
     enum SE
     {
@@ -409,10 +412,12 @@ public class StageUI : UIManager
                     if (inventory.items[i] != null)
                     {
                         useActiveImage.SetActive(true);
-                        if (Input.GetKeyUp(KeyCode.Space) && !inventory.items[i].isUseActive) 
+                        if (Input.GetKeyDown(KeyCode.Space) && !inventory.items[i].isUseActive) 
                         {
                             inventory.items[i].OnUse(player, this);
                             inventory.items[i].isUseActive = true;
+                            //SE‚ð–Â‚ç‚·
+                            seManager.PlaySE(useItem);
                         }
                     }
                     else
@@ -600,7 +605,6 @@ public enum Phase
 {
     ITEM,
     DIG,
-
 }
 
 public enum Pause

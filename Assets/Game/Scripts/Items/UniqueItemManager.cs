@@ -76,6 +76,7 @@ public class UniqueItemManager : ItemBase
             case UniqueEffectType.Stage4:
                 break;
             case UniqueEffectType.Stage5:
+                player.digLimit += (int)value2;
                 break;
             default:
                 break;
@@ -98,6 +99,7 @@ public class UniqueItemManager : ItemBase
             case UniqueEffectType.Stage4:
                 break;
             case UniqueEffectType.Stage5:
+                player.digLimit -= (int)value2;
                 break;
             default:
                 break;
@@ -112,6 +114,8 @@ public class UniqueItemManager : ItemBase
         switch (type)
         {
             case UniqueEffectType.Stage1:
+                stageUI.phaseLimit[(int)Phase.ITEM] += 15.0f;
+                stageUI.phaseLimit[(int)Phase.DIG] += 30.0f;
                 break;
             case UniqueEffectType.Stage2:
                 break;
@@ -120,11 +124,12 @@ public class UniqueItemManager : ItemBase
             case UniqueEffectType.Stage4:
                 break;
             case UniqueEffectType.Stage5:
+                player.digPower += (int)value3;
                 break;
             default:
                 break;
         }
-
+        Debug.Log("アイテムを使用しました");
         if (duration > 0)
         {
             player.isActiveItems.Add(this);
@@ -163,6 +168,7 @@ public class UniqueItemManager : ItemBase
             case UniqueEffectType.Stage4:
                 break;
             case UniqueEffectType.Stage5:
+                player.digPower -= (int)value3;
                 break;
             default:
                 break;
