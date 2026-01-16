@@ -16,6 +16,7 @@ public class StageUI : UIManager
     [Header("フェーズの計測")]
     public float[] phaseLimit;
     public float timer;
+    public Image timerImage;
 
     [Header("表示パネル")]
     public GameObject itemDataPanel;  //アイテムの詳細
@@ -42,6 +43,11 @@ public class StageUI : UIManager
     public float zoomNum;             //拡大率
     public GameObject removeImage;
     public GameObject useActiveImage;
+
+    [Header("アイテム効果")]
+    public bool isTimeStop;
+    public float stopTimer;
+    public float stopLimit;
 
     [Header("フラグ")]
     public bool isPause;
@@ -158,6 +164,8 @@ public class StageUI : UIManager
         //採掘フェーズの強制終了
         if (player.digCurrent <= 0)
             EndDig();
+        if (player.useItem <= 0)
+            EndItem();
         for (int i = 0; i < phaseLimit.Length; i++)
         {
             if (isPhase[i])
@@ -166,6 +174,13 @@ public class StageUI : UIManager
                 PhaseTimer(i);
             }
         }
+        //ターンの制御
+        if (currentTurn <= 0)
+        {
+            //ターン数が0を下回らないようにする
+            currentTurn = 0;
+        }
+
         //現在のフェーズをスキップ
         SkipPhase();
 
@@ -182,22 +197,39 @@ public class StageUI : UIManager
         Color color = phaseFrame.color;
 
         //現在のフェーズに合わせて枠の色やフェーズ状態を切り替える
-        for (int i = (int)Phase.ITEM; i <= (int)Phase.DIG; i++) 
+        for (int i = 0; i < isPhase.Length; i++)  
         {
             if (isPhase[i]) 
             {
                 currentPhase.sprite = phaseImage[i];
                 color = phaseColor[i];
+                phaseFrame.color = color;
+                Color timerColor = timerImage.color;
+                timerColor = phaseColor[i];
+                timerImage.color = color;
+                timerImage.fillAmount = 1.0f - Mathf.Clamp01(timer / phaseLimit[i]);
             }
         }
-        //変化後の色を反映
-        phaseFrame.color = color;
     }
 
     //フェーズ変更までの時間計測
     public void PhaseTimer(int currentPhase)
     {
+        //Digフェーズ中にインベントリが開かれている場合時間経過を止める
         if (inventoryPanel.activeSelf && isPhase[(int)Phase.DIG]) return;
+        //アイテムの効果
+        if (isTimeStop)
+        {
+            stopTimer -= Time.deltaTime;
+            //一定時間経過するまでフェーズの経過は止める
+            if (stopTimer <= 0.0f)
+            {
+                isTimeStop = false;
+                stopTimer = stopLimit;
+            }
+            else
+                return;
+        }
         timer += Time.deltaTime;
         if (timer >= phaseLimit[currentPhase])
         {
@@ -218,6 +250,8 @@ public class StageUI : UIManager
         itemDataPanel.SetActive(false);
         inputPanel[(int)Phase.ITEM].SetActive(false);
         inputPanel[(int)Phase.DIG].SetActive(true);
+        player.digCurrent = player.digLimit;
+        player.useItem = player.useItemLimit;
     }
 
     public void EndDig()
@@ -229,11 +263,8 @@ public class StageUI : UIManager
         itemDataPanel.SetActive(false);
         inputPanel[(int)Phase.ITEM].SetActive(true);
         inputPanel[(int)Phase.DIG].SetActive(false);
-        //ターンを経過させる
         currentTurn++;
-        //ターンをUIに反映
         turnText.text = currentTurn.ToString();
-        //採掘数をリセット
         player.digCurrent = player.digLimit;
     }
 
@@ -409,15 +440,21 @@ public class StageUI : UIManager
                         removeImage.SetActive(false);
                     }
 
-                    if (inventory.items[i] != null)
+                    if (!isPhase[(int)Phase.DIG] &&
+                        inventory.items[i] != null &&
+                        inventory.items[i].description[(int)Item.ACTIVE] != null &&
+                        !inventory.items[i].isUseActive&&
+                        !inventory.items[i].isCoolDown) 
                     {
                         useActiveImage.SetActive(true);
-                        if (Input.GetKeyDown(KeyCode.Space) && !inventory.items[i].isUseActive) 
+                        if (Input.GetKeyDown(KeyCode.Space))  
                         {
                             inventory.items[i].OnUse(player, this);
                             inventory.items[i].isUseActive = true;
-                            //SEを鳴らす
+                            inventory.items[i].useActiveTurn = currentTurn;
+                            inventory.isActiveItems.Add(inventory.items[i]);
                             seManager.PlaySE(useItem);
+                            player.useItem--;
                         }
                     }
                     else
@@ -618,4 +655,10 @@ public enum Result
 {
     RETRY,
     BACKMENU,
+}
+
+public enum Get
+{
+    TREASURE,
+    ITEM
 }

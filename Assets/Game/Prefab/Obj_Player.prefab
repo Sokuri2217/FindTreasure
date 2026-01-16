@@ -285,23 +285,30 @@ MonoBehaviour:
   originSpeed: 3
   moveSpeed: 0
   dig_width: 3
+  dig_width_data: 3
   dig_height: 3
+  dig_height_data: 3
   digPower: 1
   isDig: 0
   digLimit: 5
   digCurrent: 0
   getItem: 0
   getTreasure: 0
-  useItem: 0
+  useItem: 1
+  useItemLimit: 1
   isMoving: 0
   rotationCore: {fileID: 2738281241822590522}
   rotationSpeed: 60
   rotationX: 0
   minRotation: -25
   maxRotation: 60
-  isActiveItems: []
   isGetTreasure: 0
   treasure: {fileID: 0}
+  ignoredDeep: 0000
+  consumedProbability: 0
+  getObjStopTime:
+  - 0
+  - 0
   gameManager: {fileID: 0}
   stageUI: {fileID: 0}
   inventory: {fileID: 0}
@@ -318,14 +325,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac3d334075806448da4c7cfda84ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isActiveItems: []
+  isCoolDownItems: []
   isSelectItem: 0
   lineHeight: 0
   lineWidth: 0
-  getMaxItem: 10
   lineMaxHeight: 2
   lineMaxWidth: 5
+  changeActiveTurn: 0
+  changeCoolTime: 0
   player: {fileID: 0}
+  stageUI: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!136 &6373011168084637786
 CapsuleCollider:

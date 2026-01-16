@@ -15,14 +15,19 @@ MonoBehaviour:
   itemName: "\u3055\u3044\u304F\u3064\u304A\u3046"
   description:
   - 
-  - "\u63A1\u6398\u7BC4\u56F2\uFF1A\uFF0B\uFF12\uFF08\u7E26\u30FB\u6A2A\uFF09\n"
+  - "\u63A1\u6398\u7BC4\u56F2\uFF1A\uFF0B\uFF12\uFF08\u7E26\u30FB\u6A2A\uFF09\n\u79FB\u52D5\u901F\u5EA6\uFF1A1.5\u500D"
   - "\u63A1\u6398\u529B\uFF1A\uFF0B\uFF13\n\u30D5\u30A7\u30FC\u30BA\uFF1A10\u79D2\u505C\u6B62\uFF08\u30BF\u30AB\u30E9\u30E2\u30CE\u53D6\u5F97\u6642\uFF09\n\u30D5\u30A7\u30FC\u30BA\uFF1A5\u79D2\u505C\u6B62\uFF08\u30DB\u30EA\u30C0\u30B7\u30E2\u30CE\u53D6\u5F97\u6642\uFF09\n\u6301\u7D9A\uFF1A4\n\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\uFF1A3"
   icon: {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
   isUseActive: 0
+  isCoolDown: 0
+  originDuration: 4
+  duration: 4
+  useActiveTurn: 0
+  originCoolTime: 3
+  coolTime: 3
+  coolTimeTurn: 0
   type: 2
-  value1: 0
-  value2: 0
-  value3: 0
-  value4: 0
-  duration: 0
-  coolTime: 0
+  value1: 2
+  value2: 1.5
+  activeValue1: 3
+  activeValue2: 10

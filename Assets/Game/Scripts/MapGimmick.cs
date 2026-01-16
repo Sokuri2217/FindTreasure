@@ -39,7 +39,7 @@ public class MapGimmick : MonoBehaviour
                 stageUI.phaseLimit[(int)Phase.DIG] *= 0.7f; //採掘フェーズの維持時間を短縮
                 break;
             case (int)MapNum.MAP4:
-                player.useItem += 1;                        //使用アイテム数上昇
+                player.useItemLimit += 1;                        //使用アイテム数上昇
                 player.digLimit -= 3;                       //採掘上限大低下
                 mapCreater.minDeep[(int)Deep.TREASURE] = 2; //最小シンド低下
                 mapCreater.maxDeep[(int)Deep.TREASURE] = 4; //最大シンド低下

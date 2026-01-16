@@ -5,17 +5,20 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("基本情報")]
-    public float originSpeed; //基本速度
-    public float moveSpeed;   //現在速度
-    public int dig_width;     //採掘範囲(横)
-    public int dig_height;    //採掘範囲(縦)
-    public int digPower;      //採掘力(一回でどれだけ深度を下げれるか)
-    public bool isDig;        //採掘中かどうか
-    public int digLimit;      //採掘回数の上限
-    public int digCurrent;    //現在の採掘回数
-    public bool getItem;      //アイテムを取得可能かどうか
-    public bool getTreasure;  //タカラモノを取得可能かどうか
-    public int useItem;       //使用可能アイテム数
+    public float originSpeed;   //基本速度
+    public float moveSpeed;     //現在速度
+    public int dig_width;       //採掘範囲(横)
+    public int dig_width_data;  //採掘範囲(横)の実際の値
+    public int dig_height;      //採掘範囲(縦)
+    public int dig_height_data; //採掘範囲(縦)の実際の値
+    public int digPower;        //採掘力(一回でどれだけ深度を下げれるか)
+    public bool isDig;          //採掘中かどうか
+    public int digLimit;        //採掘回数の上限
+    public int digCurrent;      //現在の採掘回数
+    public bool getItem;        //アイテムを取得可能かどうか
+    public bool getTreasure;    //タカラモノを取得可能かどうか
+    public int useItem;         //使用可能アイテム数
+    public int useItemLimit;    //使用可能アイテム上限
 
     [Header("移動関係")]
     public bool isMoving;           //移動中かどうか
@@ -29,12 +32,14 @@ public class PlayerController : MonoBehaviour
     public float minRotation;
     public float maxRotation;
 
-    [Header("アクティブ効果発動中")]
-    public List<ItemBase> isActiveItems = new List<ItemBase>();
-
     [Header("タカラモノ")]
     public int isGetTreasure;
     public GameObject treasure;
+
+    [Header("アイテム効果")]
+    public bool[] ignoredDeep;
+    public float consumedProbability;
+    public float[] getObjStopTime;
 
     [Header("スクリプト参照")]
     public GameManager gameManager;       //ゲームの基本情報
@@ -53,6 +58,7 @@ public class PlayerController : MonoBehaviour
         moveSpeed = originSpeed;             //移動速度
         targetPosition = transform.position; //座標
         digCurrent = digLimit;               //採掘回数
+        useItem = useItemLimit;              //アイテム使用可能数
 
     }
 
@@ -164,7 +170,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig && !stageUI.inventoryPanel.activeSelf) 
         {
             isDig = true;
-            digCurrent--;
+            //採掘数を消費するかどうか
+            //consumedProbability*10％で消費されない
+            bool shouldConsume = Random.value > consumedProbability;
+            if (shouldConsume)
+                digCurrent--;
+            else
+                Debug.Log("採掘数は消費されなかった");
         }
         else
         {
@@ -175,14 +187,12 @@ public class PlayerController : MonoBehaviour
     //採掘範囲の増減制限
     public void DigAreaLimit()
     {
-        if (dig_width < 0) 
-        {
-            dig_width = 0;
-        }
-        if (dig_height < 0)
-        {
-            dig_height = 0;
-        }
+        dig_width = dig_width_data;
+        dig_height = dig_height_data;
+        if (dig_width < 1)
+            dig_width = 1;
+        if (dig_height < 1)
+            dig_height = 1;
     }
 
     //アイテム取得
@@ -197,6 +207,12 @@ public class PlayerController : MonoBehaviour
                 getItem = false;
                 Destroy(hitItem.gameObject);
             }
+            if (!stageUI.isTimeStop)
+            {
+                stageUI.isTimeStop = true;
+                stageUI.stopLimit = getObjStopTime[(int)Get.ITEM];
+            }
+            
         }
     }
 
@@ -208,6 +224,11 @@ public class PlayerController : MonoBehaviour
             isGetTreasure++;
             Destroy(treasure);
             getTreasure = false;
+            if (!stageUI.isTimeStop)
+            {
+                stageUI.isTimeStop = true;
+                stageUI.stopLimit = getObjStopTime[(int)Get.TREASURE];
+            }
         }
     }
 

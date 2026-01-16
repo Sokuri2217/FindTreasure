@@ -5,6 +5,8 @@ public class Inventory : MonoBehaviour
 {
     [Header("アイテム情報")]
     public List<ItemBase> items = new List<ItemBase>();
+    public List<ItemBase> isActiveItems = new List<ItemBase>();
+    public List<ItemBase> isCoolDownItems = new List<ItemBase>();
 
     [Header("選択中")]
     public int isSelectItem;
@@ -12,40 +14,73 @@ public class Inventory : MonoBehaviour
     public int lineWidth;  //横列
 
     [Header("所持可能数")]
-    public int getMaxItem;
     public int lineMaxHeight;
     public int lineMaxWidth;
 
+    [Header("アイテム効果")]
+    public int changeActiveTurn;
+    public int changeCoolTime;
+
     [Header("スクリプト参照")]
     public PlayerController player;
+    public StageUI stageUI;
     public GameManager gameManager;
 
     public void Start()
     {
         //スクリプト取得
         player = GetComponent<PlayerController>();
+        stageUI = player.stageUI;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        SetInventory(getMaxItem);
         SetUniqueItem(gameManager.uniqueItems[gameManager.mapNum]);
     }
 
-    //インベントリの初期化
-    public void SetInventory(int slotNum)
+    public void Update()
     {
-        //最大所持数に応じて、インベントリの容量を決まる
-        for (int i = 0; i < slotNum; i++)
+        for (int i = 0; i < isActiveItems.Count; i++) 
         {
-            items.Add(null);
+            //ターン経過で効果を解除
+            int useActiveTurn = isActiveItems[i].useActiveTurn;
+            int duration = isActiveItems[i].duration;
+            if (isActiveItems[i].isUseActive && (useActiveTurn + duration) <= stageUI.currentTurn) 
+            {
+                isActiveItems[i].OnActiveDelete(player, stageUI);
+                isActiveItems.Remove(isActiveItems[i]);
+                isActiveItems[i].isCoolDown = true;
+                isActiveItems[i].coolTimeTurn = stageUI.currentTurn;
+                isCoolDownItems.Add(isActiveItems[i]);
+            }
+        }
+        for (int i = 0; i < isCoolDownItems.Count; i++) 
+        {
+            //ターン経過で再使用可能にする
+            int coolTimeTurn = isCoolDownItems[i].coolTimeTurn;
+            int coolTime = isCoolDownItems[i].coolTime;
+            if (isCoolDownItems[i].isCoolDown && (coolTimeTurn + coolTime) <= stageUI.currentTurn)
+            {
+                isCoolDownItems[i].isCoolDown = false;
+                isCoolDownItems.Remove(isCoolDownItems[i]);
+            }
+        }
+
+        //各ターンの変更処理
+        for (int i = 0; i < items.Count; i++) 
+        {
+            if (items[i] != null) 
+            {
+                items[i].duration = items[i].originDuration + changeActiveTurn;
+                items[i].coolTime = items[i].originCoolTime + changeCoolTime;
+            }
         }
     }
 
     // アイテムを追加
     public bool AddItem(ItemBase item)
     {
-        for (int i = 0; i < getMaxItem; i++) 
+        for (int i = 0; i < items.Count; i++) 
         {
             //インベントリが全て埋まっているとき
-            if (items[(getMaxItem - 1)] != null)
+            if (items[(items.Count - 1)] != null)
             {
                 Debug.Log($"これ以上アイテムを取得できません");
                 return false;
@@ -54,9 +89,10 @@ public class Inventory : MonoBehaviour
             if (items[i] == null)
             {
                 items[i] = item;
-                item.OnGet(player);       //即時効果を発動
-                item.OnHold(player);      //所持時効果を適用
+                item.OnGet(player,player.stageUI);       //即時効果を発動
+                item.OnHold(player, player.stageUI);      //所持時効果を適用
                 item.isUseActive = false; //アクティブ効果を未使用状態にする
+                item.isCoolDown = false;  //アクティブ効果をクールダウン状態にする
                 Debug.Log($"{item.name} を追加しました");
                 break;
             }
@@ -68,8 +104,10 @@ public class Inventory : MonoBehaviour
     public void SetUniqueItem(ItemBase uniqueItem)
     {
         items[0] = uniqueItem;
-        uniqueItem.OnGet(player);    // 即時効果を発動
-        uniqueItem.OnHold(player);   // 所持時効果を適用
+        uniqueItem.OnGet(player, player.stageUI);    // 即時効果を発動
+        uniqueItem.OnHold(player, player.stageUI);   // 所持時効果を適用
+        uniqueItem.isUseActive = false;
+        uniqueItem.isCoolDown = false;
     }
 
     // アイテムを削除
@@ -77,8 +115,8 @@ public class Inventory : MonoBehaviour
     {
         if (items.Contains(item))
         {
-            item.OnHoldDelete(player); // 効果解除
-            item.OnActiveDelete(player); // 効果解除
+            item.OnHoldDelete(player, player.stageUI); // 効果解除
+            item.OnActiveDelete(player, player.stageUI); // 効果解除
             items.Remove(item);
             items.Add(null);
             Debug.Log($"{item.name} を削除しました");

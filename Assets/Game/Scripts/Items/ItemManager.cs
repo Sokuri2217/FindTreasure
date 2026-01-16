@@ -34,15 +34,6 @@ public class ItemManager : ItemBase
     [Tooltip("数値パラメータ4")]
     public float activeValue2;
 
-    [Tooltip("持続ターン数（0なら常在効果）")]
-    public int duration;
-    [Tooltip("アイテムを使用したターン")]
-    public int activeItemTurn;
-    [Tooltip("クールタイム")]
-    public int coolTime;
-    [Tooltip("クールタイムに入ったターン")]
-    public int coolTimeTurn;
-
     
 
     // ==============================
@@ -52,7 +43,7 @@ public class ItemManager : ItemBase
     /// <summary>
     /// アイテム獲得時（即時効果）
     /// </summary>
-    public override void OnGet(PlayerController player)
+    public override void OnGet(PlayerController player, StageUI stageUI)
     {
         switch (effectType)
         {
@@ -65,7 +56,7 @@ public class ItemManager : ItemBase
     /// <summary>
     /// 常在効果（保持している間に有効）
     /// </summary>
-    public override void OnHold(PlayerController player)
+    public override void OnHold(PlayerController player, StageUI stageUI)
     {
         switch (effectType)
         {
@@ -73,8 +64,8 @@ public class ItemManager : ItemBase
                 player.digPower += (int)value1;
                 break;
             case ItemEffectType.AddDigArea:
-                player.dig_width += (int)value1 * 2;
-                player.dig_height += (int)value2 * 2;
+                player.dig_width_data += (int)value1 * 2;
+                player.dig_height_data += (int)value2 * 2;
                 break;
             case ItemEffectType.AddUse1:
                 player.useItem += (int)value1;
@@ -91,7 +82,7 @@ public class ItemManager : ItemBase
     /// <summary>
     /// 常在効果の解除（削除時）
     /// </summary>
-    public override void OnHoldDelete(PlayerController player)
+    public override void OnHoldDelete(PlayerController player, StageUI stageUI)
     {
         switch (effectType)
         {
@@ -99,8 +90,8 @@ public class ItemManager : ItemBase
                 player.digPower -= (int)value1;
                 break;
             case ItemEffectType.AddDigArea:
-                player.dig_width -= (int)value1 * 2;
-                player.dig_height -= (int)value2 * 2;
+                player.dig_width_data -= (int)value1 * 2;
+                player.dig_height_data -= (int)value2 * 2;
                 break;
             case ItemEffectType.AddUse1:
                 player.useItem -= (int)value1;
@@ -125,41 +116,19 @@ public class ItemManager : ItemBase
                 player.digLimit += (int)activeValue1;
                 break;
             case ItemEffectType.AddDigArea:
-                player.dig_width += (int)activeValue1 * 2;
-                player.dig_height += (int)activeValue2 * 2;
+                player.dig_width_data += (int)activeValue1 * 2;
+                player.dig_height_data += (int)activeValue2 * 2;
                 break;
             default:
                 Debug.Log("このアイテムに『あくてぃぶ』効果はありません");
                 break;
-        }
-        if (duration > 0)
-        {
-            player.isActiveItems.Add(this);
-            activeItemTurn = stageUI.currentTurn;
-        }
-    }
-
-    /// <summary>
-    /// ターン経過による自動解除
-    /// </summary>
-    public override void TurnCount(PlayerController player, StageUI stageUI)
-    {
-        if (duration > 0 && player.isActiveItems.Contains(this))
-        {
-            // 持続ターンが過ぎたら効果解除
-            if ((activeItemTurn + duration) < stageUI.currentTurn)  
-            {
-                OnActiveDelete(player);
-                player.isActiveItems.Remove(this);
-                isUseActive = false;
-            }
         }
     }
 
     /// <summary>
     /// 常在効果の解除（削除時）
     /// </summary>
-    public override void OnActiveDelete(PlayerController player)
+    public override void OnActiveDelete(PlayerController player, StageUI stageUI)
     {
         switch (effectType)
         {
@@ -167,8 +136,8 @@ public class ItemManager : ItemBase
                 player.digLimit -= (int)activeValue1;
                 break;
             case ItemEffectType.AddDigArea:
-                player.dig_width -= (int)activeValue1 * 2;
-                player.dig_height -= (int)activeValue2 * 2;
+                player.dig_width_data -= (int)activeValue1 * 2;
+                player.dig_height_data -= (int)activeValue2 * 2;
                 break;
             default:
                 break;

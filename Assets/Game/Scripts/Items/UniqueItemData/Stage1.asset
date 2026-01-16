@@ -19,10 +19,15 @@ MonoBehaviour:
   - "\u30D5\u30A7\u30FC\u30BA\uFF1A\uFF0B30\u79D2\uFF08Item\u30FBDig\uFF09\n\u63A1\u6398\u4E0A\u9650\uFF1A\uFF0B\uFF13\n\u6301\u7D9A\uFF1A\uFF15\n\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\uFF1A\uFF13"
   icon: {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
   isUseActive: 0
+  isCoolDown: 0
+  originDuration: 5
+  duration: 5
+  useActiveTurn: 0
+  originCoolTime: 3
+  coolTime: 3
+  coolTimeTurn: 0
   type: 0
-  value1: 0
-  value2: 0
-  value3: 0
-  value4: 0
-  duration: 0
-  coolTime: 0
+  value1: 1
+  value2: 1
+  activeValue1: 30
+  activeValue2: 3

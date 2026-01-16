@@ -12,7 +12,9 @@ public class ActiveIconCreater : MonoBehaviour
     public List<ItemBase> createrList = new List<ItemBase>();
 
     [Header("プレイヤー")]
-    public PlayerController player;
+    public GameObject player;
+    public PlayerController playerController;
+    public StageUI stageUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,7 +27,9 @@ public class ActiveIconCreater : MonoBehaviour
     {
         if (player == null)
         {
-            player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            player = GameObject.FindWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
+            stageUI = player.GetComponent<StageUI>();
         }
 
         AddActiveItemData();
@@ -39,18 +43,18 @@ public class ActiveIconCreater : MonoBehaviour
 
     public void UpdateIcons(int value)
     {
-        // 既存アイコンを削除
-        foreach (Transform child in iconParent)
-        {
-            Destroy(child.gameObject);
-        }
+        //// 既存アイコンを削除
+        //foreach (Transform child in iconParent)
+        //{
+        //    Destroy(child.gameObject);
+        //}
 
-        // 新しくアイコンを生成
-        for (int i = 0; i < value; i++)
-        {
-            Instantiate(activeIcon, iconParent);
-            Image iconImage = activeIcon.GetComponent<Image>();
-            iconImage.sprite = player.isActiveItems[i].icon;
-        }
+        //// 新しくアイコンを生成
+        //for (int i = 0; i < value; i++)
+        //{
+        //    Instantiate(activeIcon, iconParent);
+        //    Image iconImage = activeIcon.GetComponent<Image>();
+        //    iconImage.sprite = player.isActiveItems[i].icon;
+        //}
     }
 }
