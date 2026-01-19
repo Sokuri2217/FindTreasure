@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -95,12 +95,364 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Image_Other_Control_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 963
+        width: 95
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ed67969868088429c9d4f1d0e392ed
+      internalID: -985674158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_1
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 962
+        width: 84
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa6a68a1a0b5d3c42bfbcddab9043e11
+      internalID: -1938867607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_2
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 966
+        width: 83
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e46b694d802c5eb4199dcfa4192df0d8
+      internalID: -1945235942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_3
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 968
+        width: 97
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2058ca908edc71d46b92a9fb6ebea244
+      internalID: -2015499222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_4
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 965
+        width: 85
+        height: 87
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e56c3b94660925a4f84ce2e22bfe9bb2
+      internalID: -1026855471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_5
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 962
+        width: 91
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5dd33a57e4bda14daf75c2d022f8cf6
+      internalID: 1959040597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_6
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 813
+        width: 156
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc4d434a64e2cc748824be1f4a66d402
+      internalID: 1674973437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_7
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 812
+        width: 154
+        height: 94
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe1d82416c99fe4184429bcfe975b44
+      internalID: -795488024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_8
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 813
+        width: 164
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b36005ad42759043a32ee84363f5810
+      internalID: 288591419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_9
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 813
+        width: 168
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfacf60d65d33a341942b0e919b1f5a0
+      internalID: -1337720091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_10
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 687
+        width: 214
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 019d010fc07638c4fa0ce9d3efb1c1a8
+      internalID: 163806681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_11
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 685
+        width: 360
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 827dd177fe41fa84d978c5a4e3ba62f6
+      internalID: 702165584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_12
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 527
+        width: 402
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00491cfe289e6f741877722e2538f0a2
+      internalID: -109213299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_13
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 527
+        width: 406
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01234a24c5e9611438d380ff9cd3e409
+      internalID: 681694042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_14
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 953
+        width: 87
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 298812467006ece4b8b9278a93067a6a
+      internalID: -1485293149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_15
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 406
+        width: 286
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e02c6609b3688a141b0f7a6eae3f4bd7
+      internalID: -538866734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ea510c378a4c75a439afe50081a483ca
     internalID: 0
     vertices: []
     indices: 
@@ -109,7 +461,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Image_Other_Control_0: -985674158
+      Image_Other_Control_1: -1938867607
+      Image_Other_Control_10: 163806681
+      Image_Other_Control_11: 702165584
+      Image_Other_Control_12: -109213299
+      Image_Other_Control_13: 681694042
+      Image_Other_Control_14: -1485293149
+      Image_Other_Control_15: -538866734
+      Image_Other_Control_2: -1945235942
+      Image_Other_Control_3: -2015499222
+      Image_Other_Control_4: -1026855471
+      Image_Other_Control_5: 1959040597
+      Image_Other_Control_6: 1674973437
+      Image_Other_Control_7: -795488024
+      Image_Other_Control_8: 288591419
+      Image_Other_Control_9: -1337720091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

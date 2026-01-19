@@ -8,12 +8,13 @@ public class ActiveIconCreater : MonoBehaviour
     public Transform iconParent;
 
     [Header("描画画像")]
+    public GameObject iconChild;
     public GameObject activeIcon;
-    public List<ItemBase> createrList = new List<ItemBase>();
 
     [Header("プレイヤー")]
     public GameObject player;
     public PlayerController playerController;
+    public Inventory inventory;
     public StageUI stageUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,32 +30,30 @@ public class ActiveIconCreater : MonoBehaviour
         {
             player = GameObject.FindWithTag("Player");
             playerController = player.GetComponent<PlayerController>();
+            inventory = player.GetComponent<Inventory>();
             stageUI = player.GetComponent<StageUI>();
         }
 
-        AddActiveItemData();
-        UpdateIcons(createrList.Count);
-    }
-
-    public void AddActiveItemData()
-    {
-        
+        UpdateIcons(inventory.isActiveItems.Count);
     }
 
     public void UpdateIcons(int value)
     {
-        //// 既存アイコンを削除
-        //foreach (Transform child in iconParent)
-        //{
-        //    Destroy(child.gameObject);
-        //}
+        // 既存アイコンを削除
+        foreach (Transform child in iconParent)
+        {
+            Destroy(child.gameObject);
+        }
 
-        //// 新しくアイコンを生成
-        //for (int i = 0; i < value; i++)
-        //{
-        //    Instantiate(activeIcon, iconParent);
-        //    Image iconImage = activeIcon.GetComponent<Image>();
-        //    iconImage.sprite = player.isActiveItems[i].icon;
-        //}
+        // 新しくアイコンを生成
+        for (int i = 0; i < value; i++)
+        {
+            // prefab から生成
+            GameObject iconObj = Instantiate(iconChild, iconParent);
+            GameObject activeIconObj = Instantiate(activeIcon, iconObj.transform);
+
+            Image iconImage = activeIconObj.GetComponent<Image>();
+            iconImage.sprite = inventory.isActiveItems[i].icon;
+        }
     }
 }

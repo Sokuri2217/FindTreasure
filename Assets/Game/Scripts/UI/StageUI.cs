@@ -41,7 +41,6 @@ public class StageUI : UIManager
     public Image[] slotImage;         //アイテムスロット
     public Vector3[] originSlotScale; //通常サイズ
     public float zoomNum;             //拡大率
-    public GameObject removeImage;
     public GameObject useActiveImage;
 
     [Header("アイテム効果")]
@@ -423,9 +422,6 @@ public class StageUI : UIManager
                         get.text = inventory.items[i].description[(int)Item.GET];
                         hold.text = inventory.items[i].description[(int)Item.HOLD];
                         active.text = inventory.items[i].description[(int)Item.ACTIVE];
-
-                        //削除アイコンを表示
-                        removeImage.SetActive(true);
                     }
                     else
                     {
@@ -435,9 +431,6 @@ public class StageUI : UIManager
                         get.text = null;
                         hold.text = null;
                         active.text = null;
-
-                        //削除アイコンを非表示
-                        removeImage.SetActive(false);
                     }
 
                     if (!isPhase[(int)Phase.DIG] &&
@@ -460,11 +453,6 @@ public class StageUI : UIManager
                     else
                     {
                         useActiveImage.SetActive(false);
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.R) && inventory.items[i] != null)
-                    {
-                        inventory.RemoveItem(inventory.items[i]);
                     }
                 }
                 //非選択中のアイテムに関する処理
@@ -492,13 +480,14 @@ public class StageUI : UIManager
                         pauseMenuPanel[i].SetActive(false);
                     }
                     isPause = false;
+                    pausePanel.SetActive(false);
                     break;
                 case false:
                     notPausePanel.SetActive(false);
                     isPause = true;
+                    pausePanel.SetActive(true);
                     break;
             }
-            pausePanel.SetActive(isPause);
         }
         if (pausePanel.activeSelf)
         {
@@ -539,6 +528,7 @@ public class StageUI : UIManager
                 switch (isSelected)
                 {
                     case (int)Pause.CONTROL:
+                        OpenControlPanel();
                         break;
                     case (int)Pause.GIMMICK:
                         break;
@@ -628,6 +618,21 @@ public class StageUI : UIManager
                     break;
             }
         }
+    }
+
+    public void OpenControlPanel()
+    {
+        if (!pauseMenuPanel[(int)Pause.CONTROL].activeSelf)
+        {
+            pauseMenuPanel[(int)Pause.CONTROL].SetActive(true);
+            pausePanel.SetActive(false);
+        }
+        else if(Input.GetKeyDown(KeyCode.C))
+        {
+            pauseMenuPanel[(int)Pause.CONTROL].SetActive(false);
+            pausePanel.SetActive(true);
+        }
+        
     }
 
     public void ResultSceneMove(string moveSceneName)

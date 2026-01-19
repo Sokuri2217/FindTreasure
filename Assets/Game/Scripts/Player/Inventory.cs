@@ -42,7 +42,7 @@ public class Inventory : MonoBehaviour
             //ターン経過で効果を解除
             int useActiveTurn = isActiveItems[i].useActiveTurn;
             int duration = isActiveItems[i].duration;
-            if (isActiveItems[i].isUseActive && (useActiveTurn + duration) <= stageUI.currentTurn) 
+            if (isActiveItems[i].isUseActive && (useActiveTurn + (duration - 1)) < stageUI.currentTurn) 
             {
                 isActiveItems[i].OnActiveDelete(player, stageUI);
                 isActiveItems.Remove(isActiveItems[i]);
@@ -56,7 +56,7 @@ public class Inventory : MonoBehaviour
             //ターン経過で再使用可能にする
             int coolTimeTurn = isCoolDownItems[i].coolTimeTurn;
             int coolTime = isCoolDownItems[i].coolTime;
-            if (isCoolDownItems[i].isCoolDown && (coolTimeTurn + coolTime) <= stageUI.currentTurn)
+            if (isCoolDownItems[i].isCoolDown && (coolTimeTurn + (coolTime - 1)) < stageUI.currentTurn) 
             {
                 isCoolDownItems[i].isCoolDown = false;
                 isCoolDownItems.Remove(isCoolDownItems[i]);
@@ -108,19 +108,6 @@ public class Inventory : MonoBehaviour
         uniqueItem.OnHold(player, player.stageUI);   // 所持時効果を適用
         uniqueItem.isUseActive = false;
         uniqueItem.isCoolDown = false;
-    }
-
-    // アイテムを削除
-    public void RemoveItem(ItemBase item)
-    {
-        if (items.Contains(item))
-        {
-            item.OnHoldDelete(player, player.stageUI); // 効果解除
-            item.OnActiveDelete(player, player.stageUI); // 効果解除
-            items.Remove(item);
-            items.Add(null);
-            Debug.Log($"{item.name} を削除しました");
-        }
     }
 
     // 特定アイテムを保持しているか確認
