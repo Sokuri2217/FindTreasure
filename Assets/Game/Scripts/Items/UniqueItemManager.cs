@@ -12,8 +12,7 @@ public enum UniqueEffectType
 /// <summary>
 /// 各アイテムデータをScriptableObjectとして定義
 /// </summary>
-[CreateAssetMenu(fileName = "ItemBase", menuName = "Scriptable Objects/UniqueItemManager")]
-
+[CreateAssetMenu(fileName = "UniqueItem",menuName = "Scriptable Objects/UniqueItemManager")]
 public class UniqueItemManager : ItemBase
 {
     [Header("効果設定")]
@@ -66,7 +65,6 @@ public class UniqueItemManager : ItemBase
                 stageUI.phaseLimit[(int)Phase.ITEM] += value2;
                 break;
             case UniqueEffectType.Stage5:
-                coolTime += (int)value1; //自身のクールタイムを増やし、実質自身以外のクールタイムを短縮
                 player.inventory.changeCoolTime += (int)value1;
                 player.digLimit += (int)value2;
                 break;
@@ -74,42 +72,6 @@ public class UniqueItemManager : ItemBase
                 break;
         }
     }
-
-    /// <summary>
-    /// 常在効果の解除（削除時）
-    /// </summary>
-    public override void OnHoldDelete(PlayerController player, StageUI stageUI)
-    {
-        switch (type)
-        {
-            case UniqueEffectType.Stage1:
-                player.digPower -= (int)value1;
-                player.dig_width_data -= (int)value2 * 2;
-                player.dig_height_data -= (int)value2 * 2;
-                break;
-            case UniqueEffectType.Stage2:
-                player.digLimit -= (int)value1;
-                stageUI.phaseLimit[(int)Phase.DIG] -= value2;
-                break;
-            case UniqueEffectType.Stage3:
-                player.dig_width_data -= (int)value1 * 2;
-                player.dig_height_data -= (int)value1 * 2;
-                player.originSpeed /= value2;
-                break;
-            case UniqueEffectType.Stage4:
-                player.originSpeed /= value1;
-                stageUI.phaseLimit[(int)Phase.ITEM] -= value2;
-                break;
-            case UniqueEffectType.Stage5:
-                coolTime -= (int)value1; //自身のクールタイムを増やし、実質自身以外のクールタイムを短縮
-                player.inventory.changeCoolTime -= (int)value1;
-                player.digLimit -= (int)value2;
-                break;
-            default:
-                break;
-        }
-    }
-
     /// <summary>
     /// 任意発動時（ボタンなどで使用）
     /// </summary>
@@ -139,46 +101,14 @@ public class UniqueItemManager : ItemBase
                 player.digPower += (int)activeValue1;
                 stageUI.currentTurn -= (int)activeValue2;
                 player.ignoredDeep[(int)Get.ITEM] = true;
+                ItemInstance myInstance = player.inventory.items.Find(x => x.itemBase == this);
+                if (myInstance != null)
+                {
+                    player.inventory.ReduceOtherItemsCoolTime((int)activeValue1, myInstance);
+                }
                 break;
             default:
                 break;
         }
-        Debug.Log("アイテムを使用しました");
-    }
-
-    /// <summary>
-    /// 常在効果の解除（削除時）
-    /// </summary>
-    public override void OnActiveDelete(PlayerController player, StageUI stageUI)
-    {
-        switch (type)
-        {
-            case UniqueEffectType.Stage1:
-                stageUI.phaseLimit[(int)Phase.ITEM] -= activeValue1;
-                stageUI.phaseLimit[(int)Phase.DIG] -= activeValue1;
-                player.digLimit -= (int)activeValue2;
-                break;
-            case UniqueEffectType.Stage2:
-                player.originSpeed /= activeValue1;
-                player.ignoredDeep[(int)Get.TREASURE] = false;
-                break;
-            case UniqueEffectType.Stage3:
-                player.digPower -= (int)activeValue1;
-                player.getObjStopTime[(int)Get.TREASURE] = 0.0f;
-                player.getObjStopTime[(int)Get.ITEM] = 0.0f;
-                break;
-            case UniqueEffectType.Stage4:
-                player.digLimit -= (int)activeValue1;
-                player.consumedProbability -= activeValue2;
-                break;
-            case UniqueEffectType.Stage5:
-                player.digPower -= (int)activeValue1;
-                player.ignoredDeep[(int)Get.ITEM] = false;
-                break;
-            default:
-                break;
-        }
-
-        isUseActive = false;
     }
 }

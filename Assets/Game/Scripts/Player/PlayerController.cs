@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -36,6 +37,9 @@ public class PlayerController : MonoBehaviour
     public int isGetTreasure;
     public GameObject treasure;
 
+    [Header("ホリダシモノ")]
+    public GameObject hitItemObj;
+
     [Header("アイテム効果")]
     public bool[] ignoredDeep;
     public float consumedProbability;
@@ -45,7 +49,7 @@ public class PlayerController : MonoBehaviour
     public GameManager gameManager;       //ゲームの基本情報
     public StageUI stageUI;               //ステージ進行
     public Inventory inventory;           //所持アイテム
-    public ItemObject hitItem;            //取得可能アイテム
+    public ItemBase hitItem;            //取得可能アイテム
     
     void Start()
     {
@@ -200,13 +204,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G) && getItem) 
         {
-            ItemBase item = hitItem.itemBase;
-            bool addItem = inventory.AddItem(item);
-            if (addItem)
+            if(inventory.AddItem(hitItem))
             {
-                getItem = false;
-                Destroy(hitItem.gameObject);
+                Destroy(hitItemObj);
             }
+
+            hitItem = null;
+            getItem = false;
+
             if (!stageUI.isTimeStop)
             {
                 stageUI.isTimeStop = true;
@@ -261,8 +266,9 @@ public class PlayerController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Item"))
             {
+                hitItemObj = other.gameObject;
+                hitItem = other.GetComponent<ItemBase>();
                 getItem = true;
-                hitItem = other.GetComponent<ItemObject>();
             }
             else if (other.gameObject.CompareTag("Treasure"))
             {
@@ -282,6 +288,11 @@ public class PlayerController : MonoBehaviour
             {
                 getItem = false;
                 hitItem = null;            
+            }
+            else if (other.CompareTag("Treasure"))
+            {
+                getTreasure = false;
+                treasure = null;
             }
         }
     }

@@ -1,12 +1,13 @@
+using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     [Header("アイテム情報")]
-    public List<ItemBase> items = new List<ItemBase>();
-    public List<ItemBase> isActiveItems = new List<ItemBase>();
-    public List<ItemBase> isCoolDownItems = new List<ItemBase>();
+    public List<ItemInstance> items = new List<ItemInstance>();
+    public List<ItemInstance> isActiveItems = new List<ItemInstance>();
+    public List<ItemInstance> isCoolDownItems = new List<ItemInstance>();
 
     [Header("選択中")]
     public int isSelectItem;
@@ -37,82 +38,136 @@ public class Inventory : MonoBehaviour
 
     public void Update()
     {
-        for (int i = 0; i < isActiveItems.Count; i++) 
-        {
-            //ターン経過で効果を解除
-            int useActiveTurn = isActiveItems[i].useActiveTurn;
-            int duration = isActiveItems[i].duration;
-            if (isActiveItems[i].isUseActive && (useActiveTurn + (duration - 1)) < stageUI.currentTurn) 
-            {
-                isActiveItems[i].OnActiveDelete(player, stageUI);
-                isActiveItems.Remove(isActiveItems[i]);
-                isActiveItems[i].isCoolDown = true;
-                isActiveItems[i].coolTimeTurn = stageUI.currentTurn;
-                isCoolDownItems.Add(isActiveItems[i]);
-            }
-        }
-        for (int i = 0; i < isCoolDownItems.Count; i++) 
-        {
-            //ターン経過で再使用可能にする
-            int coolTimeTurn = isCoolDownItems[i].coolTimeTurn;
-            int coolTime = isCoolDownItems[i].coolTime;
-            if (isCoolDownItems[i].isCoolDown && (coolTimeTurn + (coolTime - 1)) < stageUI.currentTurn) 
-            {
-                isCoolDownItems[i].isCoolDown = false;
-                isCoolDownItems.Remove(isCoolDownItems[i]);
-            }
-        }
+        UpdateActiveItems();
+        UpdateCoolDownItems();
+        UpdateItemTurnModifiers();
+    }
 
-        //各ターンの変更処理
-        for (int i = 0; i < items.Count; i++) 
+    void UpdateActiveItems()
+    {
+        for (int i = isActiveItems.Count - 1; i >= 0; i--)
         {
-            if (items[i] != null) 
+            ItemInstance item = isActiveItems[i];
+
+            if (item.useActiveTurn + item.duration - 1 < stageUI.currentTurn)
             {
-                items[i].duration = items[i].originDuration + changeActiveTurn;
-                items[i].coolTime = items[i].originCoolTime + changeCoolTime;
+                item.itemBase.OnActiveDelete(player, stageUI);
+
+                item.isUseActive = false;
+                item.isCoolDown = true;
+                item.coolTimeTurn = stageUI.currentTurn;
+
+                isCoolDownItems.Add(item);
+                isActiveItems.RemoveAt(i);
             }
         }
     }
 
-    // アイテムを追加
-    public bool AddItem(ItemBase item)
+    void UpdateCoolDownItems()
     {
-        for (int i = 0; i < items.Count; i++) 
+        for (int i = isCoolDownItems.Count - 1; i >= 0; i--)
         {
-            //インベントリが全て埋まっているとき
-            if (items[(items.Count - 1)] != null)
+            ItemInstance item = isCoolDownItems[i];
+
+            if (item.coolTimeTurn + item.coolTime - 1 < stageUI.currentTurn)
             {
-                Debug.Log($"これ以上アイテムを取得できません");
-                return false;
-            }
-            //インベントリに空白があるとき
-            if (items[i] == null)
-            {
-                items[i] = item;
-                item.OnGet(player,player.stageUI);       //即時効果を発動
-                item.OnHold(player, player.stageUI);      //所持時効果を適用
-                item.isUseActive = false; //アクティブ効果を未使用状態にする
-                item.isCoolDown = false;  //アクティブ効果をクールダウン状態にする
-                Debug.Log($"{item.name} を追加しました");
-                break;
+                item.isCoolDown = false;
+                isCoolDownItems.RemoveAt(i);
             }
         }
+    }
+
+    void UpdateItemTurnModifiers()
+    {
+        foreach (var item in items)
+        {
+            item.duration = item.itemBase.originDuration + changeActiveTurn;
+            item.coolTime = item.itemBase.originCoolTime + changeCoolTime;
+        }
+    }
+    // アイテムを追加
+    public bool AddItem(ItemBase itemBase)
+    {
+        if (items.Count >= lineMaxHeight * lineMaxWidth)
+        {
+            Debug.Log("これ以上アイテムを取得できません");
+            return false;
+        }
+
+        ItemInstance instance = new ItemInstance(itemBase);
+
+        // ターン補正反映
+        instance.duration += changeActiveTurn;
+        instance.coolTime += changeCoolTime;
+
+        items.Add(instance);
+
+        itemBase.OnGet(player, stageUI);
+        itemBase.OnHold(player, stageUI);
+
         return true;
+    }
+
+    public void UseItem(ItemInstance item)
+    {
+        if (item.isCoolDown || item.isUseActive)
+            return;
+
+        item.itemBase.OnUse(player, stageUI);
+
+        item.isUseActive = true;
+        item.useActiveTurn = stageUI.currentTurn;
+
+        if (item.duration > 0)
+        {
+            isActiveItems.Add(item);
+        }
+        else
+        {
+            // 即時クールダウン
+            item.isCoolDown = true;
+            item.coolTimeTurn = stageUI.currentTurn;
+            isCoolDownItems.Add(item);
+        }
     }
 
     //特殊アイテムを設定
     public void SetUniqueItem(ItemBase uniqueItem)
     {
-        items[0] = uniqueItem;
-        uniqueItem.OnGet(player, player.stageUI);    // 即時効果を発動
-        uniqueItem.OnHold(player, player.stageUI);   // 所持時効果を適用
-        uniqueItem.isUseActive = false;
-        uniqueItem.isCoolDown = false;
+        ItemInstance instance = new ItemInstance(uniqueItem);
+        items.Insert(0, instance);
+
+        uniqueItem.OnGet(player, stageUI);
+        uniqueItem.OnHold(player, stageUI);
     }
 
     // 特定アイテムを保持しているか確認
-    public bool HasItem(ItemBase item)
+    public bool HasItem(ItemBase itemBase)
     {
-        return items.Contains(item);
+        return items.Exists(i => i.itemBase == itemBase);
+    }
+
+    public void ReduceAllItemsCoolTime(int turnReduce)
+    {
+        foreach (var item in items)
+        {
+            if (item.isCoolDown)
+            {
+                item.coolTimeTurn -= turnReduce;
+                if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+            }
+        }
+    }
+
+    public void ReduceOtherItemsCoolTime(int turnReduce, ItemInstance exceptItem)
+    {
+        foreach (var item in items)
+        {
+            if (item != exceptItem && item.isCoolDown)
+            {
+                item.coolTimeTurn -= turnReduce; // クールタイムを減らす
+                if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+            }
+        }
     }
 }

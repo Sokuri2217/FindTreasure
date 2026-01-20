@@ -13,7 +13,7 @@ public class MapCreater : MonoBehaviour
     public int[] maxDeep;             //最大深度
     public bool createMap;            //タイルマップ生成許可フラグ
 
-    //タイル情報
+    [Header("タイル情報")]
     public List<TileManager> allTiles = new List<TileManager>();
     [Header("スクリプト情報")]
     public GameManager gameManager;
@@ -67,7 +67,6 @@ public class MapCreater : MonoBehaviour
         int itemCount = Mathf.Min(gameManager.setItem, allTiles.Count);
 
         List<TileManager> candidates = new List<TileManager>(allTiles);
-        List<ItemBase> itemBases = new List<ItemBase>(gameManager.items);
 
         //タカラモノを設定
         for (int i = 0; i < treasureCount; i++)
@@ -77,8 +76,6 @@ public class MapCreater : MonoBehaviour
 
             // タカラモノをセット
             selected.SetHasTreasure(true);
-
-            
 
             //オブジェクトを格納
             selected.treasureObj = treasurePrefab;
@@ -96,19 +93,16 @@ public class MapCreater : MonoBehaviour
             selected.SetHasItem(true);
 
             // アイテムを新しく生成
-            GameObject newItem = itemPrefab;
-
-            // ランダムなアイテムデータを設定
-            int itemIndex = Random.Range(0, itemBases.Count);
-            ItemObject itemData = newItem.GetComponent<ItemObject>();
-            itemData.itemBase = itemBases[itemIndex];
-
+            GameObject newItem = Instantiate(
+                itemPrefab,
+                selected.transform.position + Vector3.up * 0.5f,
+                Quaternion.identity
+                );
+            selected.itemObj = newItem;
             //シンドを設定(minDeep～maxDeep-1の値をランダムでシンドとして設定する)
             selected.deep = Random.Range(minDeep[(int)Deep.ITEM], maxDeep[(int)Deep.ITEM]);
 
-            // TileManager に保持
-            selected.itemObj = newItem;
-            selected.deep = 1;
+            candidates.RemoveAt(index);
         }
     }
 

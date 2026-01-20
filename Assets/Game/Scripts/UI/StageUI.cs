@@ -64,7 +64,13 @@ public class StageUI : UIManager
     public int maxSelectNum;
     public GameObject[] pauseMenuPanel;
     public Transform[] pauseMenu;
-    public Transform isSelectPin;
+    public Image[] pauseMenuImage;
+    public Vector3[] originPauseScale;//通常サイズ
+    public float zoomPauseNum;        //拡大率
+    public Text gimmickText;
+    public GameObject pauseMenuObj;
+    public GameObject openPauseMenu;
+    public GameObject closePauseMenu;
 
     [Header("リザルト画面")]
     public int setMoveScene;
@@ -104,6 +110,8 @@ public class StageUI : UIManager
         originSlotScale = new Vector3[slotImage.Length];
         for(int i = 0; i < originSlotScale.Length; i++)
             originSlotScale[i] = slotImage[i].transform.localScale;
+        for (int i = 0; i < pauseMenuImage.Length; i++)
+            originPauseScale[i] = pauseMenuImage[i].transform.localScale;
         //パネル
         itemDataPanel.SetActive(false);
         inventoryPanel.SetActive(false);
@@ -289,7 +297,7 @@ public class StageUI : UIManager
 
         if (player.hitItem != null && !player.isMoving)
         {
-            ItemBase itemBase = player.hitItem.itemBase;
+            ItemBase itemBase = player.hitItem;
             if (Input.GetKeyDown(KeyCode.F))
             {
                 if (!isFocusItem) 
@@ -395,7 +403,7 @@ public class StageUI : UIManager
                 if (inventory.items[i] != null)
                 {
                     //各スロットにアイコンを表示
-                    slotImage[i].sprite = inventory.items[i].icon;
+                    slotImage[i].sprite = inventory.items[i].itemBase.icon;
                 }
                 else
                 {
@@ -417,11 +425,11 @@ public class StageUI : UIManager
                     if (inventory.items[i] != null)
                     {
                         //アイテムの情報を取得しUIに反映
-                        icon.sprite = inventory.items[i].icon;
-                        itemName.text = inventory.items[i].itemName;
-                        get.text = inventory.items[i].description[(int)Item.GET];
-                        hold.text = inventory.items[i].description[(int)Item.HOLD];
-                        active.text = inventory.items[i].description[(int)Item.ACTIVE];
+                        icon.sprite = inventory.items[i].itemBase.icon;
+                        itemName.text = inventory.items[i].itemBase.itemName;
+                        get.text = inventory.items[i].itemBase.description[(int)Item.GET];
+                        hold.text = inventory.items[i].itemBase.description[(int)Item.HOLD];
+                        active.text = inventory.items[i].itemBase.description[(int)Item.ACTIVE];
                     }
                     else
                     {
@@ -435,14 +443,14 @@ public class StageUI : UIManager
 
                     if (!isPhase[(int)Phase.DIG] &&
                         inventory.items[i] != null &&
-                        inventory.items[i].description[(int)Item.ACTIVE] != null &&
+                        inventory.items[i].itemBase.description[(int)Item.ACTIVE] != null &&
                         !inventory.items[i].isUseActive&&
                         !inventory.items[i].isCoolDown) 
                     {
                         useActiveImage.SetActive(true);
                         if (Input.GetKeyDown(KeyCode.Space))  
                         {
-                            inventory.items[i].OnUse(player, this);
+                            inventory.items[i].itemBase.OnUse(player, this);
                             inventory.items[i].isUseActive = true;
                             inventory.items[i].useActiveTurn = currentTurn;
                             inventory.isActiveItems.Add(inventory.items[i]);
@@ -481,15 +489,18 @@ public class StageUI : UIManager
                     }
                     isPause = false;
                     pausePanel.SetActive(false);
+                    pauseMenuObj.SetActive(false);
+                    closePauseMenu.SetActive(false);
                     break;
                 case false:
                     notPausePanel.SetActive(false);
                     isPause = true;
                     pausePanel.SetActive(true);
+                    pauseMenuObj.SetActive(true);
                     break;
             }
         }
-        if (pausePanel.activeSelf)
+        if (isPause) 
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -517,12 +528,27 @@ public class StageUI : UIManager
                 }
             }
 
-            isSelectPin.position = new Vector3(
-                isSelectPin.position.x,
-                pauseMenu[isSelected].transform.position.y,
-                isSelectPin.position.z
-                );
-
+            //選択中の項目を強調表示
+            for (int i = 0; i < isSelectOption.Length; i++)
+            {
+                if (isSelectOption[i]) 
+                {
+                    Transform imageScale = pauseMenuImage[i].transform;
+                    imageScale.localScale = new Vector3(
+                        (originPauseScale[i].x * zoomPauseNum),
+                        (originPauseScale[i].y * zoomPauseNum),
+                        (originPauseScale[i].z * zoomPauseNum)
+                        );
+                    pauseMenuImage[i].transform.localScale = imageScale.localScale;
+                    pauseMenuImage[i].color = Color.white;
+                }
+                else
+                {
+                    pauseMenuImage[i].transform.localScale = originPauseScale[i];
+                    Color32 color = new Color32(150, 150, 50, 255);
+                    pauseMenuImage[i].color = color;
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 switch (isSelected)
@@ -531,9 +557,26 @@ public class StageUI : UIManager
                         OpenControlPanel();
                         break;
                     case (int)Pause.GIMMICK:
+                        OpenGimmickPanel();
                         break;
                     case (int)Pause.EXIT:
                         ResultSceneMove(menu);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                switch (isSelected)
+                {
+                    case (int)Pause.CONTROL:
+                        OpenControlPanel();
+                        break;
+                    case (int)Pause.GIMMICK:
+                        OpenGimmickPanel();
+                        break;
+                    case (int)Pause.EXIT:
                         break;
                     default:
                         break;
@@ -626,13 +669,36 @@ public class StageUI : UIManager
         {
             pauseMenuPanel[(int)Pause.CONTROL].SetActive(true);
             pausePanel.SetActive(false);
+            closePauseMenu.SetActive(true);
+            openPauseMenu.SetActive(false);
         }
-        else if(Input.GetKeyDown(KeyCode.C))
+        else
         {
             pauseMenuPanel[(int)Pause.CONTROL].SetActive(false);
             pausePanel.SetActive(true);
+            closePauseMenu.SetActive(false);
+            openPauseMenu.SetActive(true);
         }
-        
+    }
+
+    public void OpenGimmickPanel()
+    {
+        if (!pauseMenuPanel[(int)Pause.GIMMICK].activeSelf)
+        {
+            pauseMenuPanel[(int)Pause.GIMMICK].SetActive(true);
+            pausePanel.SetActive(false);
+            closePauseMenu.SetActive(true);
+            openPauseMenu.SetActive(false);
+        }
+        else
+        {
+            pauseMenuPanel[(int)Pause.GIMMICK].SetActive(false);
+            pausePanel.SetActive(true);
+            closePauseMenu.SetActive(false);
+            openPauseMenu.SetActive(true);
+        }
+
+        gimmickText.text = gameManager.gimmickDescription[gameManager.mapNum].ToString();
     }
 
     public void ResultSceneMove(string moveSceneName)

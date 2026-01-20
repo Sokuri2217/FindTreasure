@@ -435,7 +435,7 @@ TextureImporter:
         width: 286
         height: 85
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -444,6 +444,28 @@ TextureImporter:
       bones: []
       spriteID: e02c6609b3688a141b0f7a6eae3f4bd7
       internalID: -538866734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Image_Other_Control_16
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 406
+        width: 202
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d15a4a47d6f195a4ca5cb54f07c6daba
+      internalID: 1278782584
       vertices: []
       indices: 
       edges: []
@@ -470,6 +492,7 @@ TextureImporter:
       Image_Other_Control_13: 681694042
       Image_Other_Control_14: -1485293149
       Image_Other_Control_15: -538866734
+      Image_Other_Control_16: 1278782584
       Image_Other_Control_2: -1945235942
       Image_Other_Control_3: -2015499222
       Image_Other_Control_4: -1026855471

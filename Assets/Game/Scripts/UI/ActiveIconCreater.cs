@@ -8,8 +8,7 @@ public class ActiveIconCreater : MonoBehaviour
     public Transform iconParent;
 
     [Header("描画画像")]
-    public GameObject iconChild;
-    public GameObject activeIcon;
+    public GameObject iconPrefab;
 
     [Header("プレイヤー")]
     public GameObject player;
@@ -34,10 +33,10 @@ public class ActiveIconCreater : MonoBehaviour
             stageUI = player.GetComponent<StageUI>();
         }
 
-        UpdateIcons(inventory.isActiveItems.Count);
+        UpdateIcons();
     }
 
-    public void UpdateIcons(int value)
+    public void UpdateIcons()
     {
         // 既存アイコンを削除
         foreach (Transform child in iconParent)
@@ -46,14 +45,15 @@ public class ActiveIconCreater : MonoBehaviour
         }
 
         // 新しくアイコンを生成
-        for (int i = 0; i < value; i++)
+        // 新しいアイコンを生成
+        for (int i = 0; i < inventory.isActiveItems.Count; i++)
         {
-            // prefab から生成
-            GameObject iconObj = Instantiate(iconChild, iconParent);
-            GameObject activeIconObj = Instantiate(activeIcon, iconObj.transform);
-
-            Image iconImage = activeIconObj.GetComponent<Image>();
-            iconImage.sprite = inventory.isActiveItems[i].icon;
+            GameObject iconObj = Instantiate(iconPrefab, iconParent);
+            Image img = iconObj.GetComponent<Image>();
+            if (img != null)
+            {
+                img.sprite = inventory.isActiveItems[i].itemBase.icon;
+            }
         }
     }
 }
