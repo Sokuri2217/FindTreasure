@@ -4429,8 +4429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconParent: {fileID: 4476828486910178270}
-  iconChild: {fileID: 4673194367055905240, guid: 3738a2dedba8b2b439fd1f74a115bbfe, type: 3}
-  activeIcon: {fileID: 8709214839878988605, guid: a080f7381bc96624fb16f08a23968886, type: 3}
+  iconPrefab: {fileID: 4673194367055905240, guid: 3738a2dedba8b2b439fd1f74a115bbfe, type: 3}
   player: {fileID: 0}
   playerController: {fileID: 0}
   inventory: {fileID: 0}

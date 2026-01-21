@@ -15,9 +15,11 @@ public class ItemInstance
 
     public ItemInstance(ItemBase itemBase)
     {
-        this.itemBase = itemBase;
+        if (itemBase == null) return;
+
+            this.itemBase = itemBase;
         duration = itemBase.originDuration;
-        duration = itemBase.originCoolTime;
+        coolTime = itemBase.originCoolTime;
         isUseActive = false;
         isCoolDown = false;
     }

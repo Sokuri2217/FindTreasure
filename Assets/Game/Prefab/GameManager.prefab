@@ -61,18 +61,14 @@ MonoBehaviour:
   mapNum: 0
   mapMaxNum: 5
   items:
-  - {fileID: 11400000, guid: 3c1b0ad4703cc1b44a8629aa6de4d504, type: 2}
-  - {fileID: 11400000, guid: c8cad0cd473715c4385e78657966d49c, type: 2}
-  - {fileID: 11400000, guid: 1de677b60e624b948b497ed66ebc4d88, type: 2}
-  - {fileID: 11400000, guid: 42d74eb22847e2445a870b0bd46de81c, type: 2}
-  - {fileID: 11400000, guid: 0bd9ae8e0430a1b468f66341cfb0883c, type: 2}
-  - {fileID: 11400000, guid: 2d5b4b53109de1547b0c5527a7e76761, type: 2}
-  - {fileID: 11400000, guid: 8c017bdbf86aa3843b9452f62fae1e4e, type: 2}
+  - {fileID: 11400000, guid: 3c13d69628c0a8e4d86b38a5d4f9be9c, type: 2}
+  - {fileID: 11400000, guid: 1ddfed7923dcdcd44a4447b5e8e2ac09, type: 2}
+  - {fileID: 11400000, guid: 1155598d330afd44cbefa059725d352d, type: 2}
   uniqueItems:
   - {fileID: 11400000, guid: e1ab5ab11d075864ea70fa897a4a1ffd, type: 2}
-  - {fileID: 11400000, guid: b448e460b37a9a14f8769bfe7f17383c, type: 2}
-  - {fileID: 11400000, guid: 644b769e4ea8bf64797f0beb73c322b9, type: 2}
-  - {fileID: 11400000, guid: 11f99ac0eee245e42b61af0884284aa7, type: 2}
-  - {fileID: 11400000, guid: adbf8815ffc0bc041aaaaf06f6709334, type: 2}
+  - {fileID: 11400000, guid: 5da72a7fc64dd6644a47257f6fed75cb, type: 2}
+  - {fileID: 11400000, guid: 37833b543663fae41ad6539d6545be0f, type: 2}
+  - {fileID: 11400000, guid: 1ad616db4642314438081f29266638ff, type: 2}
+  - {fileID: 11400000, guid: cfc75c0d85a63fa4a9948f2fcfa97e99, type: 2}
   bgm: {fileID: 0}
   se: {fileID: 0}

@@ -65,7 +65,11 @@ public class UniqueItemManager : ItemBase
                 stageUI.phaseLimit[(int)Phase.ITEM] += value2;
                 break;
             case UniqueEffectType.Stage5:
-                player.inventory.changeCoolTime += (int)value1;
+                ItemInstance myInstance = player.inventory.items.Find(x => x.itemBase == this);
+                if (myInstance != null)
+                {
+                    player.inventory.ReduceOtherItemsCoolTime((int)value1, myInstance);
+                }
                 player.digLimit += (int)value2;
                 break;
             default:
@@ -90,8 +94,8 @@ public class UniqueItemManager : ItemBase
                 break;
             case UniqueEffectType.Stage3:
                 player.digPower += (int)activeValue1;
-                player.getObjStopTime[(int)Get.TREASURE] = activeValue2;
-                player.getObjStopTime[(int)Get.ITEM] = (activeValue2 / 2);
+                player.getObjStopTime[(int)Get.TREASURE] += activeValue2;
+                player.getObjStopTime[(int)Get.ITEM] += (activeValue2 / 2);
                 break;
             case UniqueEffectType.Stage4:
                 player.digLimit += (int)activeValue1;
@@ -101,11 +105,38 @@ public class UniqueItemManager : ItemBase
                 player.digPower += (int)activeValue1;
                 stageUI.currentTurn -= (int)activeValue2;
                 player.ignoredDeep[(int)Get.ITEM] = true;
-                ItemInstance myInstance = player.inventory.items.Find(x => x.itemBase == this);
-                if (myInstance != null)
-                {
-                    player.inventory.ReduceOtherItemsCoolTime((int)activeValue1, myInstance);
-                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public override void OnActiveDelete(PlayerController player, StageUI stageUI) 
+    {
+        switch (type)
+        {
+            case UniqueEffectType.Stage1:
+                stageUI.phaseLimit[(int)Phase.ITEM] -= activeValue1;
+                stageUI.phaseLimit[(int)Phase.DIG] -= activeValue1;
+                player.digLimit -= (int)activeValue2;
+                break;
+            case UniqueEffectType.Stage2:
+                player.originSpeed /= activeValue1;
+                player.ignoredDeep[(int)Get.TREASURE] = false;
+                break;
+            case UniqueEffectType.Stage3:
+                player.digPower += (int)activeValue1;
+                player.getObjStopTime[(int)Get.TREASURE] -= activeValue2;
+                player.getObjStopTime[(int)Get.ITEM] -= (activeValue2 / 2);
+                break;
+            case UniqueEffectType.Stage4:
+                player.digLimit -= (int)activeValue1;
+                player.consumedProbability -= activeValue2;
+                break;
+            case UniqueEffectType.Stage5:
+                player.digPower -= (int)activeValue1;
+                stageUI.currentTurn -= (int)activeValue2;
+                player.ignoredDeep[(int)Get.ITEM] = false;
                 break;
             default:
                 break;

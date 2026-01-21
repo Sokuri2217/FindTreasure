@@ -400,7 +400,7 @@ public class StageUI : UIManager
             //選択中のアイテムアイコンを拡大表示
             for (int i = 0; i < slotImage.Length; i++)
             {
-                if (inventory.items[i] != null)
+                if (inventory.items[i] != null && inventory.items[i].itemBase != null) 
                 {
                     //各スロットにアイコンを表示
                     slotImage[i].sprite = inventory.items[i].itemBase.icon;
@@ -422,7 +422,7 @@ public class StageUI : UIManager
                         );
                     slotImage[i].transform.localScale = imageScale.localScale;
 
-                    if (inventory.items[i] != null)
+                    if (inventory.items[i] != null && inventory.items[i].itemBase != null) 
                     {
                         //アイテムの情報を取得しUIに反映
                         icon.sprite = inventory.items[i].itemBase.icon;
@@ -441,13 +441,16 @@ public class StageUI : UIManager
                         active.text = null;
                     }
 
-                    if (!isPhase[(int)Phase.DIG] &&
+                    bool canUse = (!isPhase[(int)Phase.DIG] &&
                         inventory.items[i] != null &&
+                        inventory.items[i].itemBase != null &&
                         inventory.items[i].itemBase.description[(int)Item.ACTIVE] != null &&
-                        !inventory.items[i].isUseActive&&
-                        !inventory.items[i].isCoolDown) 
+                        !inventory.items[i].isUseActive &&
+                        !inventory.items[i].isCoolDown);
+
+                    if (useActiveImage != null) 
                     {
-                        useActiveImage.SetActive(true);
+                        useActiveImage.SetActive(canUse);
                         if (Input.GetKeyDown(KeyCode.Space))  
                         {
                             inventory.items[i].itemBase.OnUse(player, this);
@@ -457,10 +460,6 @@ public class StageUI : UIManager
                             seManager.PlaySE(useItem);
                             player.useItem--;
                         }
-                    }
-                    else
-                    {
-                        useActiveImage.SetActive(false);
                     }
                 }
                 //非選択中のアイテムに関する処理

@@ -266,8 +266,9 @@ public class PlayerController : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Item"))
             {
+                ItemObject itemObj = other.gameObject.GetComponent<ItemObject>();
                 hitItemObj = other.gameObject;
-                hitItem = other.GetComponent<ItemBase>();
+                hitItem = itemObj.itemBase;
                 getItem = true;
             }
             else if (other.gameObject.CompareTag("Treasure"))
@@ -287,7 +288,8 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.CompareTag("Item"))
             {
                 getItem = false;
-                hitItem = null;            
+                hitItem = null;
+                hitItemObj = null;
             }
             else if (other.CompareTag("Treasure"))
             {

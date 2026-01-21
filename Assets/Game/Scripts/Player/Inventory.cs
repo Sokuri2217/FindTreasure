@@ -81,6 +81,9 @@ public class Inventory : MonoBehaviour
     {
         foreach (var item in items)
         {
+            if (item == null || item.itemBase == null)
+                continue;
+
             item.duration = item.itemBase.originDuration + changeActiveTurn;
             item.coolTime = item.itemBase.originCoolTime + changeCoolTime;
         }
@@ -88,7 +91,7 @@ public class Inventory : MonoBehaviour
     // アイテムを追加
     public bool AddItem(ItemBase itemBase)
     {
-        if (items.Count >= lineMaxHeight * lineMaxWidth)
+        if (items[(lineMaxWidth * lineMaxHeight - 1)].itemBase != null)  
         {
             Debug.Log("これ以上アイテムを取得できません");
             return false;
@@ -100,7 +103,11 @@ public class Inventory : MonoBehaviour
         instance.duration += changeActiveTurn;
         instance.coolTime += changeCoolTime;
 
-        items.Add(instance);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i] == null)
+                items[i] = instance;
+        }
 
         itemBase.OnGet(player, stageUI);
         itemBase.OnHold(player, stageUI);
@@ -134,8 +141,10 @@ public class Inventory : MonoBehaviour
     //特殊アイテムを設定
     public void SetUniqueItem(ItemBase uniqueItem)
     {
+        if (uniqueItem == null) return;
+
         ItemInstance instance = new ItemInstance(uniqueItem);
-        items.Insert(0, instance);
+        items[0] = instance;
 
         uniqueItem.OnGet(player, stageUI);
         uniqueItem.OnHold(player, stageUI);
@@ -151,6 +160,11 @@ public class Inventory : MonoBehaviour
     {
         foreach (var item in items)
         {
+            if (item.isUseActive)
+            {
+                item.useActiveTurn -= turnReduce;
+                if (item.useActiveTurn < 0) item.useActiveTurn = 0;
+            }
             if (item.isCoolDown)
             {
                 item.coolTimeTurn -= turnReduce;
@@ -163,10 +177,18 @@ public class Inventory : MonoBehaviour
     {
         foreach (var item in items)
         {
-            if (item != exceptItem && item.isCoolDown)
+            if (item != exceptItem)
             {
-                item.coolTimeTurn -= turnReduce; // クールタイムを減らす
-                if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+                if (item.isUseActive)
+                {
+                    item.useActiveTurn -= turnReduce; // クールタイムを減らす
+                    if (item.useActiveTurn < 0) item.useActiveTurn = 0;
+                }
+                if (item.isCoolDown)
+                {
+                    item.coolTimeTurn -= turnReduce; // クールタイムを減らす
+                    if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+                }
             }
         }
     }

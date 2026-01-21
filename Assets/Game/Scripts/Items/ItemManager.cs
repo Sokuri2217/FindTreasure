@@ -6,14 +6,12 @@ using UnityEngine;
 public enum ItemEffectType
 {
     None,
-    AddPower1,
     AddDigArea,
-    AddDigCount,
-    AddLimitTurn,
-    AddLimit1Turn3Cool2,
-    AddUse1,
-    AddSpeed5SubTime10,
-    HealCoolTime
+    AddDigNum,
+    AddDigLimit,
+    AddDigPower,
+    AddMoveSpeed,
+    ChangePhaseTime
 }
 
 /// <summary>
@@ -29,10 +27,13 @@ public class ItemManager : ItemBase
     public float value1;
     [Tooltip("数値パラメータ2")]
     public float value2;
-    [Tooltip("数値パラメータ3")]
+    [Tooltip("アクティブ数値パラメータ1")]
     public float activeValue1;
-    [Tooltip("数値パラメータ4")]
+    [Tooltip("アクティブ数値パラメータ2")]
     public float activeValue2;
+    [Tooltip("フェーズ")]
+    public bool item;
+    public bool dig;
 
     
 
@@ -47,9 +48,7 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            case ItemEffectType.AddDigCount:
-                player.digCurrent += (int)value1;
-                break;
+            
         }
     }
 
@@ -60,19 +59,27 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            case ItemEffectType.AddPower1:
-                player.digPower += (int)value1;
-                break;
             case ItemEffectType.AddDigArea:
                 player.dig_width_data += (int)value1 * 2;
                 player.dig_height_data += (int)value2 * 2;
                 break;
-            case ItemEffectType.AddUse1:
-                player.useItem += (int)value1;
+            case ItemEffectType.AddDigNum:
+                player.digCurrent += (int)value1;
                 break;
-            case ItemEffectType.AddSpeed5SubTime10:
-                player.moveSpeed += (int)value1;
-                player.stageUI.phaseLimit[(int)Phase.DIG] -= value2;
+            case ItemEffectType.AddDigLimit:
+                player.digLimit += (int)value1;
+                break;
+            case ItemEffectType.AddDigPower:
+                player.digPower += (int)value1;
+                break;
+            case ItemEffectType.AddMoveSpeed:
+                player.originSpeed += (int)value1;
+                break;
+            case ItemEffectType.ChangePhaseTime:
+                if(item)
+                    stageUI.phaseLimit[(int)Phase.ITEM] += value1;
+                if (dig)
+                    stageUI.phaseLimit[(int)Phase.DIG] += value1;
                 break;
             default:
                 break;
@@ -85,12 +92,59 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            case ItemEffectType.AddLimitTurn:
-                player.digLimit += (int)activeValue1;
-                break;
             case ItemEffectType.AddDigArea:
                 player.dig_width_data += (int)activeValue1 * 2;
                 player.dig_height_data += (int)activeValue2 * 2;
+                break;
+            case ItemEffectType.AddDigNum:
+                break;
+            case ItemEffectType.AddDigLimit:
+                break;
+            case ItemEffectType.AddDigPower:
+                break;
+            case ItemEffectType.AddMoveSpeed:
+                break;
+            case ItemEffectType.ChangePhaseTime:
+                if (item)
+                {
+
+                }
+                if (dig)
+                {
+
+                }
+                break;
+            default:
+                Debug.Log("このアイテムに『あくてぃぶ』効果はありません");
+                break;
+        }
+    }
+
+    public override void OnActiveDelete(PlayerController player, StageUI stageUI)
+    {
+        switch (effectType)
+        {
+            case ItemEffectType.AddDigArea:
+                player.dig_width_data -= (int)activeValue1 * 2;
+                player.dig_height_data -= (int)activeValue2 * 2;
+                break;
+            case ItemEffectType.AddDigNum:
+                break;
+            case ItemEffectType.AddDigLimit:
+                break;
+            case ItemEffectType.AddDigPower:
+                break;
+            case ItemEffectType.AddMoveSpeed:
+                break;
+            case ItemEffectType.ChangePhaseTime:
+                if (item)
+                {
+
+                }
+                if (dig)
+                {
+
+                }
                 break;
             default:
                 Debug.Log("このアイテムに『あくてぃぶ』効果はありません");
