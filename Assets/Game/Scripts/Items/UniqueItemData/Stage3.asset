@@ -20,6 +20,13 @@ MonoBehaviour:
     / \u30BF\u30AB\u30E9\u30E2\u30CE\u53D6\u5F97\u6642\n\u30D5\u30A7\u30FC\u30BA\u30FBDig\uFF1A5\u79D2\u505C\u6B62
     / \u30DB\u30EA\u30C0\u30B7\u30E2\u30CE\u53D6\u5F97\u6642\n\u6301\u7D9A\uFF1A5\n\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\uFF1A10"
   icon: {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
+  rarity: 0
+  randomRarity: 0
+  rarityEffect: 0
+  rareEffect: 0
+  rarityIcon:
+  - {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
+  - {fileID: 21300000, guid: 63ea2b5e1bbecdd469309b6932e5ce8f, type: 3}
   originDuration: 5
   originCoolTime: 10
   type: 2

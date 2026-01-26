@@ -105,12 +105,17 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i] == null)
+            if (items[i].itemBase == null)
+            {
                 items[i] = instance;
+                break;
+            }
         }
 
+        itemBase.SetRarity(player, stageUI);
         itemBase.OnGet(player, stageUI);
         itemBase.OnHold(player, stageUI);
+        Debug.Log(instance.itemBase.ToString());
 
         return true;
     }

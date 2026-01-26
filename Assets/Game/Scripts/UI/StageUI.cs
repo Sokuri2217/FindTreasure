@@ -225,27 +225,25 @@ public class StageUI : UIManager
         //Digフェーズ中にインベントリが開かれている場合時間経過を止める
         if (inventoryPanel.activeSelf && isPhase[(int)Phase.DIG]) return;
         //アイテムの効果
-        if (isTimeStop)
+        if (isTimeStop && stopTimer >= 0.01f) 
         {
             stopTimer -= Time.deltaTime;
-            //一定時間経過するまでフェーズの経過は止める
-            if (stopTimer <= 0.0f)
-            {
-                isTimeStop = false;
-                stopTimer = stopLimit;
-            }
-            else
-                return;
         }
-        timer += Time.deltaTime;
-        if (timer >= phaseLimit[currentPhase])
+        else
         {
-            timer = 0.0f;
-            if (isPhase[(int)Phase.ITEM])
-                EndItem();
-            else if (isPhase[(int)Phase.DIG]) 
-                EndDig();
+            isTimeStop = false;
+            stopTimer = stopLimit;
+            timer += Time.deltaTime;
+            if (timer >= phaseLimit[currentPhase])
+            {
+                timer = 0.0f;
+                if (isPhase[(int)Phase.ITEM])
+                    EndItem();
+                else if (isPhase[(int)Phase.DIG])
+                    EndDig();
+            }
         }
+            
     }
 
     public void EndItem()
@@ -315,8 +313,8 @@ public class StageUI : UIManager
                 itemDataPanel.SetActive(isFocusItem);
             }
             //アイテムの情報を取得しUIに反映
-            icon.sprite = itemBase.icon;
-            itemName.text = itemBase.itemName;
+            icon.sprite = itemBase.rarityIcon[(int)Rarity.Normal];
+            itemName.text = itemBase.itemName + "＋？";
             get.text = itemBase.description[(int)Item.GET];
             hold.text = itemBase.description[(int)Item.HOLD];
             active.text = itemBase.description[(int)Item.ACTIVE];
@@ -426,7 +424,7 @@ public class StageUI : UIManager
                     {
                         //アイテムの情報を取得しUIに反映
                         icon.sprite = inventory.items[i].itemBase.icon;
-                        itemName.text = inventory.items[i].itemBase.itemName;
+                        itemName.text = inventory.items[i].itemBase.itemName + "＋" + inventory.items[i].itemBase.rarityEffect.ToString();
                         get.text = inventory.items[i].itemBase.description[(int)Item.GET];
                         hold.text = inventory.items[i].itemBase.description[(int)Item.HOLD];
                         active.text = inventory.items[i].itemBase.description[(int)Item.ACTIVE];
@@ -451,7 +449,7 @@ public class StageUI : UIManager
                     if (useActiveImage != null) 
                     {
                         useActiveImage.SetActive(canUse);
-                        if (Input.GetKeyDown(KeyCode.Space))  
+                        if (Input.GetKeyDown(KeyCode.Space) && canUse)    
                         {
                             inventory.items[i].itemBase.OnUse(player, this);
                             inventory.items[i].isUseActive = true;

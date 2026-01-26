@@ -11,7 +11,7 @@ public enum ItemEffectType
     AddDigLimit,
     AddDigPower,
     AddMoveSpeed,
-    ChangePhaseTime
+    ChangePhaseState
 }
 
 /// <summary>
@@ -35,7 +35,7 @@ public class ItemManager : ItemBase
     public bool item;
     public bool dig;
 
-    
+
 
     // ==============================
     // å¯â ìKópèàóù
@@ -48,7 +48,22 @@ public class ItemManager : ItemBase
     {
         switch (effectType)
         {
-            
+            case ItemEffectType.AddDigArea:
+                break;
+            case ItemEffectType.AddDigNum:
+                player.digCurrent += (int)(value1 + rarityEffect);
+                break;
+            case ItemEffectType.AddDigLimit:
+                break;
+            case ItemEffectType.AddDigPower:
+                break;
+            case ItemEffectType.AddMoveSpeed:
+                break;
+            case ItemEffectType.ChangePhaseState:
+                stageUI.currentTurn -= (int)(value1 + rarityEffect);
+                break;
+            default:
+                break;
         }
     }
 
@@ -60,26 +75,26 @@ public class ItemManager : ItemBase
         switch (effectType)
         {
             case ItemEffectType.AddDigArea:
-                player.dig_width_data += (int)value1 * 2;
-                player.dig_height_data += (int)value2 * 2;
+                player.dig_width_data += (int)(value1 + rarityEffect) * 2;
+                player.dig_height_data += (int)(value2 + rarityEffect) * 2;
                 break;
             case ItemEffectType.AddDigNum:
-                player.digCurrent += (int)value1;
+                player.digCurrent += (int)(value1 + rarityEffect);
                 break;
             case ItemEffectType.AddDigLimit:
-                player.digLimit += (int)value1;
+                player.digLimit += (int)(value1 + rarityEffect);
                 break;
             case ItemEffectType.AddDigPower:
-                player.digPower += (int)value1;
+                player.digPower += (int)(value1 + rarityEffect);
                 break;
             case ItemEffectType.AddMoveSpeed:
-                player.originSpeed += (int)value1;
+                player.originSpeed += (int)(value1 + rarityEffect);
                 break;
-            case ItemEffectType.ChangePhaseTime:
+            case ItemEffectType.ChangePhaseState:
                 if(item)
-                    stageUI.phaseLimit[(int)Phase.ITEM] += value1;
+                    stageUI.phaseLimit[(int)Phase.ITEM] += (value1 + rarityEffect);
                 if (dig)
-                    stageUI.phaseLimit[(int)Phase.DIG] += value1;
+                    stageUI.phaseLimit[(int)Phase.DIG] += (value1 + rarityEffect);
                 break;
             default:
                 break;
@@ -93,8 +108,8 @@ public class ItemManager : ItemBase
         switch (effectType)
         {
             case ItemEffectType.AddDigArea:
-                player.dig_width_data += (int)activeValue1 * 2;
-                player.dig_height_data += (int)activeValue2 * 2;
+                player.dig_width_data += (int)(activeValue1 + rarityEffect) * 2;
+                player.dig_height_data += (int)(activeValue2 + rarityEffect) * 2;
                 break;
             case ItemEffectType.AddDigNum:
                 break;
@@ -104,7 +119,7 @@ public class ItemManager : ItemBase
                 break;
             case ItemEffectType.AddMoveSpeed:
                 break;
-            case ItemEffectType.ChangePhaseTime:
+            case ItemEffectType.ChangePhaseState:
                 if (item)
                 {
 
@@ -136,7 +151,7 @@ public class ItemManager : ItemBase
                 break;
             case ItemEffectType.AddMoveSpeed:
                 break;
-            case ItemEffectType.ChangePhaseTime:
+            case ItemEffectType.ChangePhaseState:
                 if (item)
                 {
 

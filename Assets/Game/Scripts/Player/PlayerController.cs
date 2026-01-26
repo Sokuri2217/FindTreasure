@@ -211,13 +211,7 @@ public class PlayerController : MonoBehaviour
 
             hitItem = null;
             getItem = false;
-
-            if (!stageUI.isTimeStop)
-            {
-                stageUI.isTimeStop = true;
-                stageUI.stopLimit = getObjStopTime[(int)Get.ITEM];
-            }
-            
+            StopTime(getObjStopTime[(int)Get.ITEM]);
         }
     }
 
@@ -229,11 +223,21 @@ public class PlayerController : MonoBehaviour
             isGetTreasure++;
             Destroy(treasure);
             getTreasure = false;
-            if (!stageUI.isTimeStop)
-            {
-                stageUI.isTimeStop = true;
-                stageUI.stopLimit = getObjStopTime[(int)Get.TREASURE];
-            }
+            StopTime(getObjStopTime[(int)Get.TREASURE]);
+        }
+    }
+
+    //éûä‘í‚é~
+    public void StopTime(float time)
+    {
+        if (!stageUI.isTimeStop)
+        {
+            stageUI.isTimeStop = true;
+            stageUI.stopLimit = time;
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -243,13 +247,13 @@ public class PlayerController : MonoBehaviour
         if (!stageUI.isPhase[(int)Phase.ITEM])
         {
             //ç∂âEÇ…âÒì]
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
                 transform.Rotate(0.0f, -90.0f, 0.0f);
-            else if (Input.GetKeyDown(KeyCode.L))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
                 transform.Rotate(0.0f, 90.0f, 0.0f);
-            if (Input.GetKey(KeyCode.I))
+            if (Input.GetKey(KeyCode.UpArrow))
                 rotationX += rotationSpeed * Time.deltaTime;
-            else if (Input.GetKey(KeyCode.K))
+            else if (Input.GetKey(KeyCode.DownArrow))
                 rotationX -= rotationSpeed * Time.deltaTime;
 
             rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
