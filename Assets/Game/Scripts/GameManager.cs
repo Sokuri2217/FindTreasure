@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     public int[] clearTurnLimit; //クリア条件(何ターン以内)
     [TextArea(2, 5)] public string[] gimmickDescription;
 
+    [Header("プレイ状態")]
+    public bool retry;
+    public bool newGame;
+
     [Header("ステージ設定")]
     public int mapNum;     //マップ番号
     public int mapMaxNum;  //マップ番号の最大値

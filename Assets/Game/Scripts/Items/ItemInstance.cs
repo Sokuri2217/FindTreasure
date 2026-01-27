@@ -23,20 +23,6 @@ public class ItemInstance
         if (itemBase == null) return;
 
         this.itemBase = itemBase;
-        //ƒŒƒA‚Éİ’è
-        if (Random.Range(0, 100.0f) <= itemBase.randomRarity)
-        {
-            itemBase.rarity = Rarity.Rare;
-            itemBase.rarityEffect = itemBase.rareEffect;
-            itemBase.icon = itemBase.rarityIcon[(int)Rarity.Rare];
-        }
-        //ƒm[ƒ}ƒ‹‚Éİ’è
-        else
-        {
-            itemBase.rarity = Rarity.Normal;
-            itemBase.rarityEffect = 0.0f;
-            itemBase.icon = itemBase.rarityIcon[(int)Rarity.Normal];
-        }
         duration = itemBase.originDuration;
         coolTime = itemBase.originCoolTime;
         isUseActive = false;

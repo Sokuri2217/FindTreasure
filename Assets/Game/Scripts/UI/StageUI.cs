@@ -91,11 +91,14 @@ public class StageUI : UIManager
     [Header("効果音")]
     public AudioClip useItem;
 
-
     enum SE
     {
         OPENFOCUS,
         CLOSEFOCUS,
+        SELECTINVENTORY,
+        CHANGEPHASE,
+        GAMECLEAR,
+        GAMEOVER,
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -257,6 +260,7 @@ public class StageUI : UIManager
         inputPanel[(int)Phase.DIG].SetActive(true);
         player.digCurrent = player.digLimit;
         player.useItem = player.useItemLimit;
+        seManager.PlaySE(se[(int)SE.CHANGEPHASE]);
     }
 
     public void EndDig()
@@ -271,6 +275,7 @@ public class StageUI : UIManager
         currentTurn++;
         turnText.text = currentTurn.ToString();
         player.digCurrent = player.digLimit;
+        seManager.PlaySE(se[(int)SE.CHANGEPHASE]);
     }
 
     public void SkipPhase()
@@ -313,8 +318,8 @@ public class StageUI : UIManager
                 itemDataPanel.SetActive(isFocusItem);
             }
             //アイテムの情報を取得しUIに反映
-            icon.sprite = itemBase.rarityIcon[(int)Rarity.Normal];
-            itemName.text = itemBase.itemName + "＋？";
+            icon.sprite = itemBase.icon;
+            itemName.text = itemBase.itemName;
             get.text = itemBase.description[(int)Item.GET];
             hold.text = itemBase.description[(int)Item.HOLD];
             active.text = itemBase.description[(int)Item.ACTIVE];
@@ -367,13 +372,28 @@ public class StageUI : UIManager
 
             //インベントリの行数を選択（縦・横）
             if (Input.GetKeyDown(KeyCode.W))
+            {
                 inventory.lineHeight--;
+                seManager.PlaySE(se[(int)SE.SELECTINVENTORY]);
+            }
+                
             else if (Input.GetKeyDown(KeyCode.S))
+            {
                 inventory.lineHeight++;
+                seManager.PlaySE(se[(int)SE.SELECTINVENTORY]);
+            }
+                
             else if (Input.GetKeyDown(KeyCode.A))
+            {
                 inventory.lineWidth--;
+                seManager.PlaySE(se[(int)SE.SELECTINVENTORY]);
+            }
+                
             else if (Input.GetKeyDown(KeyCode.D))
+            {
                 inventory.lineWidth++;
+                seManager.PlaySE(se[(int)SE.SELECTINVENTORY]);
+            }
 
             //超過しないよう制御
             if (inventory.lineWidth >= inventory.lineMaxWidth)
@@ -424,7 +444,7 @@ public class StageUI : UIManager
                     {
                         //アイテムの情報を取得しUIに反映
                         icon.sprite = inventory.items[i].itemBase.icon;
-                        itemName.text = inventory.items[i].itemBase.itemName + "＋" + inventory.items[i].itemBase.rarityEffect.ToString();
+                        itemName.text = inventory.items[i].itemBase.itemName;
                         get.text = inventory.items[i].itemBase.description[(int)Item.GET];
                         hold.text = inventory.items[i].itemBase.description[(int)Item.HOLD];
                         active.text = inventory.items[i].itemBase.description[(int)Item.ACTIVE];
@@ -585,32 +605,35 @@ public class StageUI : UIManager
     //結果の判定
     public void GameResult()
     {
-        if (currentTurn > clearTurn)
+        if (currentTurn > clearTurn && !gameOver)
         {
             gameOver = true;
+            seManager.PlaySE(se[(int)SE.GAMEOVER]);
         }
-        else if (player.isGetTreasure >= allTreasures) 
+        else if (player.isGetTreasure >= allTreasures && !gameClear)  
         {
             gameClear = true;
+            seManager.PlaySE(se[(int)SE.GAMECLEAR]);
         }
+
+        if (gameClear || gameOver)
+            SelectResultMenu();
     }
 
     public void GameClear()
     {
-        gameClear = true;
+        bgmManager.StopBGM();
         gamePanel.SetActive(false);
         clearPanel.SetActive(gameClear);
         resultPanel.SetActive(true);
-        SelectResultMenu();
     }
 
     public void GameOver()
     {
-        gameOver = true;
+        bgmManager.StopBGM();
         gamePanel.SetActive(false);
         overPanel.SetActive(gameOver);
         resultPanel.SetActive(true);
-        SelectResultMenu();
     }
 
     public void SelectResultMenu()

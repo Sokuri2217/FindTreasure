@@ -468,6 +468,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGMManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8041153521305436885, guid: 2642e019734fcfe42aa844c661febac2, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8078856152831728813, guid: 2642e019734fcfe42aa844c661febac2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.4821723
@@ -561,6 +565,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: items.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 31cde67e6d9450b47905065f6b034aa3, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 53b23e214f1769b4fb40530a5339a253, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f89b72142a03d27499684017a4222267, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 747a955af06b83642907d4d0a2225d1a, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ccfd22eae059a14d9164bf69fe62f15, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 707f120a821fc154c857be2e2af1666d, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 45a6dde52a6cc674cbeccb5385b05ec7, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[10]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b7ec06b67d267a44887b81e4b2279a5f, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: clearTurnLimit.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[5]'
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[6]'
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[7]'
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'clearTurnLimit.Array.data[8]'
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3606117402114989330, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -616,6 +676,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3656692969006518108, guid: 739126b29d54a6043aefd6a81b47516f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080513730638788179, guid: 739126b29d54a6043aefd6a81b47516f, type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8841784396669461104, guid: 739126b29d54a6043aefd6a81b47516f, type: 3}

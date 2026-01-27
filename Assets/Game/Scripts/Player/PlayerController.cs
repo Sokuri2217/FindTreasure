@@ -247,13 +247,13 @@ public class PlayerController : MonoBehaviour
         if (!stageUI.isPhase[(int)Phase.ITEM])
         {
             //ç∂âEÇ…âÒì]
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.J))
                 transform.Rotate(0.0f, -90.0f, 0.0f);
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.L))
                 transform.Rotate(0.0f, 90.0f, 0.0f);
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.I))
                 rotationX += rotationSpeed * Time.deltaTime;
-            else if (Input.GetKey(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.K))
                 rotationX -= rotationSpeed * Time.deltaTime;
 
             rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);

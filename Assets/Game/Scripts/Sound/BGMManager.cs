@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BGMManager : SoundManager
@@ -40,4 +41,9 @@ public class BGMManager : SoundManager
         source.Play();
     }
 
+    //BGM‚ð’âŽ~
+    public void StopBGM()
+    {
+        source.Stop();
+    }
 }

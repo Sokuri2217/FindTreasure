@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
+  m_Name: Upgrade
+  m_EditorClassIdentifier: 
+  itemName: 
+  description:
+  - 
+  - "\u30A2\u30AF\u30C6\u30A3\u30D6\u30FB\u5168\uFF1A\uFF0B\uFF11\n\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\u30FB\u5168\uFF1A\u30FC\uFF11"
+  - 
+  icon: {fileID: 21300000, guid: d4115ed7e8be12b409e756f47d876d32, type: 3}
+  originDuration: 0
+  originCoolTime: 0
+  effectType: 7
+  value1: 1
+  value2: -1
+  activeValue1: 0
+  activeValue2: 0
+  item: 0
+  dig: 0

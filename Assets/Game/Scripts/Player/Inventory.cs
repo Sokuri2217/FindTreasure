@@ -112,7 +112,6 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        itemBase.SetRarity(player, stageUI);
         itemBase.OnGet(player, stageUI);
         itemBase.OnHold(player, stageUI);
         Debug.Log(instance.itemBase.ToString());
@@ -161,20 +160,36 @@ public class Inventory : MonoBehaviour
         return items.Exists(i => i.itemBase == itemBase);
     }
 
+    public void ReduceAllItemsActiveTime(int turnReduce)
+    {
+        foreach (var item in items)
+        {
+            if (item.itemBase.originDuration != 0)
+            {
+                item.useActiveTurn += turnReduce;
+                if (item.useActiveTurn < 1) item.useActiveTurn = 1;
+            }
+        }
+    }
+
+    public void ReduceOtherItemsActiveTime(int turnReduce, ItemInstance exceptItem)
+    {
+        foreach (var item in items)
+        {
+            if (item != exceptItem && item.itemBase.originDuration != 0)  
+            {
+                item.useActiveTurn += turnReduce; // クールタイムを減らす
+                if (item.useActiveTurn < 1) item.useActiveTurn = 1;
+            }
+        }
+    }
+
     public void ReduceAllItemsCoolTime(int turnReduce)
     {
         foreach (var item in items)
         {
-            if (item.isUseActive)
-            {
-                item.useActiveTurn -= turnReduce;
-                if (item.useActiveTurn < 0) item.useActiveTurn = 0;
-            }
-            if (item.isCoolDown)
-            {
-                item.coolTimeTurn -= turnReduce;
-                if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
-            }
+            item.coolTimeTurn += turnReduce;
+            if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
         }
     }
 
@@ -182,18 +197,22 @@ public class Inventory : MonoBehaviour
     {
         foreach (var item in items)
         {
+            if (item != exceptItem) 
+            {
+                item.coolTimeTurn += turnReduce; // クールタイムを減らす
+                if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+            }
+        }
+    }
+
+    public void ResetOtherItemsCoolTime(ItemInstance exceptItem)
+    {
+        foreach (var item in items)
+        {
             if (item != exceptItem)
             {
-                if (item.isUseActive)
-                {
-                    item.useActiveTurn -= turnReduce; // クールタイムを減らす
-                    if (item.useActiveTurn < 0) item.useActiveTurn = 0;
-                }
-                if (item.isCoolDown)
-                {
-                    item.coolTimeTurn -= turnReduce; // クールタイムを減らす
-                    if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
-                }
+                item.coolTimeTurn = 0;
+                item.isCoolDown = false;
             }
         }
     }
