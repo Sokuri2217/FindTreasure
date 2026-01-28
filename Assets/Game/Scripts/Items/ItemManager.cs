@@ -53,7 +53,7 @@ public class ItemManager : ItemBase
         switch (effectType)
         {
             case ItemEffectType.BackTurn:
-                stageUI.currentTurn -= (int)value1;
+                stageUI.currentTurn += (int)value1;
                 break;
             case ItemEffectType.AddDigNum:
                 player.digCurrent += (int)value1;
@@ -92,7 +92,7 @@ public class ItemManager : ItemBase
                 if(myInstance != null)
                 {
                     player.inventory.ReduceAllItemsActiveTime((int)value1);
-                    player.inventory.ReduceAllItemsCoolTime(-((int)value1));
+                    player.inventory.ReduceAllItemsCoolTime((int)value2);
                 }
                 break;
             default:
@@ -111,7 +111,7 @@ public class ItemManager : ItemBase
                 player.dig_height_data += (int)activeValue2 * 2;
                 break;
             case ItemEffectType.BackTurn:
-                stageUI.currentTurn -= (int)activeValue1;
+                stageUI.currentTurn += (int)activeValue1;
                 break;
             case ItemEffectType.ChangePhaseTime:
                 stageUI.phaseLimit[(int)Phase.ITEM] += activeValue1;

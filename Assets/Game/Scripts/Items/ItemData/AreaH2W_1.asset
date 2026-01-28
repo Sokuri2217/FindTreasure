@@ -20,7 +20,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 313ba2d2b921c38438070eaf3baba8bc, type: 3}
   originDuration: 3
   originCoolTime: 6
-  effectType: 2
+  effectType: 1
   value1: 2
   value2: -1
   activeValue1: 2

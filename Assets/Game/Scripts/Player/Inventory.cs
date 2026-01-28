@@ -18,10 +18,6 @@ public class Inventory : MonoBehaviour
     public int lineMaxHeight;
     public int lineMaxWidth;
 
-    [Header("アイテム効果")]
-    public int changeActiveTurn;
-    public int changeCoolTime;
-
     [Header("スクリプト参照")]
     public PlayerController player;
     public StageUI stageUI;
@@ -40,7 +36,6 @@ public class Inventory : MonoBehaviour
     {
         UpdateActiveItems();
         UpdateCoolDownItems();
-        UpdateItemTurnModifiers();
     }
 
     void UpdateActiveItems()
@@ -77,17 +72,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void UpdateItemTurnModifiers()
-    {
-        foreach (var item in items)
-        {
-            if (item == null || item.itemBase == null)
-                continue;
-
-            item.duration = item.itemBase.originDuration + changeActiveTurn;
-            item.coolTime = item.itemBase.originCoolTime + changeCoolTime;
-        }
-    }
     // アイテムを追加
     public bool AddItem(ItemBase itemBase)
     {
@@ -98,10 +82,6 @@ public class Inventory : MonoBehaviour
         }
 
         ItemInstance instance = new ItemInstance(itemBase);
-
-        // ターン補正反映
-        instance.duration += changeActiveTurn;
-        instance.coolTime += changeCoolTime;
 
         for (int i = 0; i < items.Count; i++)
         {
@@ -164,10 +144,10 @@ public class Inventory : MonoBehaviour
     {
         foreach (var item in items)
         {
-            if (item.itemBase.originDuration != 0)
+            if (item.itemBase != null && item.itemBase.originDuration != 0) 
             {
-                item.useActiveTurn += turnReduce;
-                if (item.useActiveTurn < 1) item.useActiveTurn = 1;
+                item.duration += turnReduce;
+                if (item.duration < 1) item.duration = 1;
             }
         }
     }
@@ -178,8 +158,8 @@ public class Inventory : MonoBehaviour
         {
             if (item != exceptItem && item.itemBase.originDuration != 0)  
             {
-                item.useActiveTurn += turnReduce; // クールタイムを減らす
-                if (item.useActiveTurn < 1) item.useActiveTurn = 1;
+                item.duration += turnReduce; // クールタイムを減らす
+                if (item.duration < 1) item.duration = 1;
             }
         }
     }
@@ -188,8 +168,8 @@ public class Inventory : MonoBehaviour
     {
         foreach (var item in items)
         {
-            item.coolTimeTurn += turnReduce;
-            if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+            item.coolTime += turnReduce;
+            if (item.coolTime < 0) item.coolTime = 0;
         }
     }
 
@@ -199,8 +179,8 @@ public class Inventory : MonoBehaviour
         {
             if (item != exceptItem) 
             {
-                item.coolTimeTurn += turnReduce; // クールタイムを減らす
-                if (item.coolTimeTurn < 0) item.coolTimeTurn = 0;
+                item.coolTime += turnReduce; // クールタイムを減らす
+                if (item.coolTime < 0) item.coolTime = 0;
             }
         }
     }
@@ -211,7 +191,7 @@ public class Inventory : MonoBehaviour
         {
             if (item != exceptItem)
             {
-                item.coolTimeTurn = 0;
+                item.coolTime = 0;
                 item.isCoolDown = false;
             }
         }

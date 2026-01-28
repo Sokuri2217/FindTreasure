@@ -106,6 +106,9 @@ public class TileManager : MonoBehaviour
                         );
                     //オブジェクト生成
                     Instantiate(itemObj, itemPos.position, Quaternion.identity);
+                    ItemObject itemObject = itemObj.GetComponent<ItemObject>();
+                    GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+                    itemObject.itemBase = gameManager.items[Random.Range(0, gameManager.items.Count)];
                 }
                 
             }

@@ -185,10 +185,10 @@ public class StageUI : UIManager
             }
         }
         //ターンの制御
-        if (currentTurn <= 0)
+        if (currentTurn <= 1)
         {
-            //ターン数が0を下回らないようにする
-            currentTurn = 0;
+            //ターン数が1を下回らないようにする
+            currentTurn = 1;
         }
 
         //現在のフェーズをスキップ
@@ -462,9 +462,10 @@ public class StageUI : UIManager
                     bool canUse = (!isPhase[(int)Phase.DIG] &&
                         inventory.items[i] != null &&
                         inventory.items[i].itemBase != null &&
-                        inventory.items[i].itemBase.description[(int)Item.ACTIVE] != null &&
                         !inventory.items[i].isUseActive &&
-                        !inventory.items[i].isCoolDown);
+                        !inventory.items[i].isCoolDown &&
+                        (inventory.items[i].itemBase.originDuration != 0 ||
+                        inventory.items[i].itemBase.originCoolTime != 0));
 
                     if (useActiveImage != null) 
                     {

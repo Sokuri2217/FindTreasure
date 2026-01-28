@@ -96,9 +96,6 @@ public class MapCreater : MonoBehaviour
             GameObject newItem = itemPrefab;
             selected.itemObj = newItem;
 
-            ItemObject itemObj = selected.itemObj.GetComponent<ItemObject>();
-            itemObj.itemBase = gameManager.items[Random.Range(0, gameManager.items.Count)];
-
             //シンドを設定(minDeep～maxDeep-1の値をランダムでシンドとして設定する)
             selected.deep = Random.Range(minDeep[(int)Deep.ITEM], maxDeep[(int)Deep.ITEM]);
 

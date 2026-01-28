@@ -284,9 +284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originSpeed: 3
   moveSpeed: 0
-  dig_width: 3
+  dig_width: 0
   dig_width_data: 3
-  dig_height: 3
+  dig_height: 0
   dig_height_data: 3
   digPower: 1
   isDig: 0
@@ -304,6 +304,7 @@ MonoBehaviour:
   maxRotation: 60
   isGetTreasure: 0
   treasure: {fileID: 0}
+  hitItemObj: {fileID: 0}
   ignoredDeep: 0000
   consumedProbability: 0
   getObjStopTime:
@@ -326,16 +327,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
+  - itemBase: {fileID: 0}
+    duration: 0
+    coolTime: 0
+    coolTimeTurn: 0
+    useActiveTurn: 0
+    isUseActive: 0
+    isCoolDown: 0
   isActiveItems: []
   isCoolDownItems: []
   isSelectItem: 0
@@ -343,8 +404,6 @@ MonoBehaviour:
   lineWidth: 0
   lineMaxHeight: 2
   lineMaxWidth: 5
-  changeActiveTurn: 0
-  changeCoolTime: 0
   player: {fileID: 0}
   stageUI: {fileID: 0}
   gameManager: {fileID: 0}
