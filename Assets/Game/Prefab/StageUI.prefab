@@ -296,7 +296,7 @@ MonoBehaviour:
   - {fileID: 1801217754, guid: 8fe445cdd4ea87246bad5030178e434f, type: 3}
   phaseFrame: {fileID: 8263984342187944964}
   currentPhase: {fileID: 913360877139667943}
-  currentTurn: 0
+  currentTurn: 1
   turnText: {fileID: 626212776683110306}
   useItemCountText: {fileID: 1037619556155144476}
   phaseLimit:

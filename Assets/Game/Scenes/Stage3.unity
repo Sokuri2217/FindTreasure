@@ -248,22 +248,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1304699068066510946, guid: 4728dd97eef2c7643965899243fa0993, type: 3}
-      propertyPath: 'items.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 8e571c473847fd94d8acaf7e001e8d06, type: 2}
-    - target: {fileID: 1304699068066510946, guid: 4728dd97eef2c7643965899243fa0993, type: 3}
-      propertyPath: 'items.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: c63848ef88342a543b7dc2ac86f88267, type: 2}
-    - target: {fileID: 1304699068066510946, guid: 4728dd97eef2c7643965899243fa0993, type: 3}
-      propertyPath: 'items.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 76e3417fdea59cf44a66fc25abb83ee1, type: 2}
-    - target: {fileID: 1304699068066510946, guid: 4728dd97eef2c7643965899243fa0993, type: 3}
-      propertyPath: 'items.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 50b4779055e03324caec9f30fb261257, type: 2}
     - target: {fileID: 4197627197344140721, guid: 4728dd97eef2c7643965899243fa0993, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -521,6 +505,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1125258439947335690, guid: 3ddd8aeb4f422584b93d395bf38c2afe, type: 3}
+      propertyPath: m_TerrainData
+      value: 
+      objectReference: {fileID: 15600000, guid: 83d7fa5e2bbc7144d833931ff0f2bd43, type: 2}
     - target: {fileID: 2204688278583832553, guid: 3ddd8aeb4f422584b93d395bf38c2afe, type: 3}
       propertyPath: m_Name
       value: Ground3

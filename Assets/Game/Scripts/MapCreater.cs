@@ -23,6 +23,7 @@ public class MapCreater : MonoBehaviour
     {
         //スクリプト取得
         mapGimmick = GetComponent<MapGimmick>();
+        ground = GameObject.FindWithTag("Ground").GetComponent<Terrain>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         //マップ生成
         PlacePlayerOnStart();                      // プレイヤーをスタート位置に配置
@@ -114,12 +115,15 @@ public class MapCreater : MonoBehaviour
     public void ChangeGroundPoint()
     {
         //地面オブジェクトを取得
-        ground = GameObject.FindWithTag("Ground").GetComponent<Terrain>();
         Transform groundPos = ground.transform;
         Vector3 groundSize = ground.terrainData.size;
         //グリッドマップの広さに応じて調整
-        groundPos.position -= new Vector3(groundSize.x / 2, 0.0f, groundSize.z / 2);
-        groundPos.position += new Vector3((gameManager.setStage * 10 / 2), 0.0f, (gameManager.setStage * 10 / 2));
+        float center = gameManager.setStage * 10f / 2f;
+        ground.transform.position = new Vector3(
+            center - groundSize.x / 2f,
+            ground.transform.position.y,
+            center - groundSize.z / 2f
+        );
     }
 }
 

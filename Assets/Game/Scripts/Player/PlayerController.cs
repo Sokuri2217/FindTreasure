@@ -61,9 +61,6 @@ public class PlayerController : MonoBehaviour
         //初回設定
         moveSpeed = originSpeed;             //移動速度
         targetPosition = transform.position; //座標
-        digCurrent = digLimit;               //採掘回数
-        useItem = useItemLimit;              //アイテム使用可能数
-
     }
 
     void Update()

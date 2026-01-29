@@ -8,13 +8,18 @@ public class MapGimmick : MonoBehaviour
     public GameManager gameManager;
     public MapCreater mapCreater;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         //スクリプト取得
         mapCreater = GetComponent<MapCreater>();
         stageUI = GameObject.Find("StageUI").GetComponent<StageUI>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
     }
 
     public void SetGimmick(int gimmickNum)

@@ -107,7 +107,6 @@ public class StageUI : UIManager
         base.Start();
         //初回設定
         isPhase[(int)Phase.ITEM] = true;
-        currentTurn++;
         clearTurn = gameManager.clearTurnLimit[gameManager.mapNum];
         allTreasures = gameManager.setTreasure;
         originSlotScale = new Vector3[slotImage.Length];
@@ -144,7 +143,12 @@ public class StageUI : UIManager
             playerObj = GameObject.FindWithTag("Player");
         //スクリプト取得
         if (player == null)
+        {
             player = playerObj.GetComponent<PlayerController>();
+            player.digCurrent = player.digLimit;
+            player.useItem = player.useItemLimit;
+        }
+            
         if (inventory == null)
             inventory = playerObj.GetComponent<Inventory>();
 
@@ -237,7 +241,7 @@ public class StageUI : UIManager
             isTimeStop = false;
             stopTimer = stopLimit;
             timer += Time.deltaTime;
-            if (timer >= phaseLimit[currentPhase])
+            if (timer > phaseLimit[currentPhase])
             {
                 timer = 0.0f;
                 if (isPhase[(int)Phase.ITEM])
