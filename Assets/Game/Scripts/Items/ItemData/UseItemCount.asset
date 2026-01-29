@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
-  m_Name: ClearCoolTime
+  m_Name: UseItemCount
   m_EditorClassIdentifier: 
-  itemName: "\u307E\u3063\u3055\u3089\u3069\u3051\u3044"
+  itemName: "\u307B\u308A\u3077\u3089\u3069\u308A\u3093\u304F"
   description:
   - 
+  - "\u30A2\u30A4\u30C6\u30E0\u4F7F\u7528\uFF1A\uFF0B\uFF11"
   - 
-  - "\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\u30FB\u4ED6\uFF1A\u30EA\u30BB\u30C3\u30C8\n\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\uFF1A\uFF19\uFF19"
-  icon: {fileID: 21300000, guid: 7ed8a84e98f3d56409ccc42f65097f4e, type: 3}
+  icon: {fileID: 21300000, guid: a23b54384eecac742a98b1ab5a1f0f85, type: 3}
   originDuration: 0
-  originCoolTime: 99
-  effectType: 9
-  value1: 0
+  originCoolTime: 0
+  effectType: 10
+  value1: 1
   value2: 0
   activeValue1: 0
   activeValue2: 0

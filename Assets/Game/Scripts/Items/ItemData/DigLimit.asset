@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
   m_Name: DigLimit
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: "\u306E\u308A\u306E\u308A\u3069\u308A\u3093\u304F"
   description:
   - 
   - "\u63A1\u6398\u4E0A\u9650\uFF1A\uFF0B\uFF11"

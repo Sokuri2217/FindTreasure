@@ -12,6 +12,7 @@ public class StageUI : UIManager
     public Image currentPhase;
     public int currentTurn;
     public Text turnText;
+    public Text useItemCountText;
 
     [Header("フェーズの計測")]
     public float[] phaseLimit;
@@ -27,7 +28,6 @@ public class StageUI : UIManager
     public GameObject resultPanel;    //リザルト画面の共通部分
     public GameObject pausePanel;     //一時停止
     public GameObject notPausePanel;  //一時停止
-    public GameObject[] inputPanel;   //入力案内
 
     [Header("アイテム情報")]
     public Image icon;      //アイテム画像
@@ -122,8 +122,6 @@ public class StageUI : UIManager
         clearPanel.SetActive(false);
         overPanel.SetActive(false);
         resultPanel.SetActive(false);
-        inputPanel[(int)Phase.ITEM].SetActive(true);
-        inputPanel[(int)Phase.DIG].SetActive(false);
         pausePanel.SetActive(false);
         for (int i = 0; i < pauseMenuPanel.Length; i++)
         {
@@ -198,6 +196,8 @@ public class StageUI : UIManager
         CheckHitItem();
         //所持アイテムを確認
         CheckInventory();
+        //使用可能ホリダシモノ数
+        UseItemCount();
     }
 
     //フェーズごとに色やUIを変える
@@ -225,8 +225,8 @@ public class StageUI : UIManager
     //フェーズ変更までの時間計測
     public void PhaseTimer(int currentPhase)
     {
-        //Digフェーズ中にインベントリが開かれている場合時間経過を止める
-        if (inventoryPanel.activeSelf && isPhase[(int)Phase.DIG]) return;
+        //インベントリが開かれている場合時間経過を止める
+        if (inventoryPanel.activeSelf) return;
         //アイテムの効果
         if (isTimeStop && stopTimer >= 0.01f) 
         {
@@ -249,6 +249,11 @@ public class StageUI : UIManager
             
     }
 
+    public void UseItemCount()
+    {
+        useItemCountText.text = player.useItem.ToString();
+    }
+
     public void EndItem()
     {
         timer = 0.0f;
@@ -256,8 +261,6 @@ public class StageUI : UIManager
         isPhase[(int)Phase.DIG] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
-        inputPanel[(int)Phase.ITEM].SetActive(false);
-        inputPanel[(int)Phase.DIG].SetActive(true);
         player.digCurrent = player.digLimit;
         player.useItem = player.useItemLimit;
         seManager.PlaySE(se[(int)SE.CHANGEPHASE]);
@@ -270,8 +273,6 @@ public class StageUI : UIManager
         isPhase[(int)Phase.ITEM] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
-        inputPanel[(int)Phase.ITEM].SetActive(true);
-        inputPanel[(int)Phase.DIG].SetActive(false);
         currentTurn++;
         turnText.text = currentTurn.ToString();
         player.digCurrent = player.digLimit;
@@ -340,28 +341,21 @@ public class StageUI : UIManager
     //所持アイテムを確認
     public void CheckInventory()
     {
-        if (isPhase[(int)Phase.DIG])
+        //インベントリを表示
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            //インベントリを表示
-            if (Input.GetKeyDown(KeyCode.Tab))
+            isFocusItem = false;
+            if (!inventoryPanel.activeSelf)
             {
-                isFocusItem = false;
-                if (!inventoryPanel.activeSelf)
-                {
-                    inventoryPanel.SetActive(true);
-                    itemDataPanel.SetActive(true);
-                }
-                else
-                {
-                    inventoryPanel.SetActive(false);
-                    itemDataPanel.SetActive(false);
-                }
-                    
+                inventoryPanel.SetActive(true);
+                itemDataPanel.SetActive(true);
             }
-        }
-        else if (isPhase[(int)Phase.ITEM])
-        {
-            inventoryPanel.SetActive(true);
+            else
+            {
+                inventoryPanel.SetActive(false);
+                itemDataPanel.SetActive(false);
+            }
+
         }
 
         //確認するアイテムを選択
@@ -518,7 +512,7 @@ public class StageUI : UIManager
                     break;
             }
         }
-        if (isPause) 
+        if (isPause && pausePanel.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -549,7 +543,7 @@ public class StageUI : UIManager
             //選択中の項目を強調表示
             for (int i = 0; i < isSelectOption.Length; i++)
             {
-                if (isSelectOption[i]) 
+                if (isSelectOption[i])
                 {
                     Transform imageScale = pauseMenuImage[i].transform;
                     imageScale.localScale = new Vector3(
@@ -584,6 +578,9 @@ public class StageUI : UIManager
                         break;
                 }
             }
+        }
+        else if (isPause && !pausePanel.activeSelf)
+        {
             if (Input.GetKeyDown(KeyCode.C))
             {
                 switch (isSelected)

@@ -294,7 +294,7 @@ MonoBehaviour:
   digCurrent: 0
   getItem: 0
   getTreasure: 0
-  useItem: 1
+  useItem: 0
   useItemLimit: 1
   isMoving: 0
   rotationCore: {fileID: 2738281241822590522}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
   m_Name: ChangePhaseTime
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: "\u306E\u3073\u306E\u3073\u3069\u3051\u3044"
   description:
   - 
   - "\u30D5\u30A7\u30FC\u30BA\u30FBItem\uFF1A\uFF0B5\u79D2\n\u30D5\u30A7\u30FC\u30BA\u30FBDig\uFF1A\uFF0B5\u79D2"

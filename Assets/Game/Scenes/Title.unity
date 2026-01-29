@@ -567,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
       propertyPath: items.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
       propertyPath: 'items.Array.data[3]'
@@ -601,6 +601,10 @@ PrefabInstance:
       propertyPath: 'items.Array.data[10]'
       value: 
       objectReference: {fileID: 11400000, guid: b7ec06b67d267a44887b81e4b2279a5f, type: 2}
+    - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
+      propertyPath: 'items.Array.data[11]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 58e3f7208dc2b9a4fb0457c516d18166, type: 2}
     - target: {fileID: 733229732243766100, guid: 1bc49df9c87ec5d47936a2d152ce310b, type: 3}
       propertyPath: clearTurnLimit.Array.size
       value: 5

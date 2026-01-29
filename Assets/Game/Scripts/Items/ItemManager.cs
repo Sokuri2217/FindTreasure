@@ -15,7 +15,7 @@ public enum ItemEffectType
     ItemUpgrade,
     BackTurn,
     ClearCoolTime,
-
+    UseItemCount,
 }
 
 /// <summary>
@@ -94,6 +94,9 @@ public class ItemManager : ItemBase
                     player.inventory.ReduceAllItemsActiveTime((int)value1);
                     player.inventory.ReduceAllItemsCoolTime((int)value2);
                 }
+                break;
+            case ItemEffectType.UseItemCount:
+                player.useItemLimit += (int)value1;
                 break;
             default:
                 break;

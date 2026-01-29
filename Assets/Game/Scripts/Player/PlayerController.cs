@@ -78,14 +78,14 @@ public class PlayerController : MonoBehaviour
         DigAreaLimit();
         //プレイヤー回転
         RotationPlayer();
-
-        if (stageUI.isPhase[(int)Phase.DIG]) 
+        if (!stageUI.inventoryPanel.activeSelf) 
         {
             //アイテム取得
             GetItem();
             //タカラモノ取得
             GetTreasure();
         }
+            
 
         //採掘上限
         if (digLimit <= digCurrent)
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
     {
         if (stageUI.inventoryPanel.activeSelf) return;
 
-        if (!isMoving && stageUI.isPhase[(int)Phase.DIG])
+        if (!isMoving)
         {
             float horizontal = 0.0f;
             float vertical = 0.0f;
@@ -112,12 +112,6 @@ public class PlayerController : MonoBehaviour
                 horizontal = -1.0f;
             else if (Input.GetKey(KeyCode.D))
                 horizontal = 1.0f;
-
-            //Shift入力時は加速
-            if(Input.GetKey(KeyCode.LeftShift))
-            {
-                moveSpeed = originSpeed * 2.0f;
-            }
 
             if (horizontal != 0.0f || vertical != 0.0f)
             {
@@ -244,21 +238,18 @@ public class PlayerController : MonoBehaviour
     //プレイヤー回転(カメラは常に後方から)
     private void RotationPlayer()
     {
-        if (!stageUI.isPhase[(int)Phase.ITEM])
-        {
-            //左右に回転
-            if (Input.GetKeyDown(KeyCode.J))
-                transform.Rotate(0.0f, -90.0f, 0.0f);
-            else if (Input.GetKeyDown(KeyCode.L))
-                transform.Rotate(0.0f, 90.0f, 0.0f);
-            if (Input.GetKey(KeyCode.I))
-                rotationX += rotationSpeed * Time.deltaTime;
-            else if (Input.GetKey(KeyCode.K))
-                rotationX -= rotationSpeed * Time.deltaTime;
+        //左右に回転
+        if (Input.GetKeyDown(KeyCode.J))
+            transform.Rotate(0.0f, -90.0f, 0.0f);
+        else if (Input.GetKeyDown(KeyCode.L))
+            transform.Rotate(0.0f, 90.0f, 0.0f);
+        if (Input.GetKey(KeyCode.I))
+            rotationX += rotationSpeed * Time.deltaTime;
+        else if (Input.GetKey(KeyCode.K))
+            rotationX -= rotationSpeed * Time.deltaTime;
 
-            rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
-            rotationCore.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
-        }
+        rotationX = Mathf.Clamp(rotationX, minRotation, maxRotation);
+        rotationCore.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
     }
 
     //アイテム取得

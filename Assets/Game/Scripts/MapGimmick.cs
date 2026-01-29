@@ -21,7 +21,14 @@ public class MapGimmick : MonoBehaviour
     {
         if (player == null) return;
 
-        switch(gimmickNum)
+        //タカラモノのシンドをリセット
+        mapCreater.minDeep[(int)Deep.TREASURE] = 3; //最小シンド低下
+        mapCreater.maxDeep[(int)Deep.TREASURE] = 7; //最大シンド低下
+        //ホリダシモノのシンドをリセット
+        mapCreater.minDeep[(int)Deep.ITEM] = 1; 
+        mapCreater.maxDeep[(int)Deep.ITEM] = 2;
+
+        switch (gimmickNum)
         { 
             case (int)MapNum.MAP1:
                 //特にギミックはなし 
@@ -30,26 +37,26 @@ public class MapGimmick : MonoBehaviour
                 player.originSpeed *= 0.75f;                //移動速度低下
                 player.digLimit -= 1;                       //採掘上限低下
                 mapCreater.minDeep[(int)Deep.TREASURE] = 2; //最小シンド低下
-                mapCreater.maxDeep[(int)Deep.TREASURE] = 4; //最大シンド低下
+                mapCreater.maxDeep[(int)Deep.TREASURE] = 5; //最大シンド低下
                 break;
             case (int)MapNum.MAP3:
                 player.originSpeed *= 1.2f;                 //移動速度上昇
                 mapCreater.minDeep[(int)Deep.TREASURE] = 4; //最小シンド上昇
-                mapCreater.maxDeep[(int)Deep.TREASURE] = 8; //最大シンド上昇
+                mapCreater.maxDeep[(int)Deep.TREASURE] = 9; //最大シンド上昇
                 stageUI.phaseLimit[(int)Phase.DIG] *= 0.7f; //採掘フェーズの維持時間を短縮
                 break;
             case (int)MapNum.MAP4:
-                player.useItemLimit += 1;                        //使用アイテム数上昇
+                player.useItemLimit += 1;                   //使用アイテム数上昇
                 player.digLimit -= 3;                       //採掘上限大低下
                 mapCreater.minDeep[(int)Deep.TREASURE] = 2; //最小シンド低下
-                mapCreater.maxDeep[(int)Deep.TREASURE] = 4; //最大シンド低下
+                mapCreater.maxDeep[(int)Deep.TREASURE] = 5; //最大シンド低下
                 break;
             case (int)MapNum.MAP5:
                 player.originSpeed *= 0.7f;                  //移動速度低下
-                mapCreater.minDeep[(int)Deep.TREASURE] = 6;  //最小シンド上昇
-                mapCreater.maxDeep[(int)Deep.TREASURE] = 10; //最大シンド上昇
-                mapCreater.minDeep[(int)Deep.ITEM] = 3;      //ホリダシモノにシンドを追加
-                mapCreater.maxDeep[(int)Deep.ITEM] = 6;      //ホリダシモノにシンドを追加
+                mapCreater.minDeep[(int)Deep.TREASURE] = 10; //最小シンド上昇
+                mapCreater.maxDeep[(int)Deep.TREASURE] = 21; //最大シンド上昇
+                mapCreater.minDeep[(int)Deep.ITEM] = 5;      //ホリダシモノにシンドを追加
+                mapCreater.maxDeep[(int)Deep.ITEM] = 11;     //ホリダシモノにシンドを追加
                 break;
         }
     }

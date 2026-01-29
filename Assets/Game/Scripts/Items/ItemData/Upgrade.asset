@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438feddf51f61514ebd8a6d29257db13, type: 3}
   m_Name: Upgrade
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: "\u3076\u30FC\u3059\u305F\u30FC"
   description:
   - 
   - "\u30A2\u30AF\u30C6\u30A3\u30D6\u30FB\u5168\uFF1A\uFF0B\uFF11\n\u30AF\u30FC\u30EB\u30BF\u30A4\u30E0\u30FB\u5168\uFF1A\u30FC\uFF11"
