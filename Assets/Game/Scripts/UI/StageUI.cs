@@ -47,6 +47,7 @@ public class StageUI : UIManager
     public bool isTimeStop;
     public float stopTimer;
     public float stopLimit;
+    public bool consumedTurn;
 
     [Header("フラグ")]
     public bool isPause;
@@ -192,7 +193,7 @@ public class StageUI : UIManager
             //ターン数が1を下回らないようにする
             currentTurn = 1;
         }
-
+        turnText.text = currentTurn.ToString();
         //現在のフェーズをスキップ
         SkipPhase();
 
@@ -277,8 +278,8 @@ public class StageUI : UIManager
         isPhase[(int)Phase.ITEM] = true;
         inventoryPanel.SetActive(false);
         itemDataPanel.SetActive(false);
-        currentTurn++;
-        turnText.text = currentTurn.ToString();
+        if (consumedTurn)
+            currentTurn++;
         player.digCurrent = player.digLimit;
         seManager.PlaySE(se[(int)SE.CHANGEPHASE]);
     }

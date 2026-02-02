@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public enum Rarity
-{
-    Normal,
-    Rare
-}
-
 [System.Serializable]
 public class ItemInstance
 {
     public ItemBase itemBase;
+    public int slotID;
 
     public int duration;
     public int coolTime;

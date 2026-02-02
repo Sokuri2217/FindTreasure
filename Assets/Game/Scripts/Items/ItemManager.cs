@@ -16,6 +16,7 @@ public enum ItemEffectType
     BackTurn,
     ClearCoolTime,
     UseItemCount,
+    ConsumedDigCount,
 }
 
 /// <summary>
@@ -78,6 +79,9 @@ public class ItemManager : ItemBase
                 stageUI.phaseLimit[(int)Phase.ITEM] += value1;
                 stageUI.phaseLimit[(int)Phase.DIG] += value1;
                 break;
+            case ItemEffectType.ConsumedDigCount:
+                player.consumedProbability += (int)value1;
+                break;
             case ItemEffectType.AddDigLimit:
                 player.digLimit += (int)value1;
                 break;
@@ -125,6 +129,9 @@ public class ItemManager : ItemBase
                 if (myInstance != null)
                     player.inventory.ResetOtherItemsCoolTime(myInstance);
                 break;
+            case ItemEffectType.ConsumedDigCount:
+                player.consumedProbability += (int)activeValue1;
+                break;
             case ItemEffectType.AddDigNum:
                 player.consumedProbability += activeValue1;
                 break;
@@ -133,9 +140,6 @@ public class ItemManager : ItemBase
                 break;
             case ItemEffectType.AddDigPower:
                 player.digPower += (int)activeValue1;
-                break;
-            default:
-                Debug.Log("このアイテムに『あくてぃぶ』効果はありません");
                 break;
         }
     }
@@ -151,6 +155,9 @@ public class ItemManager : ItemBase
             case ItemEffectType.ChangePhaseTime:
                 stageUI.phaseLimit[(int)Phase.ITEM] -= activeValue1;
                 stageUI.phaseLimit[(int)Phase.DIG] -= activeValue1;
+                break;
+            case ItemEffectType.ConsumedDigCount:
+                player.consumedProbability -= (int)activeValue1;
                 break;
             case ItemEffectType.AddDigNum:
                 player.consumedProbability -= activeValue1;

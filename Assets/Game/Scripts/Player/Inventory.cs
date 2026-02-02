@@ -1,6 +1,7 @@
-using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class Inventory : MonoBehaviour
     [Header("所持可能数")]
     public int lineMaxHeight;
     public int lineMaxWidth;
+
+    //[Header("各ターンの変更状態")]
+    //public int changeActive;
+    //public int changeCoolTime;
 
     [Header("スクリプト参照")]
     public PlayerController player;
@@ -88,6 +93,7 @@ public class Inventory : MonoBehaviour
             if (items[i].itemBase == null)
             {
                 items[i] = instance;
+                items[i].slotID = i;
                 break;
             }
         }
@@ -154,12 +160,12 @@ public class Inventory : MonoBehaviour
 
     public void ReduceOtherItemsActiveTime(int turnReduce, ItemInstance exceptItem)
     {
-        foreach (var item in items)
+        for (int i = 0; i < items.Count; i++)
         {
-            if (item != exceptItem && item.itemBase.originDuration != 0)  
+            if (items[i].slotID != exceptItem.slotID && items[i].itemBase.originDuration != 0) 
             {
-                item.duration += turnReduce; // クールタイムを減らす
-                if (item.duration < 1) item.duration = 1;
+                items[i].duration += turnReduce; // クールタイムを減らす
+                if (items[i].duration < 1) items[i].duration = 1;
             }
         }
     }
@@ -175,24 +181,23 @@ public class Inventory : MonoBehaviour
 
     public void ReduceOtherItemsCoolTime(int turnReduce, ItemInstance exceptItem)
     {
-        foreach (var item in items)
+        for (int i = 0; i < items.Count; i++)
         {
-            if (item != exceptItem) 
+            if (items[i].slotID != exceptItem.slotID)
             {
-                item.coolTime += turnReduce; // クールタイムを減らす
-                if (item.coolTime < 0) item.coolTime = 0;
+                items[i].coolTime += turnReduce; // クールタイムを減らす
+                if (items[i].coolTime < 0) items[i].coolTime = 0;
             }
         }
     }
 
     public void ResetOtherItemsCoolTime(ItemInstance exceptItem)
     {
-        foreach (var item in items)
+        for (int i = 0; i < items.Count; i++) 
         {
-            if (item != exceptItem)
+            if (items[i].slotID != exceptItem.slotID)   
             {
-                item.coolTime = 0;
-                item.isCoolDown = false;
+                items[i].isCoolDown = false;
             }
         }
     }
