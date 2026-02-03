@@ -103,7 +103,7 @@ public class UniqueItemManager : ItemBase
                 break;
             case UniqueEffectType.Stage5:
                 player.digPower += (int)activeValue1;
-                stageUI.currentTurn -= (int)activeValue2;
+                stageUI.currentTurn += (int)activeValue2;
                 player.ignoredDeep[(int)Get.ITEM] = true;
                 break;
             default:

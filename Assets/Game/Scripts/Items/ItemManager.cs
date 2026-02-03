@@ -17,6 +17,7 @@ public enum ItemEffectType
     ClearCoolTime,
     UseItemCount,
     ConsumedDigCount,
+
 }
 
 /// <summary>
@@ -167,9 +168,6 @@ public class ItemManager : ItemBase
                 break;
             case ItemEffectType.AddDigPower:
                 player.digPower -= (int)activeValue1;
-                break;
-            default:
-                Debug.Log("このアイテムに『あくてぃぶ』効果はありません");
                 break;
         }
     }

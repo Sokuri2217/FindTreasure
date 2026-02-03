@@ -286,6 +286,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23a5e28dac49aee4ab2f6f9a441ace66, type: 3}
   - {fileID: 8300000, guid: ede2d56324abd4a46baf529ff004a142, type: 3}
   - {fileID: 8300000, guid: 65909033817575f4ab4390443d2365a5, type: 3}
+  - {fileID: 8300000, guid: 5b192123ebe8411408478e290bbc1705, type: 3}
+  - {fileID: 8300000, guid: a44732832f445164ea6c068fd6a77042, type: 3}
+  - {fileID: 8300000, guid: 3337d177e2878ef46a1355d3d815dc6b, type: 3}
+  - {fileID: 8300000, guid: 88756b0c0bd58a949ad61a7a73720536, type: 3}
+  - {fileID: 8300000, guid: 413a507d488001441aea007d92572a72, type: 3}
+  - {fileID: 8300000, guid: fb7e06a8a3f98d34db080cdef95835cd, type: 3}
+  - {fileID: 8300000, guid: 57ad11c5561d00e44a0cb83e606a053c, type: 3}
   sceneMove: {fileID: 8300000, guid: f4e5bb00f0af72f48a04eee810f08127, type: 3}
   isPhase: 0000
   phaseColor:
@@ -335,6 +342,7 @@ MonoBehaviour:
   isTimeStop: 0
   stopTimer: 0
   stopLimit: 0
+  consumedTurn: 1
   isPause: 0
   gameClear: 0
   gameOver: 0

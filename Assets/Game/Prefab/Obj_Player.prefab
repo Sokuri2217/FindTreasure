@@ -288,6 +288,8 @@ MonoBehaviour:
   dig_width_data: 3
   dig_height: 0
   dig_height_data: 3
+  dig_slash: 0
+  dig_slash_data: 1
   digPower: 1
   isDig: 0
   digLimit: 5
@@ -328,73 +330,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   - itemBase: {fileID: 0}
+    slotID: 0
     duration: 0
     coolTime: 0
-    coolTimeTurn: 0
-    useActiveTurn: 0
     isUseActive: 0
     isCoolDown: 0
   isActiveItems: []

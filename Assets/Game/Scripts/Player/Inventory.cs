@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -39,39 +37,38 @@ public class Inventory : MonoBehaviour
 
     public void Update()
     {
-        UpdateActiveItems();
-        UpdateCoolDownItems();
+
     }
 
-    void UpdateActiveItems()
+    public void UpdateActiveItems()
     {
         for (int i = isActiveItems.Count - 1; i >= 0; i--)
         {
             ItemInstance item = isActiveItems[i];
-
-            if (item.useActiveTurn + item.duration - 1 < stageUI.currentTurn)
+            item.duration--;
+            if (item.duration <= 0) 
             {
                 item.itemBase.OnActiveDelete(player, stageUI);
 
                 item.isUseActive = false;
                 item.isCoolDown = true;
-                item.coolTimeTurn = stageUI.currentTurn;
-
+                item.duration = item.itemBase.originDuration;
                 isCoolDownItems.Add(item);
                 isActiveItems.RemoveAt(i);
             }
         }
     }
 
-    void UpdateCoolDownItems()
+    public void UpdateCoolDownItems()
     {
         for (int i = isCoolDownItems.Count - 1; i >= 0; i--)
         {
             ItemInstance item = isCoolDownItems[i];
-
-            if (item.coolTimeTurn + item.coolTime - 1 < stageUI.currentTurn)
+            item.coolTime--;
+            if (item.coolTime <= 0)
             {
                 item.isCoolDown = false;
+                item.coolTime = item.itemBase.originCoolTime;
                 isCoolDownItems.RemoveAt(i);
             }
         }
@@ -113,7 +110,6 @@ public class Inventory : MonoBehaviour
         item.itemBase.OnUse(player, stageUI);
 
         item.isUseActive = true;
-        item.useActiveTurn = stageUI.currentTurn;
 
         if (item.duration > 0)
         {
@@ -123,7 +119,6 @@ public class Inventory : MonoBehaviour
         {
             // 即時クールダウン
             item.isCoolDown = true;
-            item.coolTimeTurn = stageUI.currentTurn;
             isCoolDownItems.Add(item);
         }
     }

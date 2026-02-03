@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public int dig_width_data;  //ÌŒ@”ÍˆÍ(‰¡)‚ÌÀÛ‚Ì’l
     public int dig_height;      //ÌŒ@”ÍˆÍ(c)
     public int dig_height_data; //ÌŒ@”ÍˆÍ(c)‚ÌÀÛ‚Ì’l
+    public int dig_slash;       //ÌŒ@”ÍˆÍ(‰¡)
+    public int dig_slash_data;  //ÌŒ@”ÍˆÍ(‰¡)‚ÌÀÛ‚Ì’l
     public int digPower;        //ÌŒ@—Í(ˆê‰ñ‚Å‚Ç‚ê‚¾‚¯[“x‚ğ‰º‚°‚ê‚é‚©)
     public bool isDig;          //ÌŒ@’†‚©‚Ç‚¤‚©
     public int digLimit;        //ÌŒ@‰ñ”‚ÌãŒÀ
@@ -164,6 +166,7 @@ public class PlayerController : MonoBehaviour
         //“ü—Í
         if (Input.GetKeyDown(KeyCode.Space) && stageUI.isPhase[(int)Phase.DIG] && !isDig && !stageUI.inventoryPanel.activeSelf) 
         {
+            stageUI.seManager.PlaySE(stageUI.se[(int)SE.DIG]);
             isDig = true;
             //ÌŒ@”‚ğÁ”ï‚·‚é‚©‚Ç‚¤‚©
             //consumedProbability*10“‚ÅÁ”ï‚³‚ê‚È‚¢
@@ -184,10 +187,13 @@ public class PlayerController : MonoBehaviour
     {
         dig_width = dig_width_data;
         dig_height = dig_height_data;
+        dig_slash = dig_slash_data;
         if (dig_width < 1)
             dig_width = 1;
         if (dig_height < 1)
             dig_height = 1;
+        if (dig_slash < 0)
+            dig_slash = 0;
     }
 
     //ƒAƒCƒeƒ€æ“¾
@@ -195,7 +201,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G) && getItem) 
         {
-            if(inventory.AddItem(hitItem))
+            stageUI.seManager.PlaySE(stageUI.se[(int)SE.GETITEM]);
+            if (inventory.AddItem(hitItem))
             {
                 Destroy(hitItemObj);
             }
@@ -221,15 +228,8 @@ public class PlayerController : MonoBehaviour
     //ŠÔ’â~
     public void StopTime(float time)
     {
-        if (!stageUI.isTimeStop)
-        {
-            stageUI.isTimeStop = true;
-            stageUI.stopLimit = time;
-        }
-        else
-        {
-            return;
-        }
+        stageUI.isTimeStop = true;
+        stageUI.stopLimit = time;
     }
 
     //ƒvƒŒƒCƒ„[‰ñ“](ƒJƒƒ‰‚Íí‚ÉŒã•û‚©‚ç)
@@ -254,20 +254,17 @@ public class PlayerController : MonoBehaviour
     {
         if (stageUI == null) return;
 
-        if (stageUI.isPhase[(int)Phase.DIG]) 
+        if (other.gameObject.CompareTag("Item"))
         {
-            if (other.gameObject.CompareTag("Item"))
-            {
-                ItemObject itemObj = other.gameObject.GetComponent<ItemObject>();
-                hitItemObj = other.gameObject;
-                hitItem = itemObj.itemBase;
-                getItem = true;
-            }
-            else if (other.gameObject.CompareTag("Treasure"))
-            {
-                treasure = other.gameObject;
-                getTreasure = true;
-            }
+            ItemObject itemObj = other.gameObject.GetComponent<ItemObject>();
+            hitItemObj = other.gameObject;
+            hitItem = itemObj.itemBase;
+            getItem = true;
+        }
+        else if (other.gameObject.CompareTag("Treasure"))
+        {
+            treasure = other.gameObject;
+            getTreasure = true;
         }
     }
     //ƒAƒCƒeƒ€æ“¾
@@ -275,19 +272,16 @@ public class PlayerController : MonoBehaviour
     {
         if (stageUI == null) return;
 
-        if (stageUI.isPhase[(int)Phase.DIG])
+        if (other.gameObject.CompareTag("Item"))
         {
-            if (other.gameObject.CompareTag("Item"))
-            {
-                getItem = false;
-                hitItem = null;
-                hitItemObj = null;
-            }
-            else if (other.CompareTag("Treasure"))
-            {
-                getTreasure = false;
-                treasure = null;
-            }
+            getItem = false;
+            hitItem = null;
+            hitItemObj = null;
+        }
+        else if (other.CompareTag("Treasure"))
+        {
+            getTreasure = false;
+            treasure = null;
         }
     }
 }

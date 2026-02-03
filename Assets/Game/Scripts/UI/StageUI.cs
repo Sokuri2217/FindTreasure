@@ -92,22 +92,13 @@ public class StageUI : UIManager
     [Header("å¯â âπ")]
     public AudioClip useItem;
 
-    enum SE
-    {
-        OPENFOCUS,
-        CLOSEFOCUS,
-        SELECTINVENTORY,
-        CHANGEPHASE,
-        GAMECLEAR,
-        GAMEOVER,
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {
         base.Start();
         //èââÒê›íË
         isPhase[(int)Phase.ITEM] = true;
+        consumedTurn = true;
         clearTurn = gameManager.clearTurnLimit[gameManager.mapNum];
         allTreasures = gameManager.setTreasure;
         originSlotScale = new Vector3[slotImage.Length];
@@ -281,6 +272,9 @@ public class StageUI : UIManager
         if (consumedTurn)
             currentTurn++;
         player.digCurrent = player.digLimit;
+        player.useItem = player.useItemLimit;
+        inventory.UpdateActiveItems();
+        inventory.UpdateCoolDownItems();
         seManager.PlaySE(se[(int)SE.CHANGEPHASE]);
     }
 
@@ -303,6 +297,9 @@ public class StageUI : UIManager
     public void CheckHitItem()
     {
         if (inventoryPanel.activeSelf) return;
+
+        if (!itemDataPanel.activeSelf)
+            isFocusItem = false;
 
         if (player.hitItem != null && !player.isMoving)
         {
@@ -458,7 +455,7 @@ public class StageUI : UIManager
                         active.text = null;
                     }
 
-                    bool canUse = (!isPhase[(int)Phase.DIG] &&
+                    bool canUse = (isPhase[(int)Phase.ITEM] &&
                         inventory.items[i] != null &&
                         inventory.items[i].itemBase != null &&
                         !inventory.items[i].isUseActive &&
@@ -473,7 +470,6 @@ public class StageUI : UIManager
                         {
                             inventory.items[i].itemBase.OnUse(player, this);
                             inventory.items[i].isUseActive = true;
-                            inventory.items[i].useActiveTurn = currentTurn;
                             inventory.isActiveItems.Add(inventory.items[i]);
                             seManager.PlaySE(useItem);
                             player.useItem--;
@@ -508,12 +504,14 @@ public class StageUI : UIManager
                     pausePanel.SetActive(false);
                     pauseMenuObj.SetActive(false);
                     closePauseMenu.SetActive(false);
+                    seManager.PlaySE(se[(int)SE.CLOSEPAUSE]);
                     break;
                 case false:
                     notPausePanel.SetActive(false);
                     isPause = true;
                     pausePanel.SetActive(true);
                     pauseMenuObj.SetActive(true);
+                    seManager.PlaySE(se[(int)SE.OPENPAUSE]);
                     break;
             }
         }
@@ -526,6 +524,7 @@ public class StageUI : UIManager
                 {
                     isSelected = (isSelectOption.Length - 1);
                 }
+                seManager.PlaySE(se[(int)SE.SELECTPAUSEMENU]);
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
@@ -534,6 +533,7 @@ public class StageUI : UIManager
                 {
                     isSelected = 0;
                 }
+                seManager.PlaySE(se[(int)SE.SELECTPAUSEMENU]);
             }
 
             for (int i = 0; i < isSelectOption.Length; i++)
@@ -690,6 +690,7 @@ public class StageUI : UIManager
     {
         if (!pauseMenuPanel[(int)Pause.CONTROL].activeSelf)
         {
+            seManager.PlaySE(se[(int)SE.SELECTPAUSE]);
             pauseMenuPanel[(int)Pause.CONTROL].SetActive(true);
             pausePanel.SetActive(false);
             closePauseMenu.SetActive(true);
@@ -697,6 +698,7 @@ public class StageUI : UIManager
         }
         else
         {
+            seManager.PlaySE(se[(int)SE.NOTSELECTPAUSE]);
             pauseMenuPanel[(int)Pause.CONTROL].SetActive(false);
             pausePanel.SetActive(true);
             closePauseMenu.SetActive(false);
@@ -708,6 +710,7 @@ public class StageUI : UIManager
     {
         if (!pauseMenuPanel[(int)Pause.GIMMICK].activeSelf)
         {
+            seManager.PlaySE(se[(int)SE.SELECTPAUSE]);
             pauseMenuPanel[(int)Pause.GIMMICK].SetActive(true);
             pausePanel.SetActive(false);
             closePauseMenu.SetActive(true);
@@ -715,6 +718,7 @@ public class StageUI : UIManager
         }
         else
         {
+            seManager.PlaySE(se[(int)SE.NOTSELECTPAUSE]);
             pauseMenuPanel[(int)Pause.GIMMICK].SetActive(false);
             pausePanel.SetActive(true);
             closePauseMenu.SetActive(false);
@@ -730,6 +734,24 @@ public class StageUI : UIManager
         sceneName = moveSceneName;
         StartCoroutine(SceneMove());
     }
+}
+
+public enum SE
+{
+    OPENFOCUS,
+    CLOSEFOCUS,
+    SELECTINVENTORY,
+    CHANGEPHASE,
+    GAMECLEAR,
+    GAMEOVER,
+    DIG,
+    GETITEM,
+    OPENPAUSE,
+    CLOSEPAUSE,
+    SELECTPAUSEMENU,
+    SELECTPAUSE,
+    NOTSELECTPAUSE,
+
 }
 
 public enum Phase

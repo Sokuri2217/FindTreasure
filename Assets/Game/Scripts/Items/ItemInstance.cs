@@ -8,8 +8,6 @@ public class ItemInstance
 
     public int duration;
     public int coolTime;
-    public int coolTimeTurn;
-    public int useActiveTurn;
     public bool isUseActive;
     public bool isCoolDown;
 
