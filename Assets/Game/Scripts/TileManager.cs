@@ -65,32 +65,6 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
-
-        //int digSlash = playerController.dig_slash;
-        //for (int i = -digSlash; i <= digSlash; i++)
-        //{
-        //    for (int j = -digSlash; j <= digSlash; j++)
-        //    {
-        //        // プレイヤーの向きに合わせて、(i,j) を回転させる
-        //        Vector3 offset = new Vector3(j, 0, i); // XZ平面 (jがX方向、iがZ方向)
-        //        Vector3 rotatedOffset = rotation * offset;
-
-        //        // 対象タイルのワールド座標
-        //        Vector3 targetPos = player.transform.position + rotatedOffset;
-
-        //        if (Mathf.Round(transform.position.x) == Mathf.Round(targetPos.x) &&
-        //            Mathf.Round(transform.position.z) == Mathf.Round(targetPos.z))
-        //        {
-        //            bool isCross = (i == 0 || j == 0);
-        //            bool isDiagonal = (
-        //                Mathf.Abs(i) == Mathf.Abs(j) &&
-        //                Mathf.Abs(i) <= digSlash
-        //                );
-        //            dig = (isCross || isDiagonal);
-        //            return;
-        //        }
-        //    }
-        //}
     }
 
     //採掘実行
@@ -107,7 +81,13 @@ public class TileManager : MonoBehaviour
                 {
                     hasTreasure = false;
                     //オブジェクト生成
-                    Instantiate(treasureObj, transform.position, Quaternion.identity);
+                    Transform treasurePos = treasureObj.transform;
+                    treasurePos.position = new Vector3(
+                        transform.position.x,
+                        treasurePos.position.y,
+                        transform.position.z
+                        );
+                    Instantiate(treasureObj, treasurePos.position, Quaternion.identity);
                 }
             }
             else if (hasItem && dig) 

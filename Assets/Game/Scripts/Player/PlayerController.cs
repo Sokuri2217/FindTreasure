@@ -94,7 +94,11 @@ public class PlayerController : MonoBehaviour
     }
     private void GridMove()
     {
-        if (stageUI.inventoryPanel.activeSelf) return;
+        if (stageUI.inventoryPanel.activeSelf)
+        {
+            moveDirection = new Vector3(0, 0, 0);
+            return;
+        } 
 
         if (!isMoving)
         {
@@ -218,6 +222,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G) && getTreasure)
         {
+            stageUI.seManager.PlaySE(stageUI.se[(int)SE.GETITEM]);
             isGetTreasure++;
             Destroy(treasure);
             getTreasure = false;
@@ -230,6 +235,7 @@ public class PlayerController : MonoBehaviour
     {
         stageUI.isTimeStop = true;
         stageUI.stopLimit = time;
+        stageUI.stopTimer = stageUI.stopLimit;
     }
 
     //プレイヤー回転(カメラは常に後方から)
