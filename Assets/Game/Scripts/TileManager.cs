@@ -45,9 +45,9 @@ public class TileManager : MonoBehaviour
         // プレイヤーの回転（Y軸だけ考慮）
         Quaternion rotation = Quaternion.Euler(0, player.transform.eulerAngles.y, 0);
 
-        for (int i = -digHeight; i <= digHeight; i++)  
+        for (int i = -digWidth; i <= digWidth; i++)  
         {
-            for (int j = -digWidth; j <= digWidth; j++) 
+            for (int j = -digHeight; j <= digHeight; j++) 
             {
                 // プレイヤーの向きに合わせて、(i,j) を回転させる
                 Vector3 offset = new Vector3(j, 0, i); // XZ平面 (jがX方向、iがZ方向)

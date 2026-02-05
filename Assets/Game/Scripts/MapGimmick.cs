@@ -27,8 +27,8 @@ public class MapGimmick : MonoBehaviour
         if (player == null) return;
 
         //タカラモノのシンドをリセット
-        mapCreater.minDeep[(int)Deep.TREASURE] = 3; //最小シンド低下
-        mapCreater.maxDeep[(int)Deep.TREASURE] = 7; //最大シンド低下
+        mapCreater.minDeep[(int)Deep.TREASURE] = 3;
+        mapCreater.maxDeep[(int)Deep.TREASURE] = 7;
         //ホリダシモノのシンドをリセット
         mapCreater.minDeep[(int)Deep.ITEM] = 1; 
         mapCreater.maxDeep[(int)Deep.ITEM] = 2;
