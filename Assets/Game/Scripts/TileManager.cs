@@ -3,156 +3,127 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     [Header("タイルの基本情報")]
-    public bool hasTreasure;       //タカラモノがあるかどうか
-    public bool hasItem;           //ホリダシモノがあるかどうか
-    public GameObject treasureObj; //タカラモノオブジェクト
-    public GameObject itemObj;     //ホリダシモノオブジェクト
-    public int deep;               //深度←これが0になるとタカラモノを地表に出す
-    public bool dig;               //このグリッドを掘れるかどうか
+    public bool hasTreasure;
+    public bool hasItem;
+    public GameObject treasureObj;
+    public GameObject itemObj;
+    public int deep;
+    public bool dig;
 
-    [Header("オブジェクト参照")]
-    private GameObject player; //プレイヤーオブジェクト
+    private GameObject player;
+    private PlayerController playerController;
+    private Renderer tileRenderer;
+
+    private Vector3Int tilePos;   // タイル座標を整数で保持
 
     void Start()
     {
-
+        tileRenderer = GetComponent<Renderer>();
+        tilePos = Vector3Int.RoundToInt(transform.position);
+        hasItem = false;
+        hasTreasure = false;
     }
 
-    private void Update()
+    void Update()
     {
-        //プレイヤーを保存出来ていないとき
-        if (player == null) 
+        if (player == null)
         {
             player = GameObject.FindWithTag("Player");
+            playerController = player.GetComponent<PlayerController>();
         }
 
-        DigFieldGrid();
+        UpdateDigRange();
         DigGrid();
         ChangeGridColor();
     }
 
-    //採掘範囲
-    public void DigFieldGrid()
+    // 採掘範囲判定（軽量版）
+    void UpdateDigRange()
     {
-        PlayerController playerController = player.GetComponent<PlayerController>();
-
         dig = false;
 
-        //採掘範囲
-        int digWidth = (playerController.dig_width / 2);
-        int digHeight = (playerController.dig_height / 2);
+        Vector3Int playerPos = Vector3Int.RoundToInt(player.transform.position);
 
-        // プレイヤーの回転（Y軸だけ考慮）
-        Quaternion rotation = Quaternion.Euler(0, player.transform.eulerAngles.y, 0);
+        int halfW = playerController.dig_width / 2;
+        int halfH = playerController.dig_height / 2;
 
-        for (int i = -digWidth; i <= digWidth; i++)  
+        Vector3Int delta = tilePos - playerPos;
+
+        // プレイヤーの向き（Y軸 90度単位想定）
+        int dir = Mathf.RoundToInt(player.transform.eulerAngles.y) % 360;
+
+        int x = delta.x;
+        int z = delta.z;
+
+        // 向きによる座標変換（Quaternion不使用）
+        switch (dir)
         {
-            for (int j = -digHeight; j <= digHeight; j++) 
-            {
-                // プレイヤーの向きに合わせて、(i,j) を回転させる
-                Vector3 offset = new Vector3(j, 0, i); // XZ平面 (jがX方向、iがZ方向)
-                Vector3 rotatedOffset = rotation * offset;
+            case 90:
+                (x, z) = (-z, x);
+                break;
+            case 180:
+                x = -x; z = -z;
+                break;
+            case 270:
+                (x, z) = (z, -x);
+                break;
+        }
 
-                // 対象タイルのワールド座標
-                Vector3 targetPos = player.transform.position + rotatedOffset;
-
-                if (Mathf.Round(transform.position.x) == Mathf.Round(targetPos.x) &&
-                    Mathf.Round(transform.position.z) == Mathf.Round(targetPos.z)) 
-                {
-                    //十字範囲のみ採掘出来る
-                    dig = !((i > 0 || i < 0) && (j > 0 || j < 0));
-                    return;
-                }
-            }
+        if (Mathf.Abs(x) <= halfW && Mathf.Abs(z) <= halfH)
+        {
+            // 十字判定
+            dig = (x == 0 || z == 0);
         }
     }
 
-    //採掘実行
-    public void DigGrid()
+    void DigGrid()
     {
-        PlayerController playerController = player.GetComponent<PlayerController>();
-        if (playerController.isDig)  
+        if (!playerController.isDig || !dig) return;
+
+        deep -= playerController.digPower;
+        if (deep > 0) return;
+
+        if (hasTreasure)
         {
-            if (hasTreasure && dig)
-            {
-                //深度を下げ、深度が0以下になると、タカラモノを地表に出す
-                deep -= playerController.digPower;
-                if (deep <= 0)
-                {
-                    hasTreasure = false;
-                    //オブジェクト生成
-                    Transform treasurePos = treasureObj.transform;
-                    treasurePos.position = new Vector3(
-                        transform.position.x,
-                        treasurePos.position.y,
-                        transform.position.z
-                        );
-                    Instantiate(treasureObj, treasurePos.position, Quaternion.identity);
-                }
-            }
-            else if (hasItem && dig) 
-            {
-                //深度を下げ、深度が0以下になると、ホリダシモノを地表に出す
-                deep -= playerController.digPower;
-                if (deep <= 0)
-                {
-                    hasItem = false;
-                    Transform itemPos = itemObj.transform;
-                    itemPos.position = new Vector3(
-                        transform.position.x,
-                        itemPos.position.y,
-                        transform.position.z
-                        );
-                    //オブジェクト生成
-                    Instantiate(itemObj, itemPos.position, Quaternion.identity);
-                    ItemObject itemObject = itemObj.GetComponent<ItemObject>();
-                    GameManager gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-                    if (Random.Range(0, 1000) <= 4)
-                    {
-                        itemObject.itemBase = gameManager.uniqueItems[Random.Range(0, gameManager.uniqueItems.Count)];
-                    }
-                    else
-                    {
-                        itemObject.itemBase = gameManager.items[Random.Range(0, gameManager.items.Count)];
-                    }
-                }
-                
-            }
+            hasTreasure = false;
+            SpawnObject(treasureObj);
+        }
+        else if (hasItem)
+        {
+            hasItem = false;
+            SpawnObject(itemObj);
+
+            ItemObject itemObject = itemObj.GetComponent<ItemObject>();
+            GameManager gm = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
+            itemObject.itemBase =
+                Random.Range(0, 1000) <= 4 ?
+                gm.uniqueItems[Random.Range(0, gm.uniqueItems.Count)] :
+                gm.items[Random.Range(0, gm.items.Count)];
         }
     }
 
-    // アイテム有無を設定
-    public void SetHasTreasure(bool value)
+    void SpawnObject(GameObject obj)
     {
-        hasTreasure = value;
+        Vector3 pos = new Vector3(
+            transform.position.x,
+            obj.transform.position.y,
+            transform.position.z
+        );
+        Instantiate(obj, pos, Quaternion.identity);
     }
 
-    // アイテム有無を設定
+    void ChangeGridColor()
+    {
+        tileRenderer.material.color = dig ? Color.red : Color.white;
+    }
+
     public void SetHasItem(bool value)
     {
         hasItem = value;
     }
-
-    //グリッドの色変更
-    public void ChangeGridColor()
+    public void SetHasTreasure(bool value)
     {
-        Renderer renderer = GetComponent<Renderer>();
-        //採掘範囲内のグリッドを赤くする
-        if (dig)
-        {
-            renderer.material.color = Color.red;
-        }
-        //else if (hasTreasure)
-        //{
-        //    renderer.material.color = Color.green;
-        //}
-        //else if (hasItem)
-        //{
-        //    renderer.material.color = Color.blue;
-        //}
-        else
-        {
-            renderer.material.color = Color.white;
-        }
+        hasTreasure = value;
     }
 }

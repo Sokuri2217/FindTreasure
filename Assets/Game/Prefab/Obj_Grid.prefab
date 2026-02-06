@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasTreasure: 0
   hasItem: 0
-  treasureObj: {fileID: 0}
-  itemObj: {fileID: 0}
+  treasureObj: {fileID: 8231600108371747052, guid: 22d229a8916660a42819873d6f05fa41, type: 3}
+  itemObj: {fileID: 2038172344271970460, guid: 06d930296f2615e49a01b996bd98f557, type: 3}
   deep: 0
   dig: 0

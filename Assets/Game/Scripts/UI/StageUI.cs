@@ -12,6 +12,7 @@ public class StageUI : UIManager
     public Image currentPhase;
     public int currentTurn;
     public Text turnText;
+    public Text turnLimitText;
     public Text useItemCountText;
 
     [Header("フェーズの計測")]
@@ -42,6 +43,10 @@ public class StageUI : UIManager
     public Vector3[] originSlotScale; //通常サイズ
     public float zoomNum;             //拡大率
     public GameObject useActiveImage;
+
+    [Header("タカラモノ関連")]
+    public Text allTreasureText;
+    public Text currentGetTreasureText;
 
     [Header("アイテム効果")]
     public bool isTimeStop;
@@ -100,6 +105,7 @@ public class StageUI : UIManager
         isPhase[(int)Phase.ITEM] = true;
         consumedTurn = true;
         clearTurn = gameManager.clearTurnLimit[gameManager.mapNum];
+        turnLimitText.text = clearTurn.ToString();
         allTreasures = gameManager.setTreasure;
         originSlotScale = new Vector3[slotImage.Length];
         for(int i = 0; i < originSlotScale.Length; i++)
@@ -185,6 +191,8 @@ public class StageUI : UIManager
             currentTurn = 1;
         }
         turnText.text = currentTurn.ToString();
+        currentGetTreasureText.text = player.isGetTreasure.ToString();
+        allTreasureText.text = allTreasures.ToString();
         //現在のフェーズをスキップ
         SkipPhase();
 

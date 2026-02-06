@@ -17,10 +17,6 @@ public class Inventory : MonoBehaviour
     public int lineMaxHeight;
     public int lineMaxWidth;
 
-    //[Header("各ターンの変更状態")]
-    //public int changeActive;
-    //public int changeCoolTime;
-
     [Header("スクリプト参照")]
     public PlayerController player;
     public StageUI stageUI;
