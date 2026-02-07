@@ -20,8 +20,6 @@ public class TileManager : MonoBehaviour
     {
         tileRenderer = GetComponent<Renderer>();
         tilePos = Vector3Int.RoundToInt(transform.position);
-        hasItem = false;
-        hasTreasure = false;
     }
 
     void Update()
